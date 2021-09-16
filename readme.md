@@ -18,7 +18,7 @@ Your team was hired to create a simple software system of a clothing store. Each
 ## Milestones
 -  # Milestone 1
 	- Epic Feature 1  - **An Entry Menu**:
-		-  1.1 - Main Menu**
+		-  1.1 - Main Menu** -- Oscar and Dylan 
 		-  1.2 - “Item options” Menu
 		-  1.3 - “Reviews options” menu
 		-  1.4 - “Transactions History options” menu
