@@ -23,10 +23,25 @@ public class MenuSelector {
     				);
     }
     
+    public static void printItemOptionsMenu() {
+    	System.out.println("Item options menu:\n" + 
+    			"0. Return to Main Menu.\n" + 
+    			"1. Create an Item.\n" + 
+    			"2. Remove an Item.\n" + 
+    			"3. Print all registered Items.\n" + 
+    			"4. Buy an Item.\n" + 
+    			"5. Update an item’s name.\n" + 
+    			"6. Update an item’s price.\n" + 
+    			"\n" + 
+    			"Type an option number:\n" + 
+    			""
+    				);
+    }
+    
     public static void MainMenuOptions(int option) {
     	switch(option) {
     	case 1:
-    		System.out.println("You choose the first option");
+    		printItemOptionsMenu();
     		break;
     	case 2: 
     		System.out.println("You choose the second option");
