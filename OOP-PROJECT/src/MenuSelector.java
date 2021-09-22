@@ -10,10 +10,12 @@ public class MenuSelector {
     	printMainMenu();
     	
     	choice = scanner.nextInt();
+		scanner.nextLine();
     	MainMenuOptions(choice);
 
 		printReviewsOptionsMenu();
 		option = scanner.nextInt();
+		scanner.nextLine();
 		ReviewsOptionsMenu(option);
     	
     	scanner.close();
