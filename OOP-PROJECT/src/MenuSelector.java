@@ -11,6 +11,10 @@ public class MenuSelector {
     	
     	choice = scanner.nextInt();
     	MainMenuOptions(choice);
+
+		printReviewsOptionsMenu();
+		option = scanner.nextInt();
+		ReviewsOptionsMenu(option);
     	
     	scanner.close();
     }
@@ -50,7 +54,8 @@ public class MenuSelector {
 				"7. Print item(s) with most reviews.\n"+
 				"8. Print item(s) with least reviews.\n"+
 				"9. Print item(s) with best mean review grade.\n"+
-				"10. Print item(s) with worst mean review grade.\n");
+				"10. Print item(s) with worst mean review grade.\n"+
+				"\n Type an option number:");
 	}
     
     public static void MainMenuOptions(int option) {
@@ -70,4 +75,40 @@ public class MenuSelector {
     	
     	}
     }
+
+	public static void ReviewsOptionsMenu(int option) {
+		switch(option) {
+			case 1:
+				printItemOptionsMenu();
+				break;
+			case 2:
+				System.out.println("You choose the second option");
+				break;
+			case 3:
+				System.out.println("You choose the third option");
+				break;
+			case 4:
+				System.out.println("You choose the fourth option");
+				break;
+			case 5:
+				System.out.println("You choose the fifth option");
+				break;
+			case 6:
+				System.out.println("You choose the sixth option");
+				break;
+			case 7:
+				System.out.println("You choose the seventh option");
+				break;
+			case 8:
+				System.out.println("You choose the eigth option");
+				break;
+			case 9:
+				System.out.println("You choose the nineth option");
+				break;
+			case 10:
+				System.out.println("You choose the tenth option");
+				break;
+
+		}
+	}
 }
