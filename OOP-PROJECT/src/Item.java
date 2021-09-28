@@ -16,6 +16,17 @@ public class Item {
 	}
 	
 	
+	public int GetId() {
+		return this.ID;
+	}
+	
+	public float GetPrice() {
+		return this.Price;
+	}
+	
+	public String GetName() {
+		return this.Name;
+	}
 	// A function to update the Item Name and price
 	
 	public void UpdateItem(int Price , String Name) {
@@ -24,3 +35,4 @@ public class Item {
 		
 	}
 }
+
