@@ -4,8 +4,7 @@
 public abstract class Menu {
 	protected static String text;
 	protected static int NumbersOfOption;
-	
-		
+
 	public Menu(String text , int TextOptions) {
 		if(TextOptions < 1) {
 			throw new IllegalArgumentException("Text Options must be greater than 1");

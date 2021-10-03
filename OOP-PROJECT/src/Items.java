@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Items {
 	public static ArrayList<Item> ItemList =   new ArrayList<Item>();
 
+	//SEARCH FOR AN ITEM BY USING THE ID
 	public Item GetItemById(int ID) {
 		for(Item item : ItemList) {
 			if(item.GetId() == ID) {
@@ -11,7 +12,7 @@ public class Items {
 		}
 		return null;
 	}
-	
+	//METHOD FOR BUYING AN ITEM
 	float BuyItems(int ID , int ammount) {
 		Item I = GetItemById(ID);
 		float quantity = (float) ammount;
@@ -29,8 +30,13 @@ public class Items {
 		return Total;
 	}
 
-	String removeItem (int ID) {
-		return null;
+	//CHANGE REMOVE ITEM METHOD
+	ArrayList<Item> removeItem (int ID) {
+		Item I = GetItemById(ID);
+		for (int i = 0; i< ItemList.size(); i++) {
+			
+		}
+
 	}
 	
 	String PrintSpecific(int ID) {
@@ -49,10 +55,6 @@ public class Items {
 		return result;
 	}
 
-
-
-	
-	
 	public Items() {
 		
 	}
