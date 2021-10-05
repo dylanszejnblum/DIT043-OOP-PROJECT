@@ -2,16 +2,34 @@
 // this is a first iteration  , the idea for the future is that the number of options 
 // is calculated in accordance of an array of strings and stiched toghether on the constructor
 public abstract class Menu {
-	protected static String text;
-	protected static int NumbersOfOption;
+	public static ArrayList<String> MenuOptions;
+	int options;
 
-	public Menu(String text , int TextOptions) {
-		if(TextOptions < 1) {
-			throw new IllegalArgumentException("Text Options must be greater than 1");
 
-		}
-		Menu.text = text;
-		Menu.NumbersOfOption = TextOptions;
+	public Menu() {
+		MenuOptions = new ArrayList<String>();
+		options = MenuOptions.size();
+	}
+
+
+	public void addOptionToMenu(string Text){
+
+	}
+
+	public void removeOptionFromMenu(int option){
+
+	}
+
+	 String PrintAllOptions(){
+		string menu;
+		 MenuOptions.forEach(option ->{
+			
+		 })
+
+
+	}
+	public String toString(){
+
 	}
 	
 	

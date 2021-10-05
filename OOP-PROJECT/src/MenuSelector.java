@@ -47,7 +47,7 @@ public class MenuSelector {
 
 	//1.3 - printing method for our Reviews Options Menu
 	public static void printReviewsOptionsMenu() {
-		System.out.println("Reviews options menu:\n" +
+		string text = "Reviews options menu:\n" +
 				"0. Return to Main Menu.\n" +
 				"1. Create a review for an Item.\n" +
 				"2. Print a specific review of an Item.\n" +
@@ -59,7 +59,9 @@ public class MenuSelector {
 				"8. Print item(s) with least reviews.\n" +
 				"9. Print item(s) with best mean review grade.\n" +
 				"10. Print item(s) with worst mean review grade.\n" +
-				"\n Type an option number:");
+				"\n Type an option number:";
+
+
 	}
 
 	//1.4 - printing method for our Transactions History Options Menu
