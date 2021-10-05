@@ -18,7 +18,6 @@ public class Items {
 		float quantity = (float) ammount;
 		if(ammount < 0) {
 			throw new IllegalArgumentException("Invalid data for item.");
-
 		}
 		
 		float Total = I.GetPrice() * quantity;
@@ -56,17 +55,19 @@ public void PrintSpecificItem(int ID) {
 
 	if (I == null) {
 		System.out.println("Item" + ID + "was not registered yet.");
-	} else{
-	//rounding steps, to 2nd decimal; ASK DYLAN!!!!!
-	double priceOfItem = I.GetPrice();
-	double scale = Math.pow(10, 2);
-	double roundingThePrice = Math.round(priceOfItem * scale) / scale;
-	roundingThePrice = priceOfItem;
+	} else {
+		//rounding steps, to 2nd decimal; ASK DYLAN!!!!!
+		double priceOfItem = I.GetPrice();
+		double scale = Math.pow(10, 2);
+		double roundingThePrice = Math.round(priceOfItem * scale) / scale;
+		roundingThePrice = priceOfItem;
 
-	System.out.println(I.GetId() + ":" + I.GetName() + "  " + priceOfItem + "SEK.");
+		System.out.println(I.GetId() + ":" + I.GetName() + "  " + priceOfItem + "SEK.");
+
+	}
 
 }
-		//print all registered items - 2.7
+	//print all registered items - 2.7
 	//we cannot put prints on other classes that are not main so
 	//this may need to be changed into a return statement using a toString()
 

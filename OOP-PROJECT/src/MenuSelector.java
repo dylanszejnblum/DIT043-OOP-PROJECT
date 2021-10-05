@@ -1,21 +1,22 @@
 import java.util.Scanner;
+import UserInput.java;
 
 public class MenuSelector {
 	public static void main(String[] args) {
 		int choice = -1;
 		// Base line menu for the rest of tasks.
 		// Open scanner
-		Scanner scanner = new Scanner(System.in);
+		//Scanner scanner = new Scanner(System.in);
 
 		//calling our printing MainMenu method
 
 		printMainMenu();
-		choice = scanner.nextInt();
-		scanner.nextLine();
+		choice = UserInput.readInt(); // new change
+		//scanner.nextLine();
 		MainMenuOptions(choice);
 
 
-		scanner.close();
+		//scanner.close();
 
 	}
 
@@ -85,22 +86,21 @@ public class MenuSelector {
 			case 0:
 				System.exit();
 
-
 			case 1: //open item options menu
 				printItemOptionsMenu();
 				break;
 			case 2: //review options menu
-				System.out.println("You choose the second option");
+				printReviewsOptionsMenu();
 				break;
 			case 3: //transaction history options menu
-				System.out.println("You choose the third option");
+				printTransactionsHistoryOptionsMenu();
 				break;
-			case 4:
-				System.out.println("You choose the fourth option");
-				break;
-			default:
-				System.out.printl("Invalid menu option. Please type another option");
-				break;
+			//case 4:
+				//System.out.println("You choose the fourth option");
+				//break;
+			//default:
+				//System.out.printl("Invalid menu option. Please type another option");
+				//break;
 		}
 	}
 
