@@ -29,10 +29,14 @@ public class Item {
 	}
 	// A function to update the Item Name and price
 	
-	public void UpdateItem(int Price , String Name) {
-		this.Price = Price;
+	public void UpdateItemName(String Name) {
 		this.Name = Name;
-		
 	}
+
+	public void UpdateItemPrice(int Price) {
+		this.Price = Price;
+	}
+
+
 }
 

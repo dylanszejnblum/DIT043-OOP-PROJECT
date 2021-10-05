@@ -16,7 +16,6 @@ public class MenuSelector {
 		MainMenuOptions(choice);
 
 
-		//scanner.close();
 
 	}
 
@@ -111,23 +110,23 @@ public class MenuSelector {
 				printMainMenu();
 				break;
 			case 1:
-				System.out.println("You choose the second option");
+				Item item = new Item(String Name , float Price , int  ID);
 				break;
 			case 2:
-				System.out.println("You choose the third option");
+				Items.removeItem (int ID);
 				break;
 			case 3:
-				System.out.println("You choose the fourth option");
+				Items.printAllItems();
 				break;
 			case 4:
-				System.out.println("You choose the fifth option");
+				Items.BuyItems(int ID , int ammount);
 				break;
 
 			case 5:
-				System.out.println("You choose the sixth option");
+				Item.UpdateItemName(String Name);
 				break;
 			case 6:
-				System.out.println("You choose the seventh option");
+				Item.UpdateItemPrice(int Price);
 				break;
 			default:
 				System.out.printl("Invalid menu option. Please type another option");
