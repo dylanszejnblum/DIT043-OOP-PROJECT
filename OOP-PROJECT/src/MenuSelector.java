@@ -96,12 +96,10 @@ public class MenuSelector {
 			case 3: //transaction history options menu
 				printTransactionsHistoryOptionsMenu();
 				break;
-			//case 4:
-				//System.out.println("You choose the fourth option");
-				//break;
-			//default:
-				//System.out.printl("Invalid menu option. Please type another option");
-				//break;
+
+				default:
+				System.out.printl("Invalid menu option. Please type another option");
+				break;
 		}
 	}
 

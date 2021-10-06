@@ -86,11 +86,108 @@ public void PrintSpecificItem(int ID) {
 			}
 
 		}
-	}
-	public Items() {
-		
-	}
-	
-	
+	}//method transaction menu
+	public totalProfitFromAllItemsPurchased() {
+	     double totalProfit = 0;
+		for(int i=0; i < ItemList.size(); i++ ) {
+			Item item = ItemList.get(i);
+			double specificPrice = item.GetPrice();
+			totalProfit += specificPrice;
+		}
+		System.out.println(totalProfit);
 
+
+
+
+
+
+
+
+
+        //3.1 - Nia
+
+		//method creating reviews
+		//the need of a scanner?
+		public createReviews() {
+
+			int ID = readInt("Please, specify the ID of the item being reviewed:");
+
+			int grade = readInt("You can choose a grade for your review between 1 to 5. Please, type your grade here:");
+
+			String writtenComment = readString("Optionally, you can add a written comment if you'd like:");
+
+			Item item = GetItemById(ID);
+			if (item == null ) {
+				System.out.println("Item" + ID + "was not registered yet.");
+
+			} else {
+				System.out.println("Your review was registered succesfully.");
+
+				int i = grades.length;
+				item.grades[i] = grade;
+				item.writtenComments[i] = writtenComment;
+
+				System.out.println("Your review was registered succesfully.");
+			}
+
+	}
+	//3.2 - Nia
+	//print a specific item review
+
+		public printSpecificItemReview(){
+			//specifying the item ID
+			//index of the desired review - from 1(first item's review)
+
+
+			int ID = readInt("Please, specify the item's ID:");
+			int index = readInt("Type the index of the desired review: \n" +"" +
+					            "*This means if you want to get an item's first review, you should type 1*");
+
+			Item item = GetItemById(ID);
+
+			if (item == null){
+				System.out.println("Item" + ID + "was not registered yet");
+			}
+			if(item.grades.length == 0 && item.writtenComments.length == 0){
+				System.out.println("Item" + item.Name + "has not been reviewed yet.");
+			}
+
+			else if(index < 1) {
+				System.out.println("Invalid review number. Choose between 1 and" + " " + item.grades.length);
+
+			}else{
+				System.out.println("Grade:" + " " + item.grades[index] + "." + item.writtenComments[index]);
+
+			}
+
+		}
+
+
+
+
+
+
+	//3.3 - Nia
+       public printAllReviewsForAnItem(){
+
+			int ID = readInt("Please, specify the item's ID:");
+			Item item = GetItemById(ID);
+
+			if(item == null){
+				System.out.println("Item" + ID + "was not registered yet.");
+			}
+			else if (item.grades.length == 0 && item.writtenComments.length == 0){
+				System.out.println("Review(s) for " + ID + ": " + item.Name + ". " + item.Price + "SEK.\n" +
+						           "Item " + item.Name + " has not been reviewed yet." );
+			}
+
+            else{
+			System.out.println("Review(s) for "  + ID + ": " + item.Name + ". " + item.Price + "SEK.");
+
+			for(int i = 0; i < item.grades.length; i++) {
+				System.out.println("Grade: " + item.grades[i] + "." + item.writtenComments[i]);
+			}
+			//what happens if we have more written comments than grades?
+
+		}
 }
