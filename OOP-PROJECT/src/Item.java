@@ -1,20 +1,26 @@
+import java.util.ArrayList;
 
 public class Item {
 	// Name , Price , Id 
 	public  String Name; 
 	public  float Price; 
 	public  int  ID;
-	
-	public Item(String Name , float Price , int  ID) {
+	public ArrayList <Integer> grades = new ArrayList<Integer>();
+	public ArrayList <String> writtenComments = new ArrayList<String>();
+	}
+
+	public Item(String Name , float Price , int  ID ) {
 		if(Price < 0 || ID <0 || Name != " ") {
 			throw new IllegalArgumentException("Invalid data for item.");
 		}
 		this.Name = Name;
 		this.Price = Price;
 		this.ID = ID;
+
 		System.out.println("Item" + ID + "was registered successfully.");
 	}
-	
+
+
 	
 	public int GetId() {
 		return this.ID;
