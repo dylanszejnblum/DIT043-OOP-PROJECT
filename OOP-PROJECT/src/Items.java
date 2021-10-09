@@ -3,6 +3,9 @@ import java.util.ArrayList;
 public class Items {
 	public static ArrayList<Item> ItemList =   new ArrayList<Item>();
 
+	public Items(Item item){
+		ItemList = new ArrayList<Item>;
+	}
 
 	//SEARCH FOR AN ITEM BY USING THE ID
 	public Item GetItemById(int ID) {
@@ -191,8 +194,10 @@ public void PrintSpecificItem(int ID) {
 				totalGrade += item.grades[i];
 			}
 
-			double meanGrade = totalGrade / grades.length();
+			double meanGrade = (totalGrade / grades.length())* Math.pow(10,1);
 
 			}
 		}
+
+
 }
