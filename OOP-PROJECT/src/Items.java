@@ -29,6 +29,10 @@ public class Items {
 		return Total;
 	}
 
+	// Simple add item method
+	void addItem(Item newItem) {
+		ItemList.add(newItem);
+	}
 // I did changes to 2.5; 2.6; 2.7 
 	//remove items - 2.5
 
