@@ -30,7 +30,7 @@ public class Items {
 	}
 
 	// Simple add item method
-	void addItem(Item newItem) {
+	public void addItem(Item newItem) {
 		ItemList.add(newItem);
 	}
 // I did changes to 2.5; 2.6; 2.7 
