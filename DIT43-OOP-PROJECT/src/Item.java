@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Item {
-    // Name , Price , Id
+ 
     public  String Name;
     public  float Price;
     public  int  ID;
