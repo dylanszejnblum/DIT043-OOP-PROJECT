@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Items {
 	public static ArrayList<Item> ItemList =   new ArrayList<Item>();
 
+
 	//SEARCH FOR AN ITEM BY USING THE ID
 	public Item GetItemById(int ID) {
 		for(Item item : ItemList) {
@@ -96,15 +97,7 @@ public void PrintSpecificItem(int ID) {
 		}
 		System.out.println(totalProfit);
 
-
-
-
-
-
-
-
-
-        //3.1 - Nia
+		//3.1 - Nia
 
 		//method creating reviews
 		//the need of a scanner?
@@ -162,32 +155,44 @@ public void PrintSpecificItem(int ID) {
 
 		}
 
-
-
-
-
-
 	//3.3 - Nia
-       public printAllReviewsForAnItem(){
+       public printAllReviewsForAnItem() {
 
 			int ID = readInt("Please, specify the item's ID:");
 			Item item = GetItemById(ID);
 
-			if(item == null){
+			if (item == null) {
 				System.out.println("Item" + ID + "was not registered yet.");
-			}
-			else if (item.grades.length == 0 && item.writtenComments.length == 0){
+			} else if (item.grades.length == 0 && item.writtenComments.length == 0) {
 				System.out.println("Review(s) for " + ID + ": " + item.Name + ". " + item.Price + "SEK.\n" +
-						           "Item " + item.Name + " has not been reviewed yet." );
+						"Item " + item.Name + " has not been reviewed yet.");
+			} else {
+				System.out.println("Review(s) for " + ID + ": " + item.Name + ". " + item.Price + "SEK.");
+
+				for (int i = 0; i < item.grades.length; i++) {
+					System.out.println("Grade: " + item.grades[i] + "." + item.writtenComments[i]);
+				}
+				//what happens if we have more written comments than grades?
 			}
 
-            else{
-			System.out.println("Review(s) for "  + ID + ": " + item.Name + ". " + item.Price + "SEK.");
+		}
 
-			for(int i = 0; i < item.grades.length; i++) {
-				System.out.println("Grade: " + item.grades[i] + "." + item.writtenComments[i]);
+	//3.4 - Oscar
+		public String retrieveMeanGradeItem(){
+			inputID = UserInput.readString("Enter the object ID you are looking for: ");
+			Item item = ItemList.GetItemById(inputID);
+
+			if (item == null) {
+				return ("This item with ID " + inputID + " has not been registered.")
 			}
-			//what happens if we have more written comments than grades?
 
+			double totalGrade = 0;
+			for (int i = 0; i < item.grades; i++) {
+				totalGrade += item.grades[i];
+			}
+
+			double meanGrade = totalGrade / grades.length();
+
+			}
 		}
 }
