@@ -103,97 +103,103 @@ public class Items {
     }
 
 
+    //3.1 - Nia
 
+    //method creating reviews
+    //the need of a scanner?
+    public createReviews() {
 
+        int ID = readInt("Please, specify the ID of the item being reviewed:");
 
+        int grade = readInt("You can choose a grade for your review between 1 to 5. Please, type your grade here:");
 
+        String writtenComment = readString("Optionally, you can add a written comment if you'd like:");
 
+        Item item = GetItemById(ID);
+        if (item == null ) {
+            System.out.println("Item" + ID + "was not registered yet.");
 
+        } else {
+            System.out.println("Your review was registered succesfully.");
 
-        //3.1 - Nia
+            int i = grades.size();
+            item.grades.add(i, grade);
+            item.writtenComments.add(i, writtenComment);
 
-        //method creating reviews
-        //the need of a scanner?
-		public void createReviews() {
-
-            int ID = readInt("Please, specify the ID of the item being reviewed:");
-
-            int grade = readInt("You can choose a grade for your review between 1 to 5. Please, type your grade here:");
-
-            String writtenComment = readString("Optionally, you can add a written comment if you'd like:");
-
-            Item item = GetItemById(ID);
-            if (item == null ) {
-                System.out.println("Item" + ID + "was not registered yet.");
-
-            } else {
-                System.out.println("Your review was registered succesfully.");
-
-                int i = grades.length;
-                item.grades[i] = grade;
-                item.writtenComments[i] = writtenComment;
-
-                System.out.println("Your review was registered succesfully.");
-            }
-
+            System.out.println("Your review was registered succesfully.");
         }
-        //3.2 - Nia
-        //print a specific item review
 
-		public void printSpecificItemReview(){
-            //specifying the item ID
-            //index of the desired review - from 1(first item's review)
+    }
+    //3.2 - Nia
+    //print a specific item review
+
+    public printSpecificItemReview(){
+        //specifying the item ID
+        //index of the desired review - from 1(first item's review)
 
 
-            int ID = readInt("Please, specify the item's ID:");
-            int index = readInt("Type the index of the desired review: \n" +"" +
-                    "*This means if you want to get an item's first review, you should type 1*");
+        int ID = readInt("Please, specify the item's ID:");
+        int i = readInt("Type the index of the desired review: \n" +"" +
+                "*This means if you want to get an item's first review, you should type 1*");
 
-            Item item = GetItemById(ID);
+        Item item = GetItemById(ID);
 
-            if (item == null){
-                System.out.println("Item" + ID + "was not registered yet");
-            }
-            if(item.grades.length == 0 && item.writtenComments.length == 0){
-                System.out.println("Item" + item.Name + "has not been reviewed yet.");
-            }
+        if (item == null){
+            System.out.println("Item" + ID + "was not registered yet");
+        }
+        if(item.grades.size() == 0 && item.writtenComments.size() == 0){
+            System.out.println("Item" + item.GetName() + "has not been reviewed yet.");
+        }
 
-            else if(index < 1) {
-                System.out.println("Invalid review number. Choose between 1 and" + " " + item.grades.length);
+        else if(i < 1) {
+            System.out.println("Invalid review number. Choose between 1 and" + " " + item.grades.size());
 
-            }else{
-                System.out.println("Grade:" + " " + item.grades[index] + "." + item.writtenComments[index]);
-
-            }
+        }else{
+            System.out.println("Grade:" + " " + item.grades.get(i) + "." + item.writtenComments.get(i));
 
         }
 
+    }
 
+    //3.3 - Nia
+    public printAllReviewsForAnItem(){
 
+        int ID = readInt("Please, specify the item's ID:");
+        Item item = GetItemById(ID);
 
+        if(item == null){
+            System.out.println("Item" + ID + "was not registered yet.");
+        }
+        else if (item.grades.size() == 0 && item.writtenComments.size() == 0){
+            System.out.println("Review(s) for " + ID + ": " + item.GetName() + ". " + item.GetPrice() + "SEK.\n" +
+                    "Item " + item.GetName() + " has not been reviewed yet." );
+        }
 
+        else{
+            System.out.println("Review(s) for "  + ID + ": " + item.GetName() + ". " + item.GetPrice() + "SEK.");
 
-        //3.3 - Nia
-       public void printAllReviewsForAnItem(){
-
-            int ID = readInt("Please, specify the item's ID:");
-            Item item = GetItemById(ID);
-
-            if(item == null){
-                System.out.println("Item" + ID + "was not registered yet.");
+            for(int i = 0; i < item.grades.size(); i++) {
+                System.out.println("Grade: " + item.grades.get(i) + "." + item.writtenComments.get(i));
             }
-            else if (item.grades.length == 0 && item.writtenComments.length == 0){
-                System.out.println("Review(s) for " + ID + ": " + item.Name + ". " + item.Price + "SEK.\n" +
-                        "Item " + item.Name + " has not been reviewed yet." );
-            }
 
-            else{
-                System.out.println("Review(s) for "  + ID + ": " + item.Name + ". " + item.Price + "SEK.");
+        }
+    }
 
-                for(int i = 0; i < item.grades.length; i++) {
-                    System.out.println("Grade: " + item.grades[i] + "." + item.writtenComments[i]);
-                }
-                //what happens if we have more written comments than grades?
+    public retrieveMeanGradeItem() {
+
+        inputID = UserInput.readInt("Introduce the desired ID: ");
+        Item inputItem = GetItemById(inputID);
+
+        for (int i = 0; i < ItemList.size(); i++) {
+            if (Item inputItem.ID.equals(Items Item.ID)){
 
             }
         }
+    }
+
+}
+
+
+
+
+
