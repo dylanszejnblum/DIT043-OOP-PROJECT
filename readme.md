@@ -17,19 +17,19 @@ Your team was hired to create a simple software system of a clothing store. Each
 
 ## Milestones
 -  # Milestone 1
-	- Epic Feature 1  - **An Entry Menu**:
-		-  1.1 - Main Menu** -- Oscar and Dylan 
-		-  1.2 - “Item options” Menu
-		-  1.3 - “Reviews options” menu
-		-  1.4 - “Transactions History options” menu
+	- Epic Feature 1  - **An Entry Menu**: 
+		-  1.1 - Main Menu** -- Oscar and Dylan  ✅
+		-  1.2 - “Item options” Menu ✅
+		-  1.3 - “Reviews options” menu ✅
+		-  1.4 - “Transactions History options” menu✅ 
 	- Epic Feature 2 :
-		-  2.1 - Create Items
-		-  2.2 - Items cannot be created with invalid values
-		-  2.3 - Update item name and price
-		-  2.4 - Buy items
-		-  2.5 - Remove items
-		-  2.6 - Print an specific item
-		-  2.7 - Print all registered items
+		-  2.1 - Create Items ✅ 
+		-  2.2 - Items cannot be created with invalid values ✅
+		-  2.3 - Update item name and price✅ 
+		-  2.4 - Buy items✅
+		-  2.5 - Remove items✅
+		-  2.6 - Print an specific item✅
+		-  2.7 - Print all registered items✅
 	- Epic Feature 3:
 		-  3.1 - Create reviews for items
 		-  3.2 - Print a specific item review
