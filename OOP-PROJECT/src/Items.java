@@ -17,7 +17,7 @@ public class Items {
 		return null;
 	}
 	//METHOD FOR BUYING AN ITEM
-	float BuyItems(int ID , int ammount) {
+	public float BuyItems(int ID , int ammount) {
 		Item I = GetItemById(ID);
 		float quantity = (float) ammount;
 		if(ammount < 0) {
