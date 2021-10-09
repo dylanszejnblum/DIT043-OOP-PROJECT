@@ -11,7 +11,7 @@ public class MenuSelector {
         //calling our printing MainMenu method
 
         printMainMenu();
-        choice = UserInput.readInt(); // new change
+        choice = UserInput.readInt("Enter your choice: "); // new change
         //scanner.nextLine();
         MainMenuOptions(choice);
 
@@ -47,7 +47,7 @@ public class MenuSelector {
 
     //1.3 - printing method for our Reviews Options Menu
     public static void printReviewsOptionsMenu() {
-        string text = "Reviews options menu:\n" +
+        String text = "Reviews options menu:\n" +
                 "0. Return to Main Menu.\n" +
                 "1. Create a review for an Item.\n" +
                 "2. Print a specific review of an Item.\n" +
@@ -98,7 +98,7 @@ public class MenuSelector {
                 break;
 
             default:
-                System.out.printl("Invalid menu option. Please type another option");
+                System.out.println("Invalid menu option. Please type another option");
                 break;
         }
     }
@@ -174,7 +174,7 @@ public class MenuSelector {
                 System.out.println("You choose the tenth option");
                 break;
             default:
-                System.out.printl("Invalid menu option. Please type another option");
+                System.out.println("Invalid menu option. Please type another option");
                 break;
         }
     }

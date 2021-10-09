@@ -86,19 +86,21 @@ public class Items {
         } else {
 
             for (Item item : ItemList) {
-                System.out.println(item.GetId() + ":" + item.GetName + ". " + item.GetPrice + "SEK.");
+                System.out.println(item.GetId() + ":" + item.GetName() + ". " + item.GetPrice() + "SEK.");
             }
 
         }
     }//method transaction menu
     public totalProfitFromAllItemsPurchased() {
         double totalProfit = 0;
-        for(int i=0; i < ItemList.size(); i++ ) {
+        for (int i = 0; i < ItemList.size(); i++) {
             Item item = ItemList.get(i);
             double specificPrice = item.GetPrice();
             totalProfit += specificPrice;
         }
         System.out.println(totalProfit);
+
+    }
 
 
 
