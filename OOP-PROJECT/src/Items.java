@@ -33,6 +33,7 @@ public class Items {
 	public void addItem(Item newItem) {
 		ItemList.add(newItem);
 	}
+
 // I did changes to 2.5; 2.6; 2.7 
 	//remove items - 2.5
 
@@ -54,7 +55,7 @@ public class Items {
 //print specific item? - 2.6
 
 
-public void PrintSpecificItem(int ID) {
+public void PrintSpecificItem(int ID) { //scale quesiton Nia
 	Item I = GetItemById(ID);
 
 	if (I == null) {
@@ -90,23 +91,16 @@ public void PrintSpecificItem(int ID) {
 			}
 
 		}
-	}//method transaction menu
-	public totalProfitFromAllItemsPurchased() {
-	     double totalProfit = 0;
-		for(int i=0; i < ItemList.size(); i++ ) {
-			Item item = ItemList.get(i);
-			double specificPrice = item.GetPrice();
-			totalProfit += specificPrice;
+	}	//method transaction menu
+		public totalProfitFromAllItemsPurchased() {
+			double totalProfit = 0;
+			for (int i = 0; i < ItemList.size(); i++) {
+				Item item = ItemList.get(i);
+				double specificPrice = item.GetPrice();
+				totalProfit += specificPrice;
+			}
+			System.out.println(totalProfit);
 		}
-		System.out.println(totalProfit);
-
-
-
-
-
-
-
-
 
         //3.1 - Nia
 
@@ -166,11 +160,6 @@ public void PrintSpecificItem(int ID) {
 
 		}
 
-
-
-
-
-
 	//3.3 - Nia
        public printAllReviewsForAnItem(){
 
@@ -193,5 +182,24 @@ public void PrintSpecificItem(int ID) {
 			}
 			//what happens if we have more written comments than grades?
 
+			}
 		}
+
+		public retrieveMeanGradeItem(){
+
+			inputID = UserInput.readInt("Introduce the desired ID: ");
+			Item inputItem = GetItemById(inputID);
+
+			for (int i = 0; i < ItemList.size(); i++) {
+				if (Item inputItem.ID.equals(Items Item.ID)){
+
+				}
+			}
+
+
+
+
+
+		}
+
 }

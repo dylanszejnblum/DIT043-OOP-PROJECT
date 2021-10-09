@@ -111,6 +111,7 @@ public class MenuSelector {
 				break;
 			case 1:
 				Item item = new Item(String Name , float Price , int  ID);
+				addItem(item);
 				break;
 			case 2:
 				Items.removeItem (int ID);
