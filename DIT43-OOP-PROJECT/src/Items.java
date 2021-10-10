@@ -109,11 +109,11 @@ public class Items {
     //the need of a scanner?
     public void createReviews() {
 
-        int ID = readInt("Please, specify the ID of the item being reviewed:");
+        int ID = UserInput.readInt("Please, specify the ID of the item being reviewed:");
 
-        int grade = readInt("You can choose a grade for your review between 1 to 5. Please, type your grade here:");
+        int grade = UserInput.readInt("You can choose a grade for your review between 1 to 5. Please, type your grade here:");
 
-        String writtenComment = readString("Optionally, you can add a written comment if you'd like:");
+        String writtenComment = UserInput.readString("Optionally, you can add a written comment if you'd like:");
 
         Item item = GetItemById(ID);
         if (item == null ) {
@@ -138,8 +138,8 @@ public class Items {
         //index of the desired review - from 1(first item's review)
 
 
-        int ID = readInt("Please, specify the item's ID:");
-        int i = readInt("Type the index of the desired review: \n" +"" +
+        int ID = UserInput.readInt("Please, specify the item's ID:");
+        int i = UserInput.readInt("Type the index of the desired review: \n" +"" +
                 "*This means if you want to get an item's first review, you should type 1*");
 
         Item item = GetItemById(ID);
@@ -189,7 +189,7 @@ public class Items {
     //How can I call the grades arrayList from the other class, maybe by composition??
         int inputID = UserInput.readInt("Introduce the desired ID: ");
         Item inputItem = GetItemById(inputID);
-
+        //I may need to put some restrictions for getting an invalid ID
         double totalGrades = 0;
         for (int i = 0; i < inputItem.grades.size(); i++) {
             totalGrades += inputItem.grades.get(i);
