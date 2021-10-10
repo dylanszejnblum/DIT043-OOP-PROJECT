@@ -13,14 +13,14 @@ public class Items {
         return null;
     }
     //METHOD FOR BUYING AN ITEM
-    public float BuyItems(int ID , int ammount) {
+    public double BuyItems(int ID , int ammount) {
         Item I = GetItemById(ID);
         float quantity = (float) ammount;
         if(ammount < 0) {
             throw new IllegalArgumentException("Invalid data for item.");
         }
 
-        float Total = I.GetPrice() * quantity;
+        double Total = I.GetPrice() * quantity;
 
         if(ammount > 4) {
             Total = (float) (Total * 0.7);
@@ -93,9 +93,7 @@ public class Items {
     public void printAllItems() {
         System.out.println("All registered items:");
 
-        boolean empty = ItemList.isEmpty();
-
-        if (empty = true) {
+        if (ItemList.isEmpty()) {
             System.out.println("No items registered yet.");
 
         } else {

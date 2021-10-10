@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Item {
  
     public  String Name;
-    public  float Price;
+    public  double Price;
     public  int  ID;
     public ArrayList <Integer> grades = new ArrayList<Integer>();
     public ArrayList <String> writtenComments = new ArrayList<String>();
@@ -13,11 +13,19 @@ public class Item {
         if(Price < 0 || ID <0 || Name != " ") {
             throw new IllegalArgumentException("Invalid data for item.");
         }
+        /*
         this.Name = Name;
         this.Price = Price;
         this.ID = ID;
 
         System.out.println("Item" + ID + "was registered successfully.");
+
+         */
+
+        this.Name = UserInput.readString("Enter name: ");
+        this.Price = UserInput.readDouble("Enter price: ");
+        this.ID = UserInput.readInt("Enter ID: ");
+
     }
 
 
@@ -26,7 +34,7 @@ public class Item {
         return this.ID;
     }
 
-    public float GetPrice() {
+    public double GetPrice() {
         return this.Price;
     }
 

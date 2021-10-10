@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import UserInput.java;
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 
 public class MenuSelector {
     public static void main(String[] args) {
@@ -20,7 +21,7 @@ public class MenuSelector {
     }
 
     //1.1 - printing method for our Main Menu
-    public static void printMainMenu() {
+    public void printMainMenu() {
         System.out.println("Main Menu: Please choose among the options below.\n" + "\n" +
                 "0. Close system.\n" +
                 "1. Open Item options.\n" +
@@ -31,7 +32,7 @@ public class MenuSelector {
 
 
     //1.2 - printing method for our Item Options Menu
-    public static void printItemOptionsMenu() {
+    public void printItemOptionsMenu() {
         System.out.println("Item options menu:\n" +
                 "0. Return to Main Menu.\n" +
                 "1. Create an Item.\n" +
@@ -46,7 +47,7 @@ public class MenuSelector {
     }
 
     //1.3 - printing method for our Reviews Options Menu
-    public static void printReviewsOptionsMenu() {
+    public void printReviewsOptionsMenu() {
         String text = "Reviews options menu:\n" +
                 "0. Return to Main Menu.\n" +
                 "1. Create a review for an Item.\n" +
@@ -65,7 +66,7 @@ public class MenuSelector {
     }
 
     //1.4 - printing method for our Transactions History Options Menu
-    public static void printTransactionsHistoryOptionsMenu() {
+    public void printTransactionsHistoryOptionsMenu() {
         System.out.println("Transaction History options menu:\n" +
                 "0. Return to Main Menu.\n" +
                 "1. Print total profit from all items purchases\n" +
@@ -82,7 +83,7 @@ public class MenuSelector {
     }
 
     //1.5 - method for the transaction from our MainMenu to the other Menus based on the user's input
-    public static void MainMenuOptions(int option) {
+    public void MainMenuOptions(int option) {
         switch (option) {
             case 0:
                 System.exit();
@@ -104,16 +105,16 @@ public class MenuSelector {
     }
 
     //method for the transaction from our ItemOptionsMenu to the other Menus based on the user's input
-    public static void ItemOptionsMenu(int option) {
+    public void ItemOptionsMenu(int option) {
         switch (option) {
             case 0:
                 printMainMenu();
                 break;
             case 1:
-                Item item = new Item(String test , float Price , int  ID);
+                Item item = new Item(String Name, float Price , int  ID);
                 break;
             case 2:
-                Items.removeItem(int ID);
+                Items.removeItem();
                 break;
             case 3:
                 Items.printAllItems();
@@ -129,14 +130,14 @@ public class MenuSelector {
                 Item.UpdateItemPrice(int Price);
                 break;
             default:
-                System.out.printl("Invalid menu option. Please type another option");
+                System.out.println("Invalid menu option. Please type another option");
                 break;
         }
     }
 
 }
     //method for the transaction from our ReviewsOptionsMenu to the other Menus based on the user's input
-    public static void ReviewsOptionsMenu(int option) {
+    public void ReviewsOptionsMenu(int option) {
         //case1? Isn't it create a review for an Item?
         switch(option) {
             case 0:
@@ -179,7 +180,7 @@ public class MenuSelector {
         }
     }
     //method for the transaction from our TransactionsHistoryOptionsMenu to the other Menus based on the user's input
-    public static void TransactionsHistoryOptionsMenu(int option){
+    public void TransactionsHistoryOptionsMenu(int option){
         switch(option){
             case 0:
                 printMainMenu();
@@ -209,7 +210,7 @@ public class MenuSelector {
                 System.out.println("You choose the ninth option");
                 break;
             default:
-                System.out.printl("Invalid menu option. Please type another option");
+                System.out.println("Invalid menu option. Please type another option");
                 break;
 
         }
