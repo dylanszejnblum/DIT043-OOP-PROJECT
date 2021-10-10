@@ -164,7 +164,7 @@ public class Items {
     //3.3 - Nia
     public void printAllReviewsForAnItem(){
 
-        int ID = readInt("Please, specify the item's ID:");
+        int ID = UserInput.readInt("Please, specify the item's ID:");
         Item item = GetItemById(ID);
 
         if(item == null){
@@ -187,15 +187,15 @@ public class Items {
 
     public void retrieveMeanGradeItem() {
     //How can I call the grades arrayList from the other class, maybe by composition??
-    int inputID = UserInput.readInt("Introduce the desired ID: ");
+        int inputID = UserInput.readInt("Introduce the desired ID: ");
         Item inputItem = GetItemById(inputID);
 
         double totalGrades = 0;
-        for (int i = 0; i < grades.size(); i++) {
+        for (int i = 0; i < inputItem.grades.size(); i++) {
             totalGrades += inputItem.grades.get(i);
         }
 
-        double mean = totalGrades/grades.size();
+        double mean = totalGrades/inputItem.grades.size();
 
     }
 }
