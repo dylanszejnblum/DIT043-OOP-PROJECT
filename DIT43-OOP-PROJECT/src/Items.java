@@ -122,7 +122,7 @@ public class Items {
         } else {
             System.out.println("Your review was registered succesfully.");
 
-            int i = grades.size();
+            int i = item.grades.size();
             item.grades.add(i, grade);
             item.writtenComments.add(i, writtenComment);
 
