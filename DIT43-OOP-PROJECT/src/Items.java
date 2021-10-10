@@ -34,25 +34,40 @@ public class Items {
         ItemList.add(newItem);
     }
 // I did changes to 2.5; 2.6; 2.7
+
     //remove items - 2.5
+    public String removeItem (){
 
-    public String removeItem (int ID){
+        int inputID = UserInput.readInt("Enter the desire ID: ");
+        Item inputItem = GetItemById(inputID);
 
-        for(Item item : ItemList) {
+        boolean checker = ItemList.remove(inputItem);
+
+        if (checker) {
+            return ("Item " + inputItem.ID + " was successfully removed");
+        }
+
+        else{
+            return ("Item" + inputID + "could not be removed.");
+        }
+
+
+        /*for(Item item : ItemList) {
             if(item.GetId() == ID){
 
                 ItemList.remove(item);
                 //do we have like a null element on that position after removing?
+                return ("Item" + ID + "was successfully removed.");
             }
-            return "Item" + ID + "was successfully removed.";
+            else {
+                return "Item" + ID + "could not be removed.";}
         }
-			  else { return "Item" + ID + "could not be removed.";}
+
+        */
     }
 
-}
 
 //print specific item? - 2.6
-
 
     public void PrintSpecificItem(int ID) {
         Item I = GetItemById(ID);
@@ -245,7 +260,7 @@ public class Items {
             for (Item item : ItemList) {
                 if ((item.writtenComments.size()==0 || item.writtenComments.isEmpty()) && item.grades.size() == 0) {
                     noReviewedItem ++;
-                    //checking if all items have not been reviewed, at the end if this variable
+                    //checking if all items have not been reviewed, if this variable
                     //equals the size of the ItemList means that no Items were reviewed
                 }
 
