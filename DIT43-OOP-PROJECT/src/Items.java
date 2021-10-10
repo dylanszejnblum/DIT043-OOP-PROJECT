@@ -206,7 +206,6 @@ public class Items {
             }
             double mean = (totalGrades/inputItem.grades.size())*Math.pow(10,1);
             return(String.valueOf(mean));
-            //How can I return just the value, possible to be casted??
         }
 
     }
@@ -269,6 +268,10 @@ public class Items {
             }
         }
     }
+
+
+
+
 
 }
 
