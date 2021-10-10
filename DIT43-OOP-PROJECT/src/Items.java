@@ -185,19 +185,55 @@ public class Items {
         }
     }
 
-    public void retrieveMeanGradeItem() {
-    //How can I call the grades arrayList from the other class, maybe by composition??
+
+    //3.4 - Oscar
+    public String retrieveMeanGradeItem() {
+
         int inputID = UserInput.readInt("Introduce the desired ID: ");
         Item inputItem = GetItemById(inputID);
-        //I may need to put some restrictions for getting an invalid ID
-        double totalGrades = 0;
-        for (int i = 0; i < inputItem.grades.size(); i++) {
-            totalGrades += inputItem.grades.get(i);
+        if (inputItem == null){
+            return ("Item " + inputID + " was not registered yet.");
         }
 
-        double mean = totalGrades/inputItem.grades.size();
+        else if(inputItem.grades.size() == 0) {
+            return ("Item " + inputItem.Name + " has not been reviewed yet");
+        }
+
+        else {
+            double totalGrades = 0;
+            for (int i = 0; i < inputItem.grades.size(); i++) {
+                totalGrades += inputItem.grades.get(i);
+            }
+            double mean = (totalGrades/inputItem.grades.size())*Math.pow(10,1);
+            return(mean);
+            //How can I return just the value, possible to be casted??
+        }
 
     }
+
+    //3.5 - Oscar
+    public String retrieveCommentsItem(){
+
+        int inputID = UserInput.readInt("Introduce the desired ID: ");
+        Item inputItem = GetItemById(inputID);
+
+        if (inputItem == null || inputItem.writtenComments.size() == 0){
+            return "Empty Collection";
+        }
+
+        else {
+            String result = "";
+            for (int i = 0; i < inputItem.writtenComments.size(); i++) {
+                result += inputItem.writtenComments.get(i) + "\n";
+            }
+
+            return result;
+        }
+    }
+
+    //3.6 - Oscar
+
+    
 }
 
 
