@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Items {
-    public static ArrayList<Item> ItemList =   new ArrayList<Item>();
+    public ArrayList<Item> ItemList =   new ArrayList<Item>();
 
     //SEARCH FOR AN ITEM BY USING THE ID
     public Item GetItemById(int ID) {
@@ -91,7 +91,7 @@ public class Items {
 
         }
     }//method transaction menu
-    public totalProfitFromAllItemsPurchased() {
+    public void totalProfitFromAllItemsPurchased() {
         double totalProfit = 0;
         for (int i = 0; i < ItemList.size(); i++) {
             Item item = ItemList.get(i);
@@ -107,7 +107,7 @@ public class Items {
 
     //method creating reviews
     //the need of a scanner?
-    public createReviews() {
+    public void createReviews() {
 
         int ID = readInt("Please, specify the ID of the item being reviewed:");
 
@@ -133,7 +133,7 @@ public class Items {
     //3.2 - Nia
     //print a specific item review
 
-    public printSpecificItemReview(){
+    public void printSpecificItemReview(){
         //specifying the item ID
         //index of the desired review - from 1(first item's review)
 
@@ -162,7 +162,7 @@ public class Items {
     }
 
     //3.3 - Nia
-    public printAllReviewsForAnItem(){
+    public void printAllReviewsForAnItem(){
 
         int ID = readInt("Please, specify the item's ID:");
         Item item = GetItemById(ID);
@@ -185,18 +185,19 @@ public class Items {
         }
     }
 
-    public retrieveMeanGradeItem() {
-
-        inputID = UserInput.readInt("Introduce the desired ID: ");
+    public void retrieveMeanGradeItem() {
+    //How can I call the grades arrayList from the other class, maybe by composition??
+    int inputID = UserInput.readInt("Introduce the desired ID: ");
         Item inputItem = GetItemById(inputID);
 
-        for (int i = 0; i < ItemList.size(); i++) {
-            if (Item inputItem.ID.equals(Items Item.ID)){
-
-            }
+        double totalGrades = 0;
+        for (int i = 0; i < grades.size(); i++) {
+            totalGrades += inputItem.grades.get(i);
         }
-    }
 
+        double mean = totalGrades/grades.size();
+
+    }
 }
 
 

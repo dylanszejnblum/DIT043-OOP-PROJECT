@@ -7,7 +7,7 @@ public class Item {
     public  int  ID;
     public ArrayList <Integer> grades = new ArrayList<Integer>();
     public ArrayList <String> writtenComments = new ArrayList<String>();
-}
+
 
     public Item(String Name , float Price , int  ID ) {
         if(Price < 0 || ID <0 || Name != " ") {
