@@ -233,6 +233,42 @@ public class Items {
 
     //3.6 - Oscar
 
+    public String retrieveRegisteredReviews() {
+        int noReviewedItem = 0;
+        String result = "All registered reviews: \n"
+                        + "- \n";
+
+        if (ItemList.size() == 0) {
+            return "No items registered yet";
+        }
+
+        else {
+            for (Item item : ItemList) {
+                if ((item.writtenComments.size()==0 || item.writtenComments.isEmpty()) && item.grades.size() == 0) {
+                    noReviewedItem ++;
+                    //checking if all items have not been reviewed, at the end if this variable
+                    //equals the size of the ItemList means that no Items were reviewed
+                }
+
+                else {
+                    result += "Reiew(s) for " + item.ID + ": " + item.Name + ". " + item.Price + " SEK + \n";
+                    for (int j= 0; j < item.grades.size(); j ++) {
+                        result += "Grade: " + item.grades.get(j) + "."+ item.writtenComments.get(j);
+                    }
+
+                }
+                result += '-';
+            }
+
+            if (noReviewedItem == ItemList.size()){
+                return ("No items were reviewed yet");
+            }
+
+            else{
+                return result;
+            }
+        }
+    }
     
 }
 
