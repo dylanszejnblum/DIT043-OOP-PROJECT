@@ -267,7 +267,6 @@ public class Items {
             if (noReviewedItem == ItemList.size()){
                 return ("No items were reviewed yet");
             }
-
             else{
                 return result;
             }
@@ -275,11 +274,6 @@ public class Items {
     }
 
 
-    // I know that this is not the correct way of doing this but i will fix it during the week by creating
-    // a generic sorting to get min and max values ;)
-
-    // 3.7 Print Items with the most and least reviews ~ Dylan
-    // I was not sure if i could use the .min method from the collection interface so i tried doing it by hand
 
     public Item GetMostAndLeastReviews(){
         Item min = ItemList.get(0);

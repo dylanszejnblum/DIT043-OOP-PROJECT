@@ -9,11 +9,10 @@ public class Item {
     public ArrayList <String> writtenComments;
 
 
-    public Item(String Name , float Price , int  ID ) {
+    public Item() {
         if(Price < 0 || ID <0 || Name != " ") {
             throw new IllegalArgumentException("Invalid data for item.");
         }
-        this.Name = UserInput.readString("Enter name: ");
         this.Price = UserInput.readDouble("Enter price: ");
         this.ID = UserInput.readInt("Enter ID: ");
         this.grades = new  ArrayList<Integer>();
