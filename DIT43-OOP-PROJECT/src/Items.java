@@ -275,7 +275,6 @@ public class Items {
             if (noReviewedItem == ItemList.size()){
                 return ("No items were reviewed yet");
             }
-
             else{
                 return result;
             }
