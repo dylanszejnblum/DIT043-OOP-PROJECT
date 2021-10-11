@@ -282,9 +282,9 @@ public class Items {
         }
     }
 
-
-
-
+    //WE NEED TO USE: EQUALS AND HASH METHODS SINCE THEY COME AS COMPULSORY FROM USING COLLECTIONS
+    //Create hasID method so we can simplify some expressions because it is not good to have more than one '.' in one single
+    //expression. For avoiding this, we ought to create different method implementations.
 
 }
 

@@ -9,7 +9,7 @@ public class Item {
     public ArrayList <String> writtenComments = new ArrayList<String>();
 
 
-    public Item(String Name , float Price , int  ID ) {
+    public Item() {
         if(Price < 0 || ID <0 || Name != " ") {
             throw new IllegalArgumentException("Invalid data for item.");
         }
@@ -21,7 +21,7 @@ public class Item {
         System.out.println("Item" + ID + "was registered successfully.");
 
          */
-
+        //ASK DYLAN ABOUT THE INPUT
         this.Name = UserInput.readString("Enter name: ");
         this.Price = UserInput.readDouble("Enter price: ");
         this.ID = UserInput.readInt("Enter ID: ");

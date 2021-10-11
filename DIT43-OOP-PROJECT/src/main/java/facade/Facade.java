@@ -13,12 +13,7 @@ public class Facade {
 
     }
 
-    public String createItem(String itemID, String itemName, double unitPrice){
-
-
-
-        return "";
-    }
+    public String createItem(String itemID, String itemName, double unitPrice){return "";}
 
     public String printItem(String itemID) {
         return "";

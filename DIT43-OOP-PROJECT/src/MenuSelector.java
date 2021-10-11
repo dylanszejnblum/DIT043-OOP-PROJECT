@@ -1,6 +1,4 @@
-import java.util.Scanner;
 import UserInput.java;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 
 public class MenuSelector {
     public static void main(String[] args) {
@@ -21,7 +19,7 @@ public class MenuSelector {
     }
 
     //1.1 - printing method for our Main Menu
-    public void printMainMenu() {
+    public static void printMainMenu() {
         System.out.println("Main Menu: Please choose among the options below.\n" + "\n" +
                 "0. Close system.\n" +
                 "1. Open Item options.\n" +
@@ -111,7 +109,8 @@ public class MenuSelector {
                 printMainMenu();
                 break;
             case 1:
-                Item item = new Item(String Name, float Price , int  ID);
+                Item item = new Item(String Name , float Price , int  ID );
+                //SHOULDNT IT BE HERE THE ADD FUNCTION
                 break;
             case 2:
                 Items.removeItem();
