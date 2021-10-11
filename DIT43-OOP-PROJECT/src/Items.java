@@ -275,7 +275,7 @@ public class Items {
 
 
 
-    public Item GetMostAndLeastReviews(){
+    public Item GetMostAndLeastReviewedItems(){
         Item min = ItemList.get(0);
         Item max = ItemList.get(0);
 
