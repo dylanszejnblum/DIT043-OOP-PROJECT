@@ -1,7 +1,12 @@
 import java.util.ArrayList;
 
 public class Items {
-    public ArrayList<Item> ItemList =   new ArrayList<Item>();
+    public ArrayList<Item> ItemList;
+
+
+    public Items(){
+        ItemList  =  new ArrayList<Item>();
+    }
 
     //SEARCH FOR AN ITEM BY USING THE ID
     public Item GetItemById(int ID) {
@@ -13,17 +18,18 @@ public class Items {
         return null;
     }
     //METHOD FOR BUYING AN ITEM
-    public double BuyItems(int ID , int ammount) {
+    public double BuyItems(int ID , int amount) {
         Item I = GetItemById(ID);
-        float quantity = (float) ammount;
-        if(ammount < 0) {
+        double quantity = (double) amount;
+        if(quantity < 0) {
             throw new IllegalArgumentException("Invalid data for item.");
         }
 
         double Total = I.GetPrice() * quantity;
 
-        if(ammount > 4) {
-            Total = (float) (Total * 0.7);
+        if(quantity > 4) {
+            Total = (Total * 0.7);
+
         }
 
         return Total;
@@ -33,8 +39,8 @@ public class Items {
     public void addItem(Item newItem) {
         ItemList.add(newItem);
     }
-// I did changes to 2.5; 2.6; 2.7
 
+    // ##  I did changes to 2.5; 2.6; 2.7
     //remove items - 2.5
     public String removeItem (){
 
@@ -49,25 +55,11 @@ public class Items {
 
         else{
             return ("Item" + inputID + "could not be removed.");
-        }
-
-
-        /*for(Item item : ItemList) {
-            if(item.GetId() == ID){
-
-                ItemList.remove(item);
-                //do we have like a null element on that position after removing?
-                return ("Item" + ID + "was successfully removed.");
-            }
-            else {
-                return "Item" + ID + "could not be removed.";}
-        }
-
-        */
     }
+        }
 
 
-//print specific item? - 2.6
+    //print specific item? - 2.6
 
     public void PrintSpecificItem(int ID) {
         Item I = GetItemById(ID);
@@ -133,13 +125,13 @@ public class Items {
             System.out.println("Item" + ID + "was not registered yet.");
 
         } else {
-            System.out.println("Your review was registered succesfully.");
+            System.out.println("Your review was registered successfully.");
 
             int i = item.grades.size();
             item.grades.add(i, grade);
             item.writtenComments.add(i, writtenComment);
 
-            System.out.println("Your review was registered succesfully.");
+            System.out.println("Your review was registered successfully.");
         }
 
     }
@@ -263,7 +255,7 @@ public class Items {
                 }
 
                 else {
-                    result += "Reiew(s) for " + item.ID + ": " + item.Name + ". " + item.Price + " SEK + \n";
+                    result += "Review(s) for " + item.ID + ": " + item.Name + ". " + item.Price + " SEK + \n";
                     for (int j= 0; j < item.grades.size(); j ++) {
                         result += "Grade: " + item.grades.get(j) + "."+ item.writtenComments.get(j);
                     }
@@ -283,8 +275,88 @@ public class Items {
     }
 
 
+    // I know that this is not the correct way of doing this but i will fix it during the week by creating
+    // a generic sorting to get min and max values ;)
+
+    // 3.7 Print Items with the most and least reviews ~ Dylan
+    // I was not sure if i could use the .min method from the collection interface so i tried doing it by hand
+
+    public Item GetMostAndLeastReviews(){
+        Item min = ItemList.get(0);
+        Item max = ItemList.get(0);
+
+        int minIndex = 0;
+        int maxIndex = 0;
+
+        for(int i = 1; i < ItemList.size(); i++){
+            if(ItemList.get(i).GetReviewLength() < min.GetReviewLength()){
+                min = ItemList.get(i);
+                minIndex = i;
+            }
+            if(ItemList.get(i).GetReviewLength() > max.GetReviewLength()){
+                max = ItemList.get(i);
+                maxIndex = i;
+            }
+        }
+
+        System.out.println("Most reviews: <num reviews> review(s) each.\n" +
+                max.GetId() +": " + max.GetName()+ " " + max.GetPrice() +" SEK\n" );
+
+        System.out.println("Most reviews: <num reviews> review(s) each.\n" +
+                min.GetId() +": " + min.GetName()+ " " + min.GetPrice() +" SEK\n" );
+
+        return max;
 
 
+    }
+
+    // 3.8 Print items with highest / lowest grades ~ Dylan
+    public Item GetHighestGrade(){
+        Item min = ItemList.get(0);
+        Item max = ItemList.get(0);
+
+        int minIndex = 0;
+        int maxIndex = 0;
+
+        for(int i = 1; i < ItemList.size(); i++){
+            if(ItemList.get(i).GetMeanGrade() < min.GetMeanGrade()){
+                min = ItemList.get(i);
+                minIndex = i;
+            }
+            if(ItemList.get(i).GetMeanGrade() > max.GetMeanGrade()){
+                max = ItemList.get(i);
+                maxIndex = i;
+            }
+        }
+
+
+
+        return max;
+    }
+
+    public Item GetLowestGrade(){
+        Item min = ItemList.get(0);
+        Item max = ItemList.get(0);
+
+        int minIndex = 0;
+        int maxIndex = 0;
+
+        for(int i = 1; i < ItemList.size(); i++){
+            if(ItemList.get(i).GetMeanGrade() < min.GetMeanGrade()){
+                min = ItemList.get(i);
+                minIndex = i;
+            }
+            if(ItemList.get(i).GetMeanGrade() > max.GetMeanGrade()){
+                max = ItemList.get(i);
+                maxIndex = i;
+            }
+        }
+
+
+
+        return min;
+
+    }
 
 }
 
