@@ -11,13 +11,10 @@ public class MenuSelector {
         choice = UserInput.readInt("Enter your choice: "); // new change
         //scanner.nextLine();
         MainMenuOptions(choice);
-
-
-
     }
 
     //1.1 - printing method for our Main Menu
-    public void printMainMenu() {
+    public static void printMainMenu() {
         System.out.println("Main Menu: Please choose among the options below.\n" + "\n" +
                 "0. Close system.\n" +
                 "1. Open Item options.\n" +
@@ -79,7 +76,7 @@ public class MenuSelector {
     }
 
     //1.5 - method for the transaction from our MainMenu to the other Menus based on the user's input
-    public void MainMenuOptions(int option) {
+    public static void MainMenuOptions(int option) {
         switch (option) {
             case 0:
                 System.exit();
