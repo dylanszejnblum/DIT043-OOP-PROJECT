@@ -1,4 +1,4 @@
-
+/*
 // this is a first iteration  , the idea for the future is that the number of options
 // is calculated in accordance of an array of strings and stiched toghether on the constructor
 public abstract class Menu {
@@ -28,17 +28,18 @@ public abstract class Menu {
 
 
     }
-    /*
+
     public String toString(){
 
     }
 
-     */
+
 
 
     public static void printItemOptionsMenu() {
         System.out.println(text);
     }
 
-
+   
 }
+*/
