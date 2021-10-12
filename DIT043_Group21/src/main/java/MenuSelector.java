@@ -1,7 +1,3 @@
-import java.util.Scanner;
-import UserInput.java;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
-
 public class MenuSelector {
     public static void main(String[] args) {
         int choice = -1;
@@ -15,13 +11,10 @@ public class MenuSelector {
         choice = UserInput.readInt("Enter your choice: "); // new change
         //scanner.nextLine();
         MainMenuOptions(choice);
-
-
-
     }
 
     //1.1 - printing method for our Main Menu
-    public void printMainMenu() {
+    public static void printMainMenu() {
         System.out.println("Main Menu: Please choose among the options below.\n" + "\n" +
                 "0. Close system.\n" +
                 "1. Open Item options.\n" +
@@ -124,10 +117,10 @@ public class MenuSelector {
                 break;
 
             case 5:
-                Item.UpdateItemName(String Name);
+                Item.UpdateNameItem(String Name);
                 break;
             case 6:
-                Item.UpdateItemPrice(int Price);
+                Item.UpdatePriceItem(int Price);
                 break;
             default:
                 System.out.println("Invalid menu option. Please type another option");

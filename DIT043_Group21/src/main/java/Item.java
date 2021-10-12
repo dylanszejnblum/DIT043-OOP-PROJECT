@@ -50,10 +50,13 @@ public class Item {
         return average;
 
     }
-    public void UpdateItem(int Price , String Name) {
+    public void UpdatePriceItem(int Price) {
         this.Price = Price;
-        this.Name = Name;
 
+    }
+
+    public void UpdateNameItem(String Name) {
+        this.Name = Name;
     }
 }
 
