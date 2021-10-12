@@ -345,9 +345,6 @@ public class Items {
                 maxIndex = i;
             }
         }
-
-
-
         return min;
 
     }
