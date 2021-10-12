@@ -1,7 +1,3 @@
-import java.util.Scanner;
-import UserInput.java;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
-
 public class MenuSelector {
     public static void main(String[] args) {
         int choice = -1;
