@@ -346,6 +346,11 @@ public class Items {
         return min;
 
     }
+
+    //4.1 - Nia and Oscar - Implemented in buy product method
+
+    
+
 }
 
 
