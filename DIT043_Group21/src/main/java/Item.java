@@ -7,6 +7,7 @@ public class Item {
     public  int  ID;
     public ArrayList <Integer> grades;
     public ArrayList <String> writtenComments;
+    public ArrayList<String> transactions;
 
 
     public Item(String Name, double Price , int  ID) {
@@ -18,10 +19,9 @@ public class Item {
         this.ID = ID;
         this.grades = new  ArrayList<Integer>();
         this.writtenComments =  new ArrayList<String>();
+        this.transactions = new ArrayList<String>();
 
     }
-
-
 
     public int GetId() {
         return this.ID;

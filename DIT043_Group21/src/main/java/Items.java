@@ -29,10 +29,15 @@ public class Items {
 
         if(quantity > 4) {
             Total = (Total * 0.7);
-
         }
 
+        //Implemented 4.1 in this method
+
+        String result = ID + ": " + quantity + " item(s). " + I.GetPrice() + " SEK";
+        I.transactions.add(result);
+
         return Total;
+
     }
 
     // Simple add item method
@@ -211,7 +216,7 @@ public class Items {
 
     //3.5 - Oscar
     public String retrieveCommentsItem(int inputID){
-        
+
         Item inputItem = GetItemById(inputID);
 
         if (inputItem == null || inputItem.writtenComments.size() == 0){
@@ -341,7 +346,6 @@ public class Items {
         return min;
 
     }
-
 }
 
 
