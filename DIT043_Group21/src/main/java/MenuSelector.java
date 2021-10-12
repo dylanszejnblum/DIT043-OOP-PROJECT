@@ -14,7 +14,7 @@ public class MenuSelector {
     }
 
     //1.1 - printing method for our Main Menu
-    public static void printMainMenu() {
+    public void printMainMenu() {
         System.out.println("Main Menu: Please choose among the options below.\n" + "\n" +
                 "0. Close system.\n" +
                 "1. Open Item options.\n" +
