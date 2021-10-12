@@ -76,7 +76,7 @@ public class MenuSelector {
     }
 
     //1.5 - method for the transaction from our MainMenu to the other Menus based on the user's input
-    public static void MainMenuOptions(int option) {
+    public void MainMenuOptions(int option) {
         switch (option) {
             case 0:
                 System.exit();
@@ -117,10 +117,10 @@ public class MenuSelector {
                 break;
 
             case 5:
-                Item.UpdateItemName(String Name);
+                Item.UpdateNameItem(String Name);
                 break;
             case 6:
-                Item.UpdateItemPrice(int Price);
+                Item.UpdatePriceItem(int Price);
                 break;
             default:
                 System.out.println("Invalid menu option. Please type another option");
