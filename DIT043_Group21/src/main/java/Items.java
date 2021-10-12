@@ -112,9 +112,7 @@ public class Items {
 
     //method creating reviews
     //the need of a scanner?
-    public void createReviews() {
-
-        int ID = UserInput.readInt("Please, specify the ID of the item being reviewed:");
+    public void createReviews(int ID) {
 
         int grade = UserInput.readInt("You can choose a grade for your review between 1 to 5. Please, type your grade here:");
 
@@ -138,12 +136,10 @@ public class Items {
     //3.2 - Nia
     //print a specific item review
 
-    public void printSpecificItemReview(){
+    public void printSpecificItemReview(int ID){
         //specifying the item ID
         //index of the desired review - from 1(first item's review)
 
-
-        int ID = UserInput.readInt("Please, specify the item's ID:");
         int i = UserInput.readInt("Type the index of the desired review: \n" +"" +
                 "*This means if you want to get an item's first review, you should type 1*");
 
@@ -167,9 +163,8 @@ public class Items {
     }
 
     //3.3 - Nia
-    public void printAllReviewsForAnItem(){
+    public void printAllReviewsForAnItem(int ID){
 
-        int ID = UserInput.readInt("Please, specify the item's ID:");
         Item item = GetItemById(ID);
 
         if(item == null){
@@ -192,9 +187,8 @@ public class Items {
 
 
     //3.4 - Oscar
-    public String retrieveMeanGradeItem() {
+    public String retrieveMeanGradeItem(int inputID) {
 
-        int inputID = UserInput.readInt("Introduce the desired ID: ");
         Item inputItem = GetItemById(inputID);
         if (inputItem == null){
             return ("Item " + inputID + " was not registered yet.");
@@ -216,9 +210,8 @@ public class Items {
     }
 
     //3.5 - Oscar
-    public String retrieveCommentsItem(){
-
-        int inputID = UserInput.readInt("Introduce the desired ID: ");
+    public String retrieveCommentsItem(int inputID){
+        
         Item inputItem = GetItemById(inputID);
 
         if (inputItem == null || inputItem.writtenComments.size() == 0){

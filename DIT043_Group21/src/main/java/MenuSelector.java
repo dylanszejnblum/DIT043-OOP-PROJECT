@@ -1,4 +1,8 @@
 public class MenuSelector {
+
+    public Items items = new Items();
+    public Item item;
+
     public static void main(String[] args) {
         int choice = -1;
         // Base line menu for the rest of tasks.
@@ -104,7 +108,7 @@ public class MenuSelector {
                 printMainMenu();
                 break;
             case 1:
-                Item item = new Item(String Name, float Price , int  ID);
+                Item item = new Item(String Name, double Price, int ID);
                 break;
             case 2:
                 Items.removeItem();
