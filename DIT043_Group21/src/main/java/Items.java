@@ -30,6 +30,13 @@ public class Items {
         if(quantity > 4) {
             Total = (Total * 0.7);
         }
+
+        Transaction transaction = new Transaction( Total, amount);
+
+        
+
+        I.transactionHistory.add(transaction);
+
         return Total;
 
     }

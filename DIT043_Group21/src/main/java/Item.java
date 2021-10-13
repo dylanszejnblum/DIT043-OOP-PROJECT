@@ -7,7 +7,7 @@ public class Item {
     public  int  ID;
     public ArrayList <Integer> grades;
     public ArrayList <String> writtenComments;
-    public ArrayList<String> transactions;
+    public ArrayList<Transaction> transactionHistory;
 
 
     public Item(String Name, double Price , int  ID) {
@@ -19,7 +19,7 @@ public class Item {
         this.ID = ID;
         this.grades = new  ArrayList<Integer>();
         this.writtenComments =  new ArrayList<String>();
-        this.transactions = new ArrayList<String>();
+        this.transactionHistory = new ArrayList<Transaction>();
 
     }
 
@@ -59,5 +59,23 @@ public class Item {
     public void UpdateNameItem(String Name) {
         this.Name = Name;
     }
+
+    public boolean equals(Object anotherObject) {
+        if (anotherObject == this){
+            return true;
+        }
+
+        else if  (anotherObject == null){
+
+        }
+
+
+
+    }
 }
 
+//1- Check equality of ID, create a method for that
+//2- Truncation
+//3- do while loops for menu
+//4- Review class
+//5- FACADE
