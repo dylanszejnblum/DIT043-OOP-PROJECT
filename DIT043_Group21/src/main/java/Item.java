@@ -8,6 +8,7 @@ public class Item {
     public ArrayList <Integer> grades;
     public ArrayList <String> writtenComments;
     public ArrayList<Transaction> transactionList;
+    public ArrayList<String> transactionStringArray;
 
 
     public Item(String Name, double Price , int  ID) {
@@ -19,7 +20,6 @@ public class Item {
         this.ID = ID;
         this.grades = new  ArrayList<Integer>();
         this.writtenComments =  new ArrayList<String>();
-        this.transactionList = new ArrayList<Transaction>();
 
     }
 
@@ -60,6 +60,11 @@ public class Item {
         this.Name = Name;
     }
 
+    public boolean equals (Object anotherObject) {
+        if (anotherObject == this){return true;}
+        else if (anotherObject == null ){return false;}
+    }
+
 
 }
 
@@ -70,3 +75,4 @@ public class Item {
 //5- FACADE
 //6- Create a method for checking if the ID exists or not.
 //7- Encapsulation, we currently have no encapsulation
+//8- Create toString methods in order to print, currently we have none
