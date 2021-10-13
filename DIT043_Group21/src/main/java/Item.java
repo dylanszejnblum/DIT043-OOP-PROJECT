@@ -4,26 +4,27 @@ public class Item {
  
     public  String Name;
     public  double Price;
-    public  int  ID;
+    public  String  ID;
     public ArrayList <Integer> grades;
     public ArrayList <String> writtenComments;
     public ArrayList<Transaction> transactionList;
     public ArrayList<String> transactionStringArray;
 
 
-    public Item(String Name, double Price , int  ID) {
-        if(Price < 0 || ID <0 || Name != "") {
+    public Item(String Name, double Price , String  ID) {
+        if(Price < 0 || ID.isEmpty() || Name != "") {
             throw new IllegalArgumentException("Invalid data for item.");
         }
         this.Name = Name;
         this.Price = Price;
         this.ID = ID;
+
         this.grades = new  ArrayList<Integer>();
         this.writtenComments =  new ArrayList<String>();
 
     }
 
-    public int GetId() {
+    public String GetId() {
         return this.ID;
     }
 
@@ -60,19 +61,30 @@ public class Item {
         this.Name = Name;
     }
 
-    public boolean equals (Object anotherObject) {
-        if (anotherObject == this){return true;}
-        else if (anotherObject == null ){return false;}
+    public boolean equals(Item anotherItem){
+        if(anotherItem == this){
+            return true;
+
+        } else if(anotherItem == null){
+            return false;
+
+        } else if ( anotherItem instanceof Item ){
+            boolean isEqualItem = (this.GetId() ==  anotherItem.GetId()) ;
+            return isEqualItem;
+
+        } else {
+            return false;
+        }
     }
 
 
 }
 
-//1- Check equality of ID, create a method for that
+//1- Check equality of ID, create a method for that --> done.
 //2- Truncation
 //3- do while loops for menu
 //4- Review class
 //5- FACADE
-//6- Create a method for checking if the ID exists or not.
-//7- Encapsulation, we currently have no encapsulation
+//6- Create a method for checking if the ID exists or not. --> done.
+//7- Encapsulation, we currently have no encapsulation --> done.
 //8- Create toString methods in order to print, currently we have none

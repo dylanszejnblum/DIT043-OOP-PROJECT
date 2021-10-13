@@ -2,23 +2,21 @@ import java.util.ArrayList;
 
 public class Items {
     public ArrayList<Item> ItemList;
-
-
     public Items(){
         ItemList  =  new ArrayList<Item>();
     }
 
     //SEARCH FOR AN ITEM BY USING THE ID
-    public Item GetItemById(int ID) {
+    public Item GetItemById(String ID) {
         for(Item item : ItemList) {
-            if(item.GetId() == ID) {
+            if(item.equals(ID)){
                 return item;
             }
         }
         return null;
     }
     //METHOD FOR BUYING AN ITEM
-    public double BuyItems(int ID , int amount) {
+    public double BuyItems(String ID , int amount) {
         Item I = GetItemById(ID);
         double quantity = (double) amount;
         if(quantity < 0) {
@@ -33,7 +31,7 @@ public class Items {
 
         Transaction transaction = new Transaction(ID, Total, amount);
         I.transactionList.add(transaction);
-        final String transactionString = transaction.ID +  ": " + transaction.unitsSold  + " item(s). " + I.GetPrice() + " SEK";
+        final String transactionString = transaction.getID() +  ": " + transaction.getUnitsSold()  + " item(s). " + I.GetPrice() + " SEK";
         I.transactionStringArray.add(transactionString);
 
 
@@ -41,11 +39,11 @@ public class Items {
 
     }
 
-    public String createItem (String Name, double Price , int ID){
+    public String createItem (String Name, double Price , String ID){
         String result = "";
         Item item = new Item (Name, Price, ID);
         ItemList.add(item);
-        result = "Item " + item.ID + " was registered successfully";
+        result = "Item " + item.GetId() + " was registered successfully";
         return result;
 
     }
@@ -61,7 +59,7 @@ public class Items {
     //remove items - 2.5
     public String removeItem (){
 
-        int inputID = UserInput.readInt("Enter the desire ID: ");
+        String inputID = UserInput.readString("Enter the desire ID: ");
         Item inputItem = GetItemById(inputID);
 
         boolean checker = ItemList.remove(inputItem);
@@ -78,7 +76,7 @@ public class Items {
 
     //print specific item? - 2.6
 
-    public void PrintSpecificItem(int ID) {
+    public void PrintSpecificItem(String ID) {
         Item I = GetItemById(ID);
 
         if (I == null) {
@@ -129,8 +127,9 @@ public class Items {
 
     //method creating reviews
     //the need of a scanner?
-    public void createReviews(int ID) {
+    public void createReviews(String ID) {
 
+        //Pass these inputs to the menu class
         int grade = UserInput.readInt("You can choose a grade for your review between 1 to 5. Please, type your grade here:");
 
         String writtenComment = UserInput.readString("Optionally, you can add a written comment if you'd like:");
@@ -153,7 +152,7 @@ public class Items {
     //3.2 - Nia
     //print a specific item review
 
-    public void printSpecificItemReview(int ID){
+    public void printSpecificItemReview(String ID){
         //specifying the item ID
         //index of the desired review - from 1(first item's review)
 
@@ -180,7 +179,7 @@ public class Items {
     }
 
     //3.3 - Nia
-    public void printAllReviewsForAnItem(int ID){
+    public void printAllReviewsForAnItem(String ID){
 
         Item item = GetItemById(ID);
 
@@ -204,7 +203,7 @@ public class Items {
 
 
     //3.4 - Oscar
-    public String retrieveMeanGradeItem(int inputID) {
+    public String retrieveMeanGradeItem(String inputID) {
 
         Item inputItem = GetItemById(inputID);
         if (inputItem == null){
@@ -227,7 +226,7 @@ public class Items {
     }
 
     //3.5 - Oscar
-    public String retrieveCommentsItem(int inputID){
+    public String retrieveCommentsItem(String inputID){
 
         Item inputItem = GetItemById(inputID);
 

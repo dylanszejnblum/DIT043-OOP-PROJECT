@@ -100,8 +100,6 @@ public class MenuSelector {
                 double Price = UserInput.readDouble("Specify the price of the item: ");
                 String ID = UserInput.readString("Specify the ID of the item: ");
 
-                if (Price <= 0 || )
-
                 items.createItem(Name, Price, ID);
 
                 //We need to change this option, makes no sense at all cause we need do this in the buy product function
