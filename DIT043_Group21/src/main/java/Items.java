@@ -30,10 +30,6 @@ public class Items {
         if(quantity > 4) {
             Total = (Total * 0.7);
         }
-
-        for (Item item : ItemList){
-
-        }
         return Total;
 
     }
