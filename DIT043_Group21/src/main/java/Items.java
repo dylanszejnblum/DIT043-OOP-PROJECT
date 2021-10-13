@@ -32,8 +32,10 @@ public class Items {
         }
 
         Transaction transaction = new Transaction(ID, Total, amount);
-
         I.transactionList.add(transaction);
+        final String transactionString = transaction.ID +  ": " + transaction.unitsSold  + " item(s). " + I.GetPrice() + " SEK";
+        I.transactionStringArray.add(transactionString);
+
 
         return Total;
 
@@ -361,28 +363,7 @@ public class Items {
 
     //4.2
 
-    //4.3 - Oscar
 
-    public String printTransactionsItem(int ID){
-        String result = "";
-        Item item = GetItemById(ID);
-        if (item == null){
-            return "Item " + ID + " was not registered yet.";
-        }
-
-        else if (item.transactionList.isEmpty()){
-            return "Transactions for item: " + ID +": " + item.Name + ". " + item.Price + " SEK \n "+
-                    "No transactions have been registered for item " + ID + " yet.";
-        }
-        for (Transaction currentTransaction : item.transactionList){
-            result += "Transactions for item:"+ ID+ ": " + item.Name +". "+ item.Price+ "SEK + \n";
-            result += currentTransaction.ID + ": " + currentTransaction.unitsSold + " item(s). " + item.Price + " SEK + \n";
-
-        }
-
-        return result;
-
-    }
 
 
 

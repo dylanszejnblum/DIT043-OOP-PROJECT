@@ -107,7 +107,10 @@ public class MenuSelector {
                 //METHOD FOR CREATING AN ITEM
                 String Name = UserInput.readString("Specify the name of the item: ");
                 double Price = UserInput.readDouble("Specify the price of the item: ");
-                int ID = UserInput.readInt("Specify the ID of the item: ");
+                String ID = UserInput.readString("Specify the ID of the item: ");
+
+                if (Price <= 0 || )
+
                 items.createItem(Name, Price, ID);
 
                 //We need to change this option, makes no sense at all cause we need do this in the buy product function
@@ -123,7 +126,7 @@ public class MenuSelector {
                 break;
 
             case 4:
-                ID = UserInput.readInt("Enter the desired ID: ");
+                ID = UserInput.readString("Enter the desired ID: ");
                 int amount = UserInput.readInt("Enter the amount of Items you want to shop: ");
                 items.BuyItems(ID , amount); //we shouldnt specify the type when adding paratemers to an already created method
                 break;
