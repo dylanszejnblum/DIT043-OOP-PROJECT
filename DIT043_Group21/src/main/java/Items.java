@@ -31,10 +31,10 @@ public class Items {
             Total = (Total * 0.7);
         }
 
-        //Implemented 4.1 in this method
+        for (Item item : ItemList){
 
-        String result = ID + ": " + quantity + " item(s). " + I.GetPrice() + " SEK";
-        I.transactions.add(result);
+        }
+
 
         return Total;
 
@@ -42,6 +42,9 @@ public class Items {
 
     // Simple add item method
     public void addItem(Item newItem) {
+
+        //Item item = new Item(String Name, double Price, int ID);
+
         ItemList.add(newItem);
     }
 
@@ -349,7 +352,10 @@ public class Items {
 
     //4.1 - Nia and Oscar - Implemented in buy product method
 
-    
+    //4.2
+
+
+
 
 }
 

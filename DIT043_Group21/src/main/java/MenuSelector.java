@@ -3,19 +3,6 @@ public class MenuSelector {
     public Items items = new Items();
     public Item item;
 
-    public static void main(String[] args) {
-        int choice = -1;
-        // Base line menu for the rest of tasks.
-        // Open scanner
-        //Scanner scanner = new Scanner(System.in);
-
-        //calling our printing MainMenu method
-
-        printMainMenu();
-        choice = UserInput.readInt("Enter your choice: "); // new change
-        //scanner.nextLine();
-        MainMenuOptions(choice);
-    }
 
     //1.1 - printing method for our Main Menu
     public void printMainMenu() {
@@ -83,7 +70,7 @@ public class MenuSelector {
     public void MainMenuOptions(int option) {
         switch (option) {
             case 0:
-                System.exit();
+                System.exit(1); //check which exit status to use
 
             case 1: //open item options menu
                 printItemOptionsMenu();
@@ -108,23 +95,28 @@ public class MenuSelector {
                 printMainMenu();
                 break;
             case 1:
-                Item item = new Item(String Name, double Price, int ID);
+                Item item = new Item(Name, Price, ID);
+
                 break;
             case 2:
-                Items.removeItem();
+                items.removeItem();
                 break;
             case 3:
-                Items.printAllItems();
+                items.printAllItems();
                 break;
             case 4:
-                Items.BuyItems(int ID , int ammount);
+                items.BuyItems(ID , ammount); //we shouldnt specify the type when adding paratemers to an already created method
                 break;
 
             case 5:
-                Item.UpdateNameItem(String Name);
+                //Find the specific item from all items by ID,
+                //Call the item.Update method
+                item.UpdateNameItem( Name);
                 break;
             case 6:
-                Item.UpdatePriceItem(int Price);
+                //Find the specific item from all items by ID,
+                //Call the item.Update method
+                item.UpdatePriceItem( Price);
                 break;
             default:
                 System.out.println("Invalid menu option. Please type another option");
