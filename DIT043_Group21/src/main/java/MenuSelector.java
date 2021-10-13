@@ -103,18 +103,20 @@ public class MenuSelector {
 
                 //We need to change this option, makes no sense at all cause we need do this in the buy product function
                 //Create do whiles for the menus
-
                 break;
+
             case 2:
                 items.removeItem();
                 break;
+
             case 3:
                 items.printAllItems();
                 break;
+
             case 4:
                 ID = UserInput.readInt("Enter the desired ID: ");
-                amount = UserInput.readInt("Enter the amount of Items you want to shop: ");
-                items.BuyItems(ID ,ammount); //we shouldnt specify the type when adding paratemers to an already created method
+                int amount = UserInput.readInt("Enter the amount of Items you want to shop: ");
+                items.BuyItems(ID , amount); //we shouldnt specify the type when adding paratemers to an already created method
                 break;
 
             case 5:
@@ -134,7 +136,7 @@ public class MenuSelector {
         }
     }
 
-}
+
     //method for the transaction from our ReviewsOptionsMenu to the other Menus based on the user's input
     public void ReviewsOptionsMenu(int option) {
         //case1? Isn't it create a review for an Item?
