@@ -60,18 +60,7 @@ public class Item {
         this.Name = Name;
     }
 
-    public boolean equals(Object anotherObject) {
-        if (anotherObject == this){
-            return true;
-        }
 
-        else if  (anotherObject == null){
-
-        }
-
-
-
-    }
 }
 
 //1- Check equality of ID, create a method for that
