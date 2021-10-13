@@ -7,20 +7,21 @@ public class Item {
     public  int  ID;
     public ArrayList <Integer> grades;
     public ArrayList <String> writtenComments;
+    public ArrayList<Transaction> transactionList;
 
 
-    public Item() {
-        if(Price < 0 || ID <0 || Name != " ") {
+    public Item(String Name, double Price , int  ID) {
+        if(Price < 0 || ID <0 || Name != "") {
             throw new IllegalArgumentException("Invalid data for item.");
         }
-        this.Price = UserInput.readDouble("Enter price: ");
-        this.ID = UserInput.readInt("Enter ID: ");
+        this.Name = Name;
+        this.Price = Price;
+        this.ID = ID;
         this.grades = new  ArrayList<Integer>();
         this.writtenComments =  new ArrayList<String>();
+        this.transactionList = new ArrayList<Transaction>();
 
     }
-
-
 
     public int GetId() {
         return this.ID;
@@ -60,3 +61,10 @@ public class Item {
     }
 }
 
+//1- Check equality of ID, create a method for that
+//2- Truncation
+//3- do while loops for menu
+//4- Review class
+//5- FACADE
+//6- Create a method for checking if the ID exists or not.
+//7- Encapsulation, we currently have no encapsulation

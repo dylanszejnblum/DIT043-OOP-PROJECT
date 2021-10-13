@@ -79,7 +79,7 @@ public class MenuSelector {
     public void MainMenuOptions(int option) {
         switch (option) {
             case 0:
-                System.exit();
+                System.exit(1); //check which exit status to use
 
             case 1: //open item options menu
                 printItemOptionsMenu();
@@ -104,16 +104,28 @@ public class MenuSelector {
                 printMainMenu();
                 break;
             case 1:
-                Item item = new Item(String Name, float Price , int  ID);
+                //METHOD FOR CREATING AN ITEM
+                String Name = UserInput.readString("Specify the name of the item: ");
+                double Price = UserInput.readDouble("Specify the price of the item: ");
+                int ID = UserInput.readInt("Specify the ID of the item: ");
+                items.createItem(Name, Price, ID);
+
+                //We need to change this option, makes no sense at all cause we need do this in the buy product function
+                //Create do whiles for the menus
                 break;
+
             case 2:
-                Items.removeItem();
+                items.removeItem();
                 break;
+
             case 3:
-                Items.printAllItems();
+                items.printAllItems();
                 break;
+
             case 4:
-                Items.BuyItems(int ID , int ammount);
+                ID = UserInput.readInt("Enter the desired ID: ");
+                int amount = UserInput.readInt("Enter the amount of Items you want to shop: ");
+                items.BuyItems(ID , amount); //we shouldnt specify the type when adding paratemers to an already created method
                 break;
 
             case 5:
@@ -128,7 +140,7 @@ public class MenuSelector {
         }
     }
 
-}
+
     //method for the transaction from our ReviewsOptionsMenu to the other Menus based on the user's input
     public void ReviewsOptionsMenu(int option) {
         //case1? Isn't it create a review for an Item?
