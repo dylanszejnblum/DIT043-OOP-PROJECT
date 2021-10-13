@@ -95,7 +95,14 @@ public class MenuSelector {
                 printMainMenu();
                 break;
             case 1:
-                Item item = new Item(Name, Price, ID);
+                //METHOD FOR CREATING AN ITEM
+                String Name = UserInput.readString("Specify the name of the item: ");
+                double Price = UserInput.readDouble("Specify the price of the item: ");
+                int ID = UserInput.readInt("Specify the ID of the item: ");
+                items.createItem(Name, Price, ID);
+
+                //We need to change this option, makes no sense at all cause we need do this in the buy product function
+                //Create do whiles for the menus
 
                 break;
             case 2:
@@ -105,17 +112,20 @@ public class MenuSelector {
                 items.printAllItems();
                 break;
             case 4:
-                items.BuyItems(ID , ammount); //we shouldnt specify the type when adding paratemers to an already created method
+                ID = UserInput.readInt("Enter the desired ID: ");
+                amount = UserInput.readInt("Enter the amount of Items you want to shop: ");
+                items.BuyItems(ID ,ammount); //we shouldnt specify the type when adding paratemers to an already created method
                 break;
 
             case 5:
                 //Find the specific item from all items by ID,
-                //Call the item.Update method
+                Name = UserInput.readString("Specify the new name of the item: ");
                 item.UpdateNameItem( Name);
                 break;
             case 6:
                 //Find the specific item from all items by ID,
                 //Call the item.Update method
+                Price = UserInput.readDouble("Specify the new price of the item: ");
                 item.UpdatePriceItem( Price);
                 break;
             default:

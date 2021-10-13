@@ -51,7 +51,7 @@ public class Item {
         return average;
 
     }
-    public void UpdatePriceItem(int Price) {
+    public void UpdatePriceItem(double Price) {
         this.Price = Price;
 
     }

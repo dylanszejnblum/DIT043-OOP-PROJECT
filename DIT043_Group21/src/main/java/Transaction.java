@@ -1,9 +1,9 @@
-public class ItemTransaction{
+public class Transaction{
 
     double profit;
     int unitsSold;
 
-    public ItemTransaction(double profit, int unitsSold) {
+    public Transaction(double profit, int unitsSold) {
         this.profit = profit;
         this.unitsSold = unitsSold;
     }

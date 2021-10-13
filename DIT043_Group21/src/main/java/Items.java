@@ -34,9 +34,16 @@ public class Items {
         for (Item item : ItemList){
 
         }
-
-
         return Total;
+
+    }
+
+    public String createItem (String Name, double Price , int ID){
+        String result = "";
+        Item item = new Item (Name, Price, ID);
+        ItemList.add(item);
+        result = "Item " + item.ID + " was registered successfully";
+        return result;
 
     }
 
@@ -44,7 +51,6 @@ public class Items {
     public void addItem(Item newItem) {
 
         //Item item = new Item(String Name, double Price, int ID);
-
         ItemList.add(newItem);
     }
 
