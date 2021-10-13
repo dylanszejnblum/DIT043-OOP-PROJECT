@@ -7,7 +7,7 @@ public class Item {
     public  int  ID;
     public ArrayList <Integer> grades;
     public ArrayList <String> writtenComments;
-    public ArrayList<Transaction> transaction;
+    public ArrayList<Transaction> transactionList;
 
 
     public Item(String Name, double Price , int  ID) {
@@ -19,7 +19,7 @@ public class Item {
         this.ID = ID;
         this.grades = new  ArrayList<Integer>();
         this.writtenComments =  new ArrayList<String>();
-        this.transaction = new ArrayList<Transaction>();
+        this.transactionList = new ArrayList<Transaction>();
 
     }
 
@@ -68,3 +68,5 @@ public class Item {
 //3- do while loops for menu
 //4- Review class
 //5- FACADE
+//6- Create a method for checking if the ID exists or not.
+//7- Encapsulation, we currently have no encapsulation

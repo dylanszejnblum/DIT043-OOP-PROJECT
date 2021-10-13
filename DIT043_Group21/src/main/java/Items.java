@@ -33,7 +33,7 @@ public class Items {
 
         Transaction transaction = new Transaction(ID, Total, amount);
 
-        I.transaction.add(transaction);
+        I.transactionList.add(transaction);
 
         return Total;
 
@@ -360,6 +360,31 @@ public class Items {
     //4.1 - Nia and Oscar - Implemented in buy product method
 
     //4.2
+
+    //4.3 - Oscar
+
+    public String printTransactionsItem(int ID){
+        String result = "";
+        Item item = GetItemById(ID);
+        if (item == null){
+            return "Item " + ID + " was not registered yet.";
+        }
+
+        else if (item.transactionList.isEmpty()){
+            return "Transactions for item: " + ID +": " + item.Name + ". " + item.Price + " SEK \n "+
+                    "No transactions have been registered for item " + ID + " yet.";
+        }
+        for (Transaction currentTransaction : item.transactionList){
+            result += "Transactions for item:"+ ID+ ": " + item.Name +". "+ item.Price+ "SEK + \n";
+            result += currentTransaction.ID + ": " + currentTransaction.unitsSold + " item(s). " + item.Price + " SEK + \n";
+
+        }
+
+        return result;
+
+    }
+
+
 
 
 
