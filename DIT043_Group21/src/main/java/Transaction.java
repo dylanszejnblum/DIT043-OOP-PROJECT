@@ -2,8 +2,10 @@ public class Transaction{
 
     double profit;
     int unitsSold;
+    int ID;
 
-    public Transaction(double profit, int unitsSold) {
+    public Transaction(int ID, double profit, int unitsSold) {
+        this.ID = ID;
         this.profit = profit;
         this.unitsSold = unitsSold;
     }

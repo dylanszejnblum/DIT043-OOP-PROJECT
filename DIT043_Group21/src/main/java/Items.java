@@ -31,11 +31,9 @@ public class Items {
             Total = (Total * 0.7);
         }
 
-        Transaction transaction = new Transaction( Total, amount);
+        Transaction transaction = new Transaction(ID, Total, amount);
 
-        
-
-        I.transactionHistory.add(transaction);
+        I.transaction.add(transaction);
 
         return Total;
 

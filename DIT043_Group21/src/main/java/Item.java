@@ -7,7 +7,7 @@ public class Item {
     public  int  ID;
     public ArrayList <Integer> grades;
     public ArrayList <String> writtenComments;
-    public ArrayList<Transaction> transactionHistory;
+    public ArrayList<Transaction> transaction;
 
 
     public Item(String Name, double Price , int  ID) {
@@ -19,7 +19,7 @@ public class Item {
         this.ID = ID;
         this.grades = new  ArrayList<Integer>();
         this.writtenComments =  new ArrayList<String>();
-        this.transactionHistory = new ArrayList<Transaction>();
+        this.transaction = new ArrayList<Transaction>();
 
     }
 
