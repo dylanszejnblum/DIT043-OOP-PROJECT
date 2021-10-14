@@ -1,3 +1,5 @@
+package clothingstore;
+
 public class Transaction {
 
     public Items items = new Items();
@@ -90,7 +92,7 @@ public class Transaction {
     //4.3 - Oscar
     public String printTransactionsItem(String ID){
         String result = "";
-        Item item = Items.GetItemByID(ID);
+        Item item = items.getItemByID(ID);
         if (item == null){
             return "Item " + ID + " was not registered yet.";
         }

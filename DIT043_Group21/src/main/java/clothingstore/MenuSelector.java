@@ -1,3 +1,5 @@
+package clothingstore;
+
 public class MenuSelector {
 
     public Items items = new Items();

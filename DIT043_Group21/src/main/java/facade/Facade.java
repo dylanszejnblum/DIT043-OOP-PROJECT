@@ -2,8 +2,11 @@ package facade;
 
 import java.util.List;
 import java.util.Map;
+import clothingstore.*;
 
 public class Facade {
+
+    Items items = new Items(); //instantiate the object
 
     // This class only has the skeleton of the methods used by the test.
     // You must fill in this class with your own code. You can (and should) create more classes
@@ -14,18 +17,16 @@ public class Facade {
     }
 
     public String createItem(String itemID, String itemName, double unitPrice){
+        //instantiate the item object
+
+        return  items.createItem(itemName, unitPrice, itemID);
 
 
-
-        return "";
     }
 
     public String printItem(String itemID) {
+        return items.printSpecificItem(itemID);
 
-
-
-
-        return "";
     }
 
     public String removeItem(String itemID) {
