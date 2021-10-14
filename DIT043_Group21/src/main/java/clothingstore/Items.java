@@ -244,7 +244,7 @@ public class Items {
         }
     }
 
-    //3.6 - Oscar
+    //3.6 - Oscar -
 
     public String retrieveRegisteredReviews() {
         int noReviewedItem = 0;
