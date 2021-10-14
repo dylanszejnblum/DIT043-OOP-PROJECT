@@ -68,6 +68,9 @@ public class Transaction {
     //4.4 - Oscar
     public String retrieveDataAllTransactions (String ID){
 
+
+
+    return "";
     }
 
 

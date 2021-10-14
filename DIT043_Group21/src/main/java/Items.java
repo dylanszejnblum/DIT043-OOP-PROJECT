@@ -4,36 +4,37 @@ public class Items {
     public ArrayList<Item> ItemList;
 
 
-    public Items(){
-        ItemList  =  new ArrayList<Item>();
+    public Items() {
+        ItemList = new ArrayList<Item>();
     }
 
     //SEARCH FOR AN ITEM BY USING THE ID
     public Item GetItemById(int ID) {
-        for(Item item : ItemList) {
-            if(item.GetId() == ID) {
+        for (Item item : ItemList) {
+            if (item.GetId() == ID) {
                 return item;
             }
         }
         return null;
     }
+
     //METHOD FOR BUYING AN ITEM
-    public double BuyItems(int ID , int amount) {
+    public double BuyItems(int ID, int amount) {
         Item I = GetItemById(ID);
         double quantity = (double) amount;
-        if(quantity < 0) {
+        if (quantity < 0) {
             throw new IllegalArgumentException("Invalid data for item.");
         }
 
         double Total = I.GetPrice() * quantity;
 
-        if(quantity > 4) {
+        if (quantity > 4) {
             Total = (Total * 0.7);
         }
 
         Transaction transaction = new Transaction(ID, Total, amount);
         I.transactionList.add(transaction);
-        final String transactionString = transaction.ID +  ": " + transaction.unitsSold  + " item(s). " + I.GetPrice() + " SEK";
+        final String transactionString = transaction.ID + ": " + transaction.unitsSold + " item(s). " + I.GetPrice() + " SEK";
         I.transactionStringArray.add(transactionString);
 
 
@@ -41,9 +42,9 @@ public class Items {
 
     }
 
-    public String createItem (String Name, double Price , int ID){
+    public String createItem(String Name, double Price, int ID) {
         String result = "";
-        Item item = new Item (Name, Price, ID);
+        Item item = new Item(Name, Price, ID);
         ItemList.add(item);
         result = "Item " + item.ID + " was registered successfully";
         return result;
@@ -59,7 +60,7 @@ public class Items {
 
     // ##  I did changes to 2.5; 2.6; 2.7
     //remove items - 2.5
-    public String removeItem (){
+    public String removeItem() {
 
         int inputID = UserInput.readInt("Enter the desire ID: ");
         Item inputItem = GetItemById(inputID);
@@ -68,12 +69,10 @@ public class Items {
 
         if (checker) {
             return ("Item " + inputItem.ID + " was successfully removed");
-        }
-
-        else{
+        } else {
             return ("Item" + inputID + "could not be removed.");
-    }
         }
+    }
 
 
     //print specific item? - 2.6
@@ -113,6 +112,7 @@ public class Items {
 
         }
     }//method transaction menu
+
     public void totalProfitFromAllItemsPurchased() {
         double totalProfit = 0;
         for (int i = 0; i < ItemList.size(); i++) {
@@ -136,11 +136,10 @@ public class Items {
         String writtenComment = UserInput.readString("Optionally, you can add a written comment if you'd like:");
 
         Item item = GetItemById(ID);
-        if (item == null ) {
+        if (item == null) {
             System.out.println("Item" + ID + "was not registered yet.");
 
         } else {
-            System.out.println("Your review was registered successfully.");
 
             int i = item.grades.size();
             item.grades.add(i, grade);
@@ -153,26 +152,24 @@ public class Items {
     //3.2 - Nia
     //print a specific item review
 
-    public void printSpecificItemReview(int ID){
+    public void printSpecificItemReview(int ID) {
         //specifying the item ID
         //index of the desired review - from 1(first item's review)
 
-        int i = UserInput.readInt("Type the index of the desired review: \n" +"" +
+        int i = UserInput.readInt("Type the index of the desired review: \n" + "" +
                 "*This means if you want to get an item's first review, you should type 1*");
 
         Item item = GetItemById(ID);
 
-        if (item == null){
+        if (item == null) {
             System.out.println("Item" + ID + "was not registered yet");
         }
-        if(item.grades.size() == 0 && item.writtenComments.size() == 0){
+        if (item.grades.size() == 0 && item.writtenComments.size() == 0) {
             System.out.println("Item" + item.GetName() + "has not been reviewed yet.");
-        }
-
-        else if(i < 1) {
+        } else if (i < 1) {
             System.out.println("Invalid review number. Choose between 1 and" + " " + item.grades.size());
 
-        }else{
+        } else {
             System.out.println("Grade:" + " " + item.grades.get(i) + "." + item.writtenComments.get(i));
 
         }
@@ -180,22 +177,19 @@ public class Items {
     }
 
     //3.3 - Nia
-    public void printAllReviewsForAnItem(int ID){
+    public void printAllReviewsForAnItem(int ID) {
 
         Item item = GetItemById(ID);
 
-        if(item == null){
+        if (item == null) {
             System.out.println("Item" + ID + "was not registered yet.");
-        }
-        else if (item.grades.size() == 0 && item.writtenComments.size() == 0){
+        } else if (item.grades.size() == 0 && item.writtenComments.size() == 0) {
             System.out.println("Review(s) for " + ID + ": " + item.GetName() + ". " + item.GetPrice() + "SEK.\n" +
-                    "Item " + item.GetName() + " has not been reviewed yet." );
-        }
+                    "Item " + item.GetName() + " has not been reviewed yet.");
+        } else {
+            System.out.println("Review(s) for " + ID + ": " + item.GetName() + ". " + item.GetPrice() + "SEK.");
 
-        else{
-            System.out.println("Review(s) for "  + ID + ": " + item.GetName() + ". " + item.GetPrice() + "SEK.");
-
-            for(int i = 0; i < item.grades.size(); i++) {
+            for (int i = 0; i < item.grades.size(); i++) {
                 System.out.println("Grade: " + item.grades.get(i) + "." + item.writtenComments.get(i));
             }
 
@@ -207,35 +201,29 @@ public class Items {
     public String retrieveMeanGradeItem(int inputID) {
 
         Item inputItem = GetItemById(inputID);
-        if (inputItem == null){
+        if (inputItem == null) {
             return ("Item " + inputID + " was not registered yet.");
-        }
-
-        else if(inputItem.grades.size() == 0) {
+        } else if (inputItem.grades.size() == 0) {
             return ("Item " + inputItem.Name + " has not been reviewed yet");
-        }
-
-        else {
+        } else {
             double totalGrades = 0;
             for (int i = 0; i < inputItem.grades.size(); i++) {
                 totalGrades += inputItem.grades.get(i);
             }
-            double mean = (totalGrades/inputItem.grades.size())*Math.pow(10,1);
-            return(String.valueOf(mean));
+            double mean = (totalGrades / inputItem.grades.size()) * Math.pow(10, 1);
+            return (String.valueOf(mean));
         }
 
     }
 
     //3.5 - Oscar
-    public String retrieveCommentsItem(int inputID){
+    public String retrieveCommentsItem(int inputID) {
 
         Item inputItem = GetItemById(inputID);
 
-        if (inputItem == null || inputItem.writtenComments.size() == 0){
+        if (inputItem == null || inputItem.writtenComments.size() == 0) {
             return "Empty Collection";
-        }
-
-        else {
+        } else {
             String result = "";
             for (int i = 0; i < inputItem.writtenComments.size(); i++) {
                 result += inputItem.writtenComments.get(i) + "\n";
@@ -250,64 +238,58 @@ public class Items {
     public String retrieveRegisteredReviews() {
         int noReviewedItem = 0;
         String result = "All registered reviews: \n"
-                        + "- \n";
+                + "- \n";
 
         if (ItemList.size() == 0) {
             return "No items registered yet";
-        }
-
-        else {
+        } else {
             for (Item item : ItemList) {
-                if ((item.writtenComments.size()==0 || item.writtenComments.isEmpty()) && item.grades.size() == 0) {
-                    noReviewedItem ++;
+                if ((item.writtenComments.size() == 0 || item.writtenComments.isEmpty()) && item.grades.size() == 0) {
+                    noReviewedItem++;
                     //checking if all items have not been reviewed, if this variable
                     //equals the size of the ItemList means that no Items were reviewed
-                }
-
-                else {
+                } else {
                     result += "Review(s) for " + item.ID + ": " + item.Name + ". " + item.Price + " SEK + \n";
-                    for (int j= 0; j < item.grades.size(); j ++) {
-                        result += "Grade: " + item.grades.get(j) + "."+ item.writtenComments.get(j);
+                    for (int j = 0; j < item.grades.size(); j++) {
+                        result += "Grade: " + item.grades.get(j) + "." + item.writtenComments.get(j);
                     }
 
                 }
                 result += '-';
             }
 
-            if (noReviewedItem == ItemList.size()){
+            if (noReviewedItem == ItemList.size()) {
                 return ("No items were reviewed yet");
-            }
-            else{
+            } else {
                 return result;
             }
         }
     }
 
 
-
-    public Item GetMostAndLeastReviewedItems(){
+    public Item GetMostAndLeastReviewedItems() {
         Item min = ItemList.get(0);
         Item max = ItemList.get(0);
 
         int minIndex = 0;
         int maxIndex = 0;
 
-        for(int i = 1; i < ItemList.size(); i++){
-            if(ItemList.get(i).GetReviewLength() < min.GetReviewLength()){
+        for (int i = 1; i < ItemList.size(); i++) {
+            if (ItemList.get(i).GetReviewLength() < min.GetReviewLength()) {
                 min = ItemList.get(i);
                 minIndex = i;
             }
-            if(ItemList.get(i).GetReviewLength() > max.GetReviewLength()){
+            if (ItemList.get(i).GetReviewLength() > max.GetReviewLength()) {
                 max = ItemList.get(i);
                 maxIndex = i;
             }
         }
 
         System.out.println("Most reviews: <num reviews> review(s) each.\n" +
-                max.GetId() +": " + max.GetName()+ " " + max.GetPrice() +" SEK\n" );
+                max.GetId() + ": " + max.GetName() + " " + max.GetPrice() + " SEK\n");
 
         System.out.println("Most reviews: <num reviews> review(s) each.\n" +
-                min.GetId() +": " + min.GetName()+ " " + min.GetPrice() +" SEK\n" );
+                min.GetId() + ": " + min.GetName() + " " + min.GetPrice() + " SEK\n");
 
         return max;
 
@@ -315,42 +297,41 @@ public class Items {
     }
 
     // 3.8 Print items with highest / lowest grades ~ Dylan
-    public Item GetHighestGrade(){
+    public Item GetHighestGrade() {
         Item min = ItemList.get(0);
         Item max = ItemList.get(0);
 
         int minIndex = 0;
         int maxIndex = 0;
 
-        for(int i = 1; i < ItemList.size(); i++){
-            if(ItemList.get(i).GetMeanGrade() < min.GetMeanGrade()){
+        for (int i = 1; i < ItemList.size(); i++) {
+            if (ItemList.get(i).GetMeanGrade() < min.GetMeanGrade()) {
                 min = ItemList.get(i);
                 minIndex = i;
             }
-            if(ItemList.get(i).GetMeanGrade() > max.GetMeanGrade()){
+            if (ItemList.get(i).GetMeanGrade() > max.GetMeanGrade()) {
                 max = ItemList.get(i);
                 maxIndex = i;
             }
         }
 
 
-
         return max;
     }
 
-    public Item GetLowestGrade(){
+    public Item GetLowestGrade() {
         Item min = ItemList.get(0);
         Item max = ItemList.get(0);
 
         int minIndex = 0;
         int maxIndex = 0;
 
-        for(int i = 1; i < ItemList.size(); i++){
-            if(ItemList.get(i).GetMeanGrade() < min.GetMeanGrade()){
+        for (int i = 1; i < ItemList.size(); i++) {
+            if (ItemList.get(i).GetMeanGrade() < min.GetMeanGrade()) {
                 min = ItemList.get(i);
                 minIndex = i;
             }
-            if(ItemList.get(i).GetMeanGrade() > max.GetMeanGrade()){
+            if (ItemList.get(i).GetMeanGrade() > max.GetMeanGrade()) {
                 max = ItemList.get(i);
                 maxIndex = i;
             }
@@ -361,16 +342,36 @@ public class Items {
 
     //4.1 - Nia and Oscar - Implemented in buy product method
 
-    //4.2
+    //creating a checker if an item exists
+
+    public String checkIfItemExists(String ID) {
+         String result = "";
+         boolean checker;
+
+        for(int i=0; i < ItemList.size(); i++){
+
+            if(ID.equals(ItemList.get(i).ID){
+
+
+        }
 
 
 
 
-
-
+    }
 
 
 }
+}
+
+
+
+
+
+
+
+
+
 
 
 

@@ -4,15 +4,15 @@ public class Item {
  
     public  String Name;
     public  double Price;
-    public  int  ID;
+    public  int ID;
     public ArrayList <Integer> grades;
     public ArrayList <String> writtenComments;
     public ArrayList<Transaction> transactionList;
     public ArrayList<String> transactionStringArray;
 
 
-    public Item(String Name, double Price , int  ID) {
-        if(Price < 0 || ID <0 || Name != "") {
+    public Item(String Name, double Price , int ID) {
+        if(Price < 0 || ID<0 || Name != "") {
             throw new IllegalArgumentException("Invalid data for item.");
         }
         this.Name = Name;
