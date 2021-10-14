@@ -1,25 +1,26 @@
+package clothingstore;
+
 import java.util.ArrayList;
 
+
 public class Items {
-    public ArrayList<Item> ItemList;
-
-
+    public ArrayList<Item> itemList;
     public Items(){
-        ItemList  =  new ArrayList<Item>();
+        itemList  =  new ArrayList<Item>();
     }
 
     //SEARCH FOR AN ITEM BY USING THE ID
-    public Item GetItemById(int ID) {
-        for(Item item : ItemList) {
-            if(item.GetId() == ID) {
+    public Item getItemByID(String ID) {
+        for(Item item : itemList) {
+            if(item.equals(ID)){
                 return item;
             }
         }
         return null;
     }
     //METHOD FOR BUYING AN ITEM
-    public double BuyItems(int ID , int amount) {
-        Item I = GetItemById(ID);
+    public double BuyItems(String ID , int amount) {
+        Item I = getItemByID(ID);
         double quantity = (double) amount;
         if(quantity < 0) {
             throw new IllegalArgumentException("Invalid data for item.");
@@ -33,7 +34,7 @@ public class Items {
 
         Transaction transaction = new Transaction(ID, Total, amount);
         I.transactionList.add(transaction);
-        final String transactionString = transaction.ID +  ": " + transaction.unitsSold  + " item(s). " + I.GetPrice() + " SEK";
+        final String transactionString = transaction.getID() +  ": " + transaction.getUnitsSold()  + " item(s). " + I.GetPrice() + " SEK";
         I.transactionStringArray.add(transactionString);
 
 
@@ -41,11 +42,11 @@ public class Items {
 
     }
 
-    public String createItem (String Name, double Price , int ID){
+    public String createItem (String Name, double Price , String ID){
         String result = "";
-        Item item = new Item (Name, Price, ID);
-        ItemList.add(item);
-        result = "Item " + item.ID + " was registered successfully";
+        Item item = new Item (ID, Name, Price);
+        itemList.add(item);
+        result = "Item " + item.GetId() + " was registered successfully.";
         return result;
 
     }
@@ -54,35 +55,36 @@ public class Items {
     public void addItem(Item newItem) {
 
         //Item item = new Item(String Name, double Price, int ID);
-        ItemList.add(newItem);
+        itemList.add(newItem);
     }
 
     // ##  I did changes to 2.5; 2.6; 2.7
     //remove items - 2.5
     public String removeItem (){
 
-        int inputID = UserInput.readInt("Enter the desire ID: ");
-        Item inputItem = GetItemById(inputID);
+        String inputID = UserInput.readString("Enter the desired ID: ");
+        Item inputItem = getItemByID(inputID);
 
-        boolean checker = ItemList.remove(inputItem);
+        boolean checker = itemList.remove(inputItem);
 
         if (checker) {
-            return ("Item " + inputItem.ID + " was successfully removed");
+            return ("Item " + inputItem.GetId() + " was successfully removed");
         }
 
         else{
             return ("Item" + inputID + "could not be removed.");
-    }
         }
+
+    }
 
 
     //print specific item? - 2.6
 
-    public void PrintSpecificItem(int ID) {
-        Item I = GetItemById(ID);
-
+    public String printSpecificItem(String ID) {
+        Item I = getItemByID(ID);
+        String result = "";
         if (I == null) {
-            System.out.println("Item" + ID + "was not registered yet.");
+            result = ("Item" + ID + "was not registered yet.");
         } else {
             //rounding steps, to 2nd decimal; ASK DYLAN!!!!!
             double priceOfItem = I.GetPrice();
@@ -90,10 +92,11 @@ public class Items {
             double roundingThePrice = Math.round(priceOfItem * scale) / scale;
             roundingThePrice = priceOfItem;
 
-            System.out.println(I.GetId() + ":" + I.GetName() + "  " + priceOfItem + "SEK.");
+            result = (I.GetId() + ":" + I.GetName() + "  " + priceOfItem + "SEK.");
 
         }
 
+        return result;
     }
     //print all registered items - 2.7
     //we cannot put prints on other classes that are not main so
@@ -102,21 +105,21 @@ public class Items {
     public void printAllItems() {
         System.out.println("All registered items:");
 
-        if (ItemList.isEmpty()) {
+        if (itemList.isEmpty()) {
             System.out.println("No items registered yet.");
 
         } else {
 
-            for (Item item : ItemList) {
-                System.out.println(item.GetId() + ":" + item.GetName() + ". " + item.GetPrice() + "SEK.");
+            for (Item item : itemList) {
+                System.out.println(item.GetId() + ": " + item.GetName() + ". " + item.GetPrice() + "SEK");
             }
 
         }
     }//method transaction menu
     public void totalProfitFromAllItemsPurchased() {
         double totalProfit = 0;
-        for (int i = 0; i < ItemList.size(); i++) {
-            Item item = ItemList.get(i);
+        for (int i = 0; i < itemList.size(); i++) {
+            Item item = itemList.get(i);
             double specificPrice = item.GetPrice();
             totalProfit += specificPrice;
         }
@@ -129,13 +132,14 @@ public class Items {
 
     //method creating reviews
     //the need of a scanner?
-    public void createReviews(int ID) {
+    public void createReviews(String ID) {
 
+        //Pass these inputs to the menu class
         int grade = UserInput.readInt("You can choose a grade for your review between 1 to 5. Please, type your grade here:");
 
         String writtenComment = UserInput.readString("Optionally, you can add a written comment if you'd like:");
 
-        Item item = GetItemById(ID);
+        Item item = getItemByID(ID);
         if (item == null ) {
             System.out.println("Item" + ID + "was not registered yet.");
 
@@ -153,14 +157,14 @@ public class Items {
     //3.2 - Nia
     //print a specific item review
 
-    public void printSpecificItemReview(int ID){
+    public void printSpecificItemReview(String ID){
         //specifying the item ID
         //index of the desired review - from 1(first item's review)
 
         int i = UserInput.readInt("Type the index of the desired review: \n" +"" +
                 "*This means if you want to get an item's first review, you should type 1*");
 
-        Item item = GetItemById(ID);
+        Item item = getItemByID(ID);
 
         if (item == null){
             System.out.println("Item" + ID + "was not registered yet");
@@ -180,9 +184,9 @@ public class Items {
     }
 
     //3.3 - Nia
-    public void printAllReviewsForAnItem(int ID){
+    public void printAllReviewsForAnItem(String ID){
 
-        Item item = GetItemById(ID);
+        Item item = getItemByID(ID);
 
         if(item == null){
             System.out.println("Item" + ID + "was not registered yet.");
@@ -204,15 +208,15 @@ public class Items {
 
 
     //3.4 - Oscar
-    public String retrieveMeanGradeItem(int inputID) {
+    public String retrieveMeanGradeItem(String inputID) {
 
-        Item inputItem = GetItemById(inputID);
+        Item inputItem = getItemByID(inputID);
         if (inputItem == null){
             return ("Item " + inputID + " was not registered yet.");
         }
 
         else if(inputItem.grades.size() == 0) {
-            return ("Item " + inputItem.Name + " has not been reviewed yet");
+            return ("Item " + inputItem.name + " has not been reviewed yet");
         }
 
         else {
@@ -227,9 +231,9 @@ public class Items {
     }
 
     //3.5 - Oscar
-    public String retrieveCommentsItem(int inputID){
+    public String retrieveCommentsItem(String inputID){
 
-        Item inputItem = GetItemById(inputID);
+        Item inputItem = getItemByID(inputID);
 
         if (inputItem == null || inputItem.writtenComments.size() == 0){
             return "Empty Collection";
@@ -252,12 +256,12 @@ public class Items {
         String result = "All registered reviews: \n"
                         + "- \n";
 
-        if (ItemList.size() == 0) {
+        if (itemList.size() == 0) {
             return "No items registered yet";
         }
 
         else {
-            for (Item item : ItemList) {
+            for (Item item : itemList) {
                 if ((item.writtenComments.size()==0 || item.writtenComments.isEmpty()) && item.grades.size() == 0) {
                     noReviewedItem ++;
                     //checking if all items have not been reviewed, if this variable
@@ -265,7 +269,7 @@ public class Items {
                 }
 
                 else {
-                    result += "Review(s) for " + item.ID + ": " + item.Name + ". " + item.Price + " SEK + \n";
+                    result += "Review(s) for " + item.ID + ": " + item.name + ". " + item.price + " SEK + \n";
                     for (int j= 0; j < item.grades.size(); j ++) {
                         result += "Grade: " + item.grades.get(j) + "."+ item.writtenComments.get(j);
                     }
@@ -274,7 +278,7 @@ public class Items {
                 result += '-';
             }
 
-            if (noReviewedItem == ItemList.size()){
+            if (noReviewedItem == itemList.size()){
                 return ("No items were reviewed yet");
             }
             else{
@@ -286,19 +290,19 @@ public class Items {
 
 
     public Item GetMostAndLeastReviewedItems(){
-        Item min = ItemList.get(0);
-        Item max = ItemList.get(0);
+        Item min = itemList.get(0);
+        Item max = itemList.get(0);
 
         int minIndex = 0;
         int maxIndex = 0;
 
-        for(int i = 1; i < ItemList.size(); i++){
-            if(ItemList.get(i).GetReviewLength() < min.GetReviewLength()){
-                min = ItemList.get(i);
+        for(int i = 1; i < itemList.size(); i++){
+            if(itemList.get(i).GetReviewLength() < min.GetReviewLength()){
+                min = itemList.get(i);
                 minIndex = i;
             }
-            if(ItemList.get(i).GetReviewLength() > max.GetReviewLength()){
-                max = ItemList.get(i);
+            if(itemList.get(i).GetReviewLength() > max.GetReviewLength()){
+                max = itemList.get(i);
                 maxIndex = i;
             }
         }
@@ -316,19 +320,19 @@ public class Items {
 
     // 3.8 Print items with highest / lowest grades ~ Dylan
     public Item GetHighestGrade(){
-        Item min = ItemList.get(0);
-        Item max = ItemList.get(0);
+        Item min = itemList.get(0);
+        Item max = itemList.get(0);
 
         int minIndex = 0;
         int maxIndex = 0;
 
-        for(int i = 1; i < ItemList.size(); i++){
-            if(ItemList.get(i).GetMeanGrade() < min.GetMeanGrade()){
-                min = ItemList.get(i);
+        for(int i = 1; i < itemList.size(); i++){
+            if(itemList.get(i).GetMeanGrade() < min.GetMeanGrade()){
+                min = itemList.get(i);
                 minIndex = i;
             }
-            if(ItemList.get(i).GetMeanGrade() > max.GetMeanGrade()){
-                max = ItemList.get(i);
+            if(itemList.get(i).GetMeanGrade() > max.GetMeanGrade()){
+                max = itemList.get(i);
                 maxIndex = i;
             }
         }
@@ -339,19 +343,19 @@ public class Items {
     }
 
     public Item GetLowestGrade(){
-        Item min = ItemList.get(0);
-        Item max = ItemList.get(0);
+        Item min = itemList.get(0);
+        Item max = itemList.get(0);
 
         int minIndex = 0;
         int maxIndex = 0;
 
-        for(int i = 1; i < ItemList.size(); i++){
-            if(ItemList.get(i).GetMeanGrade() < min.GetMeanGrade()){
-                min = ItemList.get(i);
+        for(int i = 1; i < itemList.size(); i++){
+            if(itemList.get(i).GetMeanGrade() < min.GetMeanGrade()){
+                min = itemList.get(i);
                 minIndex = i;
             }
-            if(ItemList.get(i).GetMeanGrade() > max.GetMeanGrade()){
-                max = ItemList.get(i);
+            if(itemList.get(i).GetMeanGrade() > max.GetMeanGrade()){
+                max = itemList.get(i);
                 maxIndex = i;
             }
         }

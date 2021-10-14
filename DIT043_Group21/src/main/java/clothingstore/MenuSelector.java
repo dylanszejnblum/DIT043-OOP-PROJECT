@@ -1,3 +1,5 @@
+package clothingstore;
+
 public class MenuSelector {
     public static void main(String[] args) {
         int choice = -1;
@@ -108,8 +110,6 @@ public class MenuSelector {
                 String Name = UserInput.readString("Specify the name of the item: ");
                 double Price = UserInput.readDouble("Specify the price of the item: ");
                 String ID = UserInput.readString("Specify the ID of the item: ");
-
-                if (Price <= 0 || )
 
                 items.createItem(Name, Price, ID);
 
