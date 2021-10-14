@@ -125,13 +125,13 @@ public class MenuSelector {
             case 5:
                 //Find the specific item from all items by ID,
                 Name = UserInput.readString("Specify the new name of the item: ");
-                item.UpdateNameItem( Name);
+                item.updateNameItem( Name);
                 break;
             case 6:
                 //Find the specific item from all items by ID,
                 //Call the item.Update method
                 Price = UserInput.readDouble("Specify the new price of the item: ");
-                item.UpdatePriceItem( Price);
+                item.updatePriceItem( Price);
                 break;
             default:
                 System.out.println("Invalid menu option. Please type another option");

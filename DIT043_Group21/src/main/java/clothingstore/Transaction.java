@@ -29,11 +29,11 @@ public class Transaction {
         return ID;
     }
 
-    public double getTotalProfit() {
+    public double getTotalProfitItem() {
         return totalProfit;
     }
 
-    public int getTotalUnitsSold() {
+    public int getTotalUnitsSoldItem() {
         return totalUnitsSold;
     }
 
@@ -53,11 +53,45 @@ public class Transaction {
         this.totalProfit = totalProfit;
     }
 
-    public void setTotalUnitsSold(int totalUnitsSold) {
+    public void setTotalUnitsSoldItem(int totalUnitsSold) {
         this.totalUnitsSold = totalUnitsSold;
     }
 
-    public double getTotalProfit(Item item) {
+    //method for getting the profit of all transactions
+    public double getTotalProfit(){
+        double profitOfAllPurchases = 0.0;
+        for (Item item : items.itemList) {
+            for (Transaction currentTransaction :item.transactionList) {
+                profitOfAllPurchases += currentTransaction.getProfit();
+            }
+        }
+        return profitOfAllPurchases;
+    }
+
+    //method for getting the units sold of all the transactions made till the moment.
+    public int getTotalUnitsSold(){
+        int unitsSoldOfAllPurchases = 0;
+        for (Item item : items.itemList) {
+            for (Transaction currentTransaction :item.transactionList) {
+                unitsSoldOfAllPurchases += currentTransaction.getProfit();
+            }
+        }
+        return unitsSoldOfAllPurchases;
+    }
+
+    //method for getting the all the transactions made till the moment.
+    public int getTotalTransactions(){
+        int totalTransactions = 0;
+        for (Item item : items.itemList) {
+            for (Transaction currentTransaction :item.transactionList) {
+                totalTransactions += currentTransaction.getProfit();
+            }
+        }
+        return totalTransactions;
+    }
+
+
+    public double getTotalProfitItem(Item item) {
         for (Transaction transaction : item.transactionList) {
             totalProfit += transaction.getProfit();
         }
@@ -65,7 +99,7 @@ public class Transaction {
         return totalProfit;
     }
 
-    public int getTotalUnitsSold(Item item) {
+    public int getTotalUnitsSoldItem(Item item) {
         for (Transaction transaction : item.transactionList) {
             totalUnitsSold += transaction.getUnitsSold();
         }
@@ -73,15 +107,15 @@ public class Transaction {
         return totalUnitsSold;
     }
 
-    public int getNumberOfTransactions(Item item) {
+    public int getNumberOfTransactionsItem(Item item) {
         int numberOfTransactions = item.transactionList.size();
 
         return numberOfTransactions;
     }
 
-    public void printTransactions(Item item) {
+    public void printTransactionsItem(Item item) {
 
-        System.out.println("Transactions for item: "+ item.GetId() + ": " + item.GetName() + ". " + item.GetPrice() + " SEK" );
+        System.out.println("Transactions for item: "+ item.getId() + ": " + item.getName() + ". " + item.getPrice() + " SEK" );
 
         for (String transaction : item.transactionStringArray) {
 
@@ -98,24 +132,35 @@ public class Transaction {
         }
 
         else if (item.transactionList.isEmpty()){
-            return "Transactions for item: " + ID +": " + item.GetName() + ". " + item.GetPrice() + " SEK \n "+
+            return "Transactions for item: " + ID +": " + item.getName() + ". " + item.getPrice() + " SEK \n "+
                     "No transactions have been registered for item " + ID + " yet.";
         }
         for (Transaction currentTransaction : item.transactionList){
-            result += "Transactions for item:"+ ID+ ": " + item.GetName() +". "+ item.GetPrice()+ "SEK + \n";
-            result += currentTransaction.getID() + ": " + currentTransaction.getUnitsSold() + " item(s). " + item.GetPrice() + " SEK + \n";
+            result += "Transactions for item:"+ ID+ ": " + item.getName() +". "+ item.getPrice()+ "SEK + \n";
+            result += currentTransaction.getID() + ": " + currentTransaction.getUnitsSold() + " item(s). " + item.getPrice() + " SEK + \n";
 
         }
         return result;
     }
 
     //4.4 - Oscar
-    /*
-    public String retrieveDataAllTransactions (String ID){
 
+    public double retrieveAllItemPurchases (){
+        if (item.transactionList.isEmpty()){return 0;}
+        return getTotalProfit();
+    }
+    public int retrieveAllUnitsSold() {
+        if (item.transactionList.isEmpty()){return 0;}
+        return getTotalUnitsSold();
+    }
+    public int retrieveAllTransactions(){
+        if (item.transactionList.isEmpty()){return 0;}
+        return getTotalTransactions();
     }
 
-     */
+
+
+
 
 
 }

@@ -13,36 +13,38 @@ public class Item {
     public ArrayList<String> transactionStringArray;
 
 
-    public Item(String  ID,String Name, double Price) {
-        if(Price < 0 || ID.isEmpty() || Name != "") {
+    public Item(String  ID,String name, double price) {
+        this.name = name;
+        this.price = price;
+        this.ID = ID;
+        /*
+        if(price < 0 || ID.isEmpty() || name != "") {
             throw new IllegalArgumentException("Invalid data for item.");
         }
-        this.name = Name;
-        this.price = Price;
-        this.ID = ID;
+        */
 
         this.grades = new  ArrayList<Integer>();
         this.writtenComments =  new ArrayList<String>();
 
     }
 
-    public String GetId() {
+    public String getId() {
         return this.ID;
     }
 
-    public double GetPrice() {
+    public double getPrice() {
         return this.price;
     }
 
-    public String GetName() {
+    public String getName() {
         return this.name;
     }
     // A function to update the Item Name and price
-    public int GetReviewLength(){
+    public int getReviewLength(){
         return this.writtenComments.size();
     }
 
-    public int GetMeanGrade(){
+    public int getMeanGrade(){
         int total = 0;
         int average = 0;
         for(int i = 0 ; i < grades.size(); i++){
@@ -54,12 +56,12 @@ public class Item {
         return average;
 
     }
-    public void UpdatePriceItem(double Price) {
+    public void updatePriceItem(double Price) {
         this.price = Price;
 
     }
 
-    public void UpdateNameItem(String Name) {
+    public void updateNameItem(String Name) {
         this.name = Name;
     }
 
@@ -71,7 +73,7 @@ public class Item {
             return false;
 
         } else if ( anotherItem instanceof Item ){
-            boolean isEqualItem = (this.GetId() ==  anotherItem.GetId()) ;
+            boolean isEqualItem = (this.getId() ==  anotherItem.getId()) ;
             return isEqualItem;
 
         } else {

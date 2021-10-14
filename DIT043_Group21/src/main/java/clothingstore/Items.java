@@ -2,12 +2,20 @@ package clothingstore;
 
 import java.util.ArrayList;
 
-
 public class Items {
+
+    public Item item;
+
     public ArrayList<Item> itemList;
     public Items(){
         itemList  =  new ArrayList<Item>();
     }
+
+    //CHECK IF AN ITEM EXISTS
+    //We need a method for checking if an item exists
+
+    
+
 
     //SEARCH FOR AN ITEM BY USING THE ID
     public Item getItemByID(String ID) {
@@ -26,7 +34,7 @@ public class Items {
             throw new IllegalArgumentException("Invalid data for item.");
         }
 
-        double Total = I.GetPrice() * quantity;
+        double Total = I.getPrice() * quantity;
 
         if(quantity > 4) {
             Total = (Total * 0.7);
@@ -34,7 +42,7 @@ public class Items {
 
         Transaction transaction = new Transaction(ID, Total, amount);
         I.transactionList.add(transaction);
-        final String transactionString = transaction.getID() +  ": " + transaction.getUnitsSold()  + " item(s). " + I.GetPrice() + " SEK";
+        final String transactionString = transaction.getID() +  ": " + transaction.getUnitsSold()  + " item(s). " + I.getPrice() + " SEK";
         I.transactionStringArray.add(transactionString);
 
 
@@ -42,12 +50,17 @@ public class Items {
 
     }
 
-    public String createItem (String Name, double Price , String ID){
+    public String createItem (String name, double price , String ID){
         String result = "";
-        Item item = new Item (ID, Name, Price);
+
+        Item item = new Item (ID, name, price);
+
+        if(price < 0 || ID.isEmpty() || name == "") {
+            return "Invalid data for item.";
+        }
         itemList.add(item);
-        result = "Item " + item.GetId() + " was registered successfully.";
-        return result;
+        return ("Item " + item.getId() + " was registered successfully.");
+
 
     }
 
@@ -68,7 +81,7 @@ public class Items {
         boolean checker = itemList.remove(inputItem);
 
         if (checker) {
-            return ("Item " + inputItem.GetId() + " was successfully removed");
+            return ("Item " + inputItem.getId() + " was successfully removed");
         }
 
         else{
@@ -81,18 +94,20 @@ public class Items {
     //print specific item? - 2.6
 
     public String printSpecificItem(String ID) {
-        Item I = getItemByID(ID);
+        Item item = getItemByID(ID);
         String result = "";
-        if (I == null) {
-            result = ("Item" + ID + "was not registered yet.");
+
+        if (returnNotRegistered(ID)) {
+            result = ("Item " + ID + " was not registered yet.");
         } else {
+
             //rounding steps, to 2nd decimal; ASK DYLAN!!!!!
-            double priceOfItem = I.GetPrice();
+            double priceOfItem = item.getPrice();
             double scale = Math.pow(10, 2);
             double roundingThePrice = Math.round(priceOfItem * scale) / scale;
             roundingThePrice = priceOfItem;
 
-            result = (I.GetId() + ":" + I.GetName() + "  " + priceOfItem + "SEK.");
+            result = (item.getId() + ":" + item.getName() + "  " + priceOfItem + "SEK.");
 
         }
 
@@ -111,7 +126,7 @@ public class Items {
         } else {
 
             for (Item item : itemList) {
-                System.out.println(item.GetId() + ": " + item.GetName() + ". " + item.GetPrice() + "SEK");
+                System.out.println(item.getId() + ": " + item.getName() + ". " + item.getPrice() + "SEK");
             }
 
         }
@@ -120,7 +135,7 @@ public class Items {
         double totalProfit = 0;
         for (int i = 0; i < itemList.size(); i++) {
             Item item = itemList.get(i);
-            double specificPrice = item.GetPrice();
+            double specificPrice = item.getPrice();
             totalProfit += specificPrice;
         }
         System.out.println(totalProfit);
@@ -170,7 +185,7 @@ public class Items {
             System.out.println("Item" + ID + "was not registered yet");
         }
         if(item.grades.size() == 0 && item.writtenComments.size() == 0){
-            System.out.println("Item" + item.GetName() + "has not been reviewed yet.");
+            System.out.println("Item" + item.getName() + "has not been reviewed yet.");
         }
 
         else if(i < 1) {
@@ -192,12 +207,12 @@ public class Items {
             System.out.println("Item" + ID + "was not registered yet.");
         }
         else if (item.grades.size() == 0 && item.writtenComments.size() == 0){
-            System.out.println("Review(s) for " + ID + ": " + item.GetName() + ". " + item.GetPrice() + "SEK.\n" +
-                    "Item " + item.GetName() + " has not been reviewed yet." );
+            System.out.println("Review(s) for " + ID + ": " + item.getName() + ". " + item.getPrice() + "SEK.\n" +
+                    "Item " + item.getName() + " has not been reviewed yet." );
         }
 
         else{
-            System.out.println("Review(s) for "  + ID + ": " + item.GetName() + ". " + item.GetPrice() + "SEK.");
+            System.out.println("Review(s) for "  + ID + ": " + item.getName() + ". " + item.getPrice() + "SEK.");
 
             for(int i = 0; i < item.grades.size(); i++) {
                 System.out.println("Grade: " + item.grades.get(i) + "." + item.writtenComments.get(i));
@@ -297,21 +312,21 @@ public class Items {
         int maxIndex = 0;
 
         for(int i = 1; i < itemList.size(); i++){
-            if(itemList.get(i).GetReviewLength() < min.GetReviewLength()){
+            if(itemList.get(i).getReviewLength() < min.getReviewLength()){
                 min = itemList.get(i);
                 minIndex = i;
             }
-            if(itemList.get(i).GetReviewLength() > max.GetReviewLength()){
+            if(itemList.get(i).getReviewLength() > max.getReviewLength()){
                 max = itemList.get(i);
                 maxIndex = i;
             }
         }
 
         System.out.println("Most reviews: <num reviews> review(s) each.\n" +
-                max.GetId() +": " + max.GetName()+ " " + max.GetPrice() +" SEK\n" );
+                max.getId() +": " + max.getName()+ " " + max.getPrice() +" SEK\n" );
 
         System.out.println("Most reviews: <num reviews> review(s) each.\n" +
-                min.GetId() +": " + min.GetName()+ " " + min.GetPrice() +" SEK\n" );
+                min.getId() +": " + min.getName()+ " " + min.getPrice() +" SEK\n" );
 
         return max;
 
@@ -327,11 +342,11 @@ public class Items {
         int maxIndex = 0;
 
         for(int i = 1; i < itemList.size(); i++){
-            if(itemList.get(i).GetMeanGrade() < min.GetMeanGrade()){
+            if(itemList.get(i).getMeanGrade() < min.getMeanGrade()){
                 min = itemList.get(i);
                 minIndex = i;
             }
-            if(itemList.get(i).GetMeanGrade() > max.GetMeanGrade()){
+            if(itemList.get(i).getMeanGrade() > max.getMeanGrade()){
                 max = itemList.get(i);
                 maxIndex = i;
             }
@@ -350,11 +365,11 @@ public class Items {
         int maxIndex = 0;
 
         for(int i = 1; i < itemList.size(); i++){
-            if(itemList.get(i).GetMeanGrade() < min.GetMeanGrade()){
+            if(itemList.get(i).getMeanGrade() < min.getMeanGrade()){
                 min = itemList.get(i);
                 minIndex = i;
             }
-            if(itemList.get(i).GetMeanGrade() > max.GetMeanGrade()){
+            if(itemList.get(i).getMeanGrade() > max.getMeanGrade()){
                 max = itemList.get(i);
                 maxIndex = i;
             }
