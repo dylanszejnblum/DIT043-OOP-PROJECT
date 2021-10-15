@@ -2,7 +2,10 @@ package clothingstore;
 
 import java.util.ArrayList;
 
+
 public class Item {
+
+    public Items items = new Items();
  
     public  String name;
     public  double price;
@@ -61,9 +64,15 @@ public class Item {
 
     }
 
-    public void updateNameItem(String Name) {
-        this.name = Name;
+    public String updateNameItem(String itemID, String newName) {
+        if(itemID.isEmpty() || newName == "") {
+            return "Invalid data for item.";
+        }
+        Item inputItem = items.getItemByID(itemID);
+        inputItem.name = newName;
+        return "Item " + itemID + " was updated successfully";
     }
+
 
     public boolean equals(Item anotherItem){
         if(anotherItem == this){
@@ -73,12 +82,17 @@ public class Item {
             return false;
 
         } else if ( anotherItem instanceof Item ){
-            boolean isEqualItem = (this.getId() ==  anotherItem.getId()) ;
-            return isEqualItem;
+            return (this.getId() ==  anotherItem.getId());
 
         } else {
             return false;
         }
+    }
+
+    public double truncateValue (double input) {
+        input = input * Math.pow(10.0, 2.0);
+        int newValue = (int)input;
+        return newValue / Math.pow(10.0, 2.0);
     }
 
 

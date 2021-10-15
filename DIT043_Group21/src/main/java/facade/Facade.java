@@ -7,6 +7,7 @@ import clothingstore.*;
 public class Facade {
 
     Items items = new Items(); //instantiate the object
+    public Item item;
 
     // This class only has the skeleton of the methods used by the test.
     // You must fill in this class with your own code. You can (and should) create more classes
@@ -18,23 +19,18 @@ public class Facade {
 
     public String createItem(String itemID, String itemName, double unitPrice){
         //instantiate the item object
-
         return  items.createItem(itemName, unitPrice, itemID);
-
-
     }
-
     public String printItem(String itemID) {
         return items.printSpecificItem(itemID);
 
     }
-
     public String removeItem(String itemID) {
-        return "";
+        return items.removeItem(itemID);
     }
 
     public boolean containsItem(String itemID) {
-        return false;
+        return items.itemExistenceChecker(itemID);
     }
 
     public double buyItem(String itemID, int amount) {
@@ -138,7 +134,7 @@ public class Facade {
     }
 
     public String updateItemName(String itemID, String newName) {
-        return "";
+        return item.updateNameItem(itemID, newName);
     }
 
     public String updateItemPrice(String itemID, double newPrice) {

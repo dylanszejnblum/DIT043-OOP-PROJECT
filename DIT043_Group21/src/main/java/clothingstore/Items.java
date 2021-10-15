@@ -12,17 +12,25 @@ public class Items {
     }
 
     //CHECK IF AN ITEM EXISTS
-    //We need a method for checking if an item exists
 
-    
+    //We need a method for checking if an item exists
+    public boolean itemExistenceChecker(String ID){
+        for (Item item : itemList) {
+            if (item.getId().equals(ID)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     //SEARCH FOR AN ITEM BY USING THE ID
     public Item getItemByID(String ID) {
         for(Item item : itemList) {
-            if(item.equals(ID)){
+            if(item.getId().equals(ID)){
                 return item;
             }
+            //what about if it does not find it, return null? we need an alternative
         }
         return null;
     }
@@ -73,15 +81,14 @@ public class Items {
 
     // ##  I did changes to 2.5; 2.6; 2.7
     //remove items - 2.5
-    public String removeItem (){
+    public String removeItem (String inputID){
 
-        String inputID = UserInput.readString("Enter the desired ID: ");
         Item inputItem = getItemByID(inputID);
 
         boolean checker = itemList.remove(inputItem);
 
         if (checker) {
-            return ("Item " + inputItem.getId() + " was successfully removed");
+            return ("Item " + inputItem.getId() + " was successfully removed.");
         }
 
         else{
@@ -94,40 +101,35 @@ public class Items {
     //print specific item? - 2.6
 
     public String printSpecificItem(String ID) {
-        Item item = getItemByID(ID);
-        String result = "";
 
-        if (returnNotRegistered(ID)) {
-            result = ("Item " + ID + " was not registered yet.");
+        if (!itemExistenceChecker(ID)) {
+            return("Item " + ID + " was not registered yet.");
+
         } else {
 
-            //rounding steps, to 2nd decimal; ASK DYLAN!!!!!
+            Item item = getItemByID(ID);
             double priceOfItem = item.getPrice();
-            double scale = Math.pow(10, 2);
-            double roundingThePrice = Math.round(priceOfItem * scale) / scale;
-            roundingThePrice = priceOfItem;
+            priceOfItem = item.truncateValue(priceOfItem);
 
-            result = (item.getId() + ":" + item.getName() + "  " + priceOfItem + "SEK.");
+            return(item.getId() + ": " + item.getName() + ". " + priceOfItem + " SEK");
 
         }
-
-        return result;
     }
     //print all registered items - 2.7
     //we cannot put prints on other classes that are not main so
     //this may need to be changed into a return statement using a toString()
 
-    public void printAllItems() {
-        System.out.println("All registered items:");
-
+    public String printAllItems() {
+       String result  = ("All registered items: \n");
         if (itemList.isEmpty()) {
-            System.out.println("No items registered yet.");
+            return("No items registered yet.");
 
         } else {
 
             for (Item item : itemList) {
-                System.out.println(item.getId() + ": " + item.getName() + ". " + item.getPrice() + "SEK");
+                 result += (item.getId() + ": " + item.getName() + ". " + item.getPrice() + "SEK \n");
             }
+            return result;
 
         }
     }//method transaction menu

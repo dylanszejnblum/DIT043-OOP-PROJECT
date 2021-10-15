@@ -109,7 +109,8 @@ public class MenuSelector {
                 break;
 
             case 2:
-                items.removeItem();
+                String inputID = UserInput.readString("Enter the desired ID");
+                items.removeItem(inputID);
                 break;
 
             case 3:
@@ -124,8 +125,9 @@ public class MenuSelector {
 
             case 5:
                 //Find the specific item from all items by ID,
-                Name = UserInput.readString("Specify the new name of the item: ");
-                item.updateNameItem( Name);
+                String itemID = UserInput.readString("Specify the ID of the item: ");
+                String newName = UserInput.readString("Specify the new name of the item: ");
+                item.updateNameItem(newName, itemID);
                 break;
             case 6:
                 //Find the specific item from all items by ID,
