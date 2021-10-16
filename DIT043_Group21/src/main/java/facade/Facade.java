@@ -34,7 +34,7 @@ public class Facade {
     }
 
     public double buyItem(String itemID, int amount) {
-        return -1.0;
+        return items.buyItems(itemID, amount);
     }
 
     public String reviewItem(String itemID, String reviewComment, int reviewGrade) {

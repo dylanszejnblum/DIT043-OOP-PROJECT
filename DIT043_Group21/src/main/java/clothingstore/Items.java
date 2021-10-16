@@ -35,26 +35,34 @@ public class Items {
         return null;
     }
     //METHOD FOR BUYING AN ITEM
-    public double BuyItems(String ID , int amount) {
-        Item I = getItemByID(ID);
-        double quantity = (double) amount;
-        if(quantity < 0) {
-            throw new IllegalArgumentException("Invalid data for item.");
+    public double buyItems(String ID , int amount) {
+
+        if (!itemExistenceChecker(ID)) {
+            return -1;
         }
 
-        double Total = I.getPrice() * quantity;
+        else {
+            Item item = getItemByID(ID);
 
-        if(quantity > 4) {
-            Total = (Total * 0.7);
+            if ((double) amount < 0) {
+                return -1;
+            }
+
+            double total = item.getPrice() * (double) amount;
+
+            if ( amount > 4) {
+                total = (total * 0.7);
+            }
+
+
+            Transaction transaction = new Transaction(ID, total, amount);
+            item.transactionList.add(transaction);
+            final String transactionString = transaction.getID() + ": " + transaction.getUnitsSold() + " item(s). " + item.getPrice() + " SEK";
+            item.transactionStringArray.add(transactionString);
+
+            return total;
+
         }
-
-        Transaction transaction = new Transaction(ID, Total, amount);
-        I.transactionList.add(transaction);
-        final String transactionString = transaction.getID() +  ": " + transaction.getUnitsSold()  + " item(s). " + I.getPrice() + " SEK";
-        I.transactionStringArray.add(transactionString);
-
-
-        return Total;
 
     }
 

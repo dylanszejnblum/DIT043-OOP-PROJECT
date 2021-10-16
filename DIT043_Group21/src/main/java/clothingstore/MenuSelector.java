@@ -120,7 +120,7 @@ public class MenuSelector {
             case 4:
                 ID = UserInput.readString("Enter the desired ID: ");
                 int amount = UserInput.readInt("Enter the amount of Items you want to shop: ");
-                items.BuyItems(ID , amount); //we shouldnt specify the type when adding paratemers to an already created method
+                items.buyItems(ID , amount); //we shouldnt specify the type when adding paratemers to an already created method
                 break;
 
             case 5:
