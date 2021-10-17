@@ -3,8 +3,10 @@ package clothingstore;
 import java.util.ArrayList;
 
 
+
 public class Item {
 
+    public Methods methods;
     public Items items = new Items();
  
     public  String name;
@@ -33,7 +35,7 @@ public class Item {
     }
 
     public double getPrice() {
-        return this.truncateValue(price);
+        return this.methods.truncateValue(price);
     }
 
     public String getName() {

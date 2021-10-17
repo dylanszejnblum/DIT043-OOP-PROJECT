@@ -8,6 +8,7 @@ public class Facade {
 
     Items items = new Items(); //instantiate the object
     public Item item;
+    public Review review;
 
     // This class only has the skeleton of the methods used by the test.
     // You must fill in this class with your own code. You can (and should) create more classes
@@ -38,7 +39,8 @@ public class Facade {
     }
 
     public String reviewItem(String itemID, String reviewComment, int reviewGrade) {
-        return "";
+
+        return review.createReview( itemID,reviewGrade, reviewComment);
     }
 
     public String reviewItem(String itemID, int reviewGrade) {

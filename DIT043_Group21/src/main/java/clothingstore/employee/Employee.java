@@ -1,6 +1,4 @@
-package clothingstore;
-
-import java.util.IdentityHashMap;
+package clothingstore.employee;
 
 public class Employee {
     private String ID;
@@ -58,6 +56,12 @@ public class Employee {
             Employee employee = new Employee(ID, name, grossSalary);
             return "Employee " + ID + " registered successfully.";
         }
+    }
+
+    public double calculateNetSalary() {
+        double netSalary = 0.0;
+        netSalary = netSalary - (this.grossSalary*0.1);
+        return netSalary;
     }
 
 

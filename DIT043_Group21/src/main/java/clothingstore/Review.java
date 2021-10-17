@@ -38,7 +38,7 @@ public class Review {
     }
 
     //Is the opinion really optional??
-    public void createReview(String ID, int grade, String writtenComment){
+    public String createReview(String ID, int grade, String writtenComment){
         Review review = new Review(ID, grade, writtenComment);
         item.reviewList.add(review);
     }

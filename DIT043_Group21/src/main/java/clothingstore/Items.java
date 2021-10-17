@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Items {
 
     public Item item;
+    public Methods methods;
     public Review review;
 
     public ArrayList<Item> itemList;
@@ -51,12 +52,12 @@ public class Items {
 
             if ( amount > 4) {
                 total =  (4 * item.getPrice() + (amount-4)* (item.getPrice()*0.7));
-                return item.truncateValue(total);
+                return methods.truncateValue(total);
             }
 
             else{
                 total =  (item.getPrice()*(double)amount);
-                return item.truncateValue(total);
+                return methods.truncateValue(total);
             }
 
             /*
@@ -117,7 +118,7 @@ public class Items {
 
             Item item = getItemByID(ID);
             double priceOfItem = item.getPrice();
-            priceOfItem = item.truncateValue(priceOfItem);
+            priceOfItem = methods.truncateValue(priceOfItem);
 
             return(item.getId() + ": " + item.getName() + ". " + priceOfItem + " SEK");
 
