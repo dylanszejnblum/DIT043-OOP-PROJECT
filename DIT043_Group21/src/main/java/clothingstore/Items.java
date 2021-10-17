@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Items {
 
     public Item item;
+    public Review review;
 
     public ArrayList<Item> itemList;
     public Items(){
@@ -36,7 +37,7 @@ public class Items {
     }
     //METHOD FOR BUYING AN ITEM
     public double buyItems(String ID , int amount) {
-
+        double total = 0.0;
         if (!itemExistenceChecker(ID)) {
             return -1;
         }
@@ -48,36 +49,35 @@ public class Items {
                 return -1;
             }
 
-            double total = item.getPrice() * (double) amount;
-
             if ( amount > 4) {
-                total = (total * 0.7);
+                total =  (4 * item.getPrice() + (amount-4)* (item.getPrice()*0.7));
+                return item.truncateValue(total);
             }
 
+            else{
+                total =  (item.getPrice()*(double)amount);
+                return item.truncateValue(total);
+            }
 
+            /*
             Transaction transaction = new Transaction(ID, total, amount);
             item.transactionList.add(transaction);
             final String transactionString = transaction.getID() + ": " + transaction.getUnitsSold() + " item(s). " + item.getPrice() + " SEK";
             item.transactionStringArray.add(transactionString);
+             */
 
-            return total;
 
         }
-
     }
 
     public String createItem (String name, double price , String ID){
         String result = "";
-
         Item item = new Item (ID, name, price);
-
         if(price < 0 || ID.isEmpty() || name == "") {
             return "Invalid data for item.";
         }
         itemList.add(item);
         return ("Item " + item.getId() + " was registered successfully.");
-
-
     }
 
     // Simple add item method
@@ -128,14 +128,13 @@ public class Items {
     //this may need to be changed into a return statement using a toString()
 
     public String printAllItems() {
-       String result  = ("All registered items: \n");
+        String result  = ("All registered items: \n");
         if (itemList.isEmpty()) {
             return("No items registered yet.");
-
-        } else {
-
+        }
+        else {
             for (Item item : itemList) {
-                 result += (item.getId() + ": " + item.getName() + ". " + item.getPrice() + "SEK \n");
+                 result += (item.getId() + ": " + item.getName() + ". " + item.getPrice() + " SEK \n");
             }
             return result;
 
@@ -157,25 +156,22 @@ public class Items {
 
     //method creating reviews
     //the need of a scanner?
-    public void createReviews(String ID) {
+    public String createReviews(String ID, int grade, String writtenComment) {
 
         //Pass these inputs to the menu class
-        int grade = UserInput.readInt("You can choose a grade for your review between 1 to 5. Please, type your grade here:");
 
-        String writtenComment = UserInput.readString("Optionally, you can add a written comment if you'd like:");
+        if (!itemExistenceChecker(ID) ) {
+            return("Item" + ID + "was not registered yet.");
 
-        Item item = getItemByID(ID);
-        if (item == null ) {
-            System.out.println("Item" + ID + "was not registered yet.");
-
-        } else {
-            System.out.println("Your review was registered successfully.");
-
-            int i = item.grades.size();
-            item.grades.add(i, grade);
-            item.writtenComments.add(i, writtenComment);
-
-            System.out.println("Your review was registered successfully.");
+        }
+        else if (grade < 1 || grade > 5) {
+            return("Grade values must be between 1 and 5.");
+        }
+        else {
+            Item item = getItemByID(ID);
+            item.grades.add(grade);
+            item.writtenComments.add(writtenComment);
+            return("Your review was registered successfully.");
         }
 
     }

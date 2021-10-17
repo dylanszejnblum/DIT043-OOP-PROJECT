@@ -15,20 +15,17 @@ public class Item {
     public ArrayList<Transaction> transactionList;
     public ArrayList<String> transactionStringArray;
 
+    public ArrayList<Review> reviewList;
+
 
     public Item(String  ID,String name, double price) {
         this.name = name;
-        this.price = price;
+        this.price = price; // do we really need to truncate :)
         this.ID = ID;
-        /*
-        if(price < 0 || ID.isEmpty() || name != "") {
-            throw new IllegalArgumentException("Invalid data for item.");
-        }
-        */
-
         this.grades = new  ArrayList<Integer>();
         this.writtenComments =  new ArrayList<String>();
 
+        this.reviewList = new ArrayList<Review>();
     }
 
     public String getId() {
@@ -36,12 +33,14 @@ public class Item {
     }
 
     public double getPrice() {
-        return this.price;
+        return this.truncateValue(price);
     }
 
     public String getName() {
         return this.name;
     }
+
+    public void setName(String newName) {this.name = newName;}
     // A function to update the Item Name and price
     public int getReviewLength(){
         return this.writtenComments.size();
@@ -65,12 +64,27 @@ public class Item {
     }
 
     public String updateNameItem(String itemID, String newName) {
+        if (!items.itemExistenceChecker(itemID) || newName.isEmpty()) {
+            return "Invalid data for the item.";
+        }
+        else {
+
+            Item item = items.getItemByID(itemID);
+            item.setName(newName);
+            return  "Item "+ itemID+ " was updated successfully.";
+        }
+
+
+
+        /*
         if(itemID.isEmpty() || newName == "") {
             return "Invalid data for item.";
         }
         Item inputItem = items.getItemByID(itemID);
         inputItem.name = newName;
         return "Item " + itemID + " was updated successfully";
+
+         */
     }
 
 

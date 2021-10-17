@@ -5,6 +5,7 @@ public class MenuSelector {
     public Items items = new Items();
     public Item item;
 
+    //int grade = UserInput.readInt("You can choose a grade for your review between 1 to 5. Please, type your grade here:");
 
     //1.1 - printing method for our Main Menu
     public void printMainMenu() {
@@ -68,6 +69,22 @@ public class MenuSelector {
 
     }
 
+    public String printEmployeeMenu(){
+        return("Employee options menu: \n" +
+                "0. Return to Main Menu.\n" +
+                "1. Create an employee (Regular Employee).\n" +
+                "2. Create an employee (Manager).\n" +
+                "3. Create an employee (Director).\n" +
+                "4. Create an employee (Intern).\n" +
+                "5. Remove an employee.\n" +
+                "6. Print specific employee.\n" +
+                "7. Print all registered employees.\n"+
+                "8. Print the total expense with new salary.\n+" +
+                "9. Print all employees sorted by gross salary.\n"+
+                "\n"+ "Type an option number: ");
+    }
+
+
     //1.5 - method for the transaction from our MainMenu to the other Menus based on the user's input
     public void MainMenuOptions(int option) {
         switch (option) {
@@ -127,7 +144,7 @@ public class MenuSelector {
                 //Find the specific item from all items by ID,
                 String itemID = UserInput.readString("Specify the ID of the item: ");
                 String newName = UserInput.readString("Specify the new name of the item: ");
-                item.updateNameItem(newName, itemID);
+                //item.updateNameItem(newName, itemID);
                 break;
             case 6:
                 //Find the specific item from all items by ID,

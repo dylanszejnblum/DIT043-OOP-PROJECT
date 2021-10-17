@@ -23,8 +23,8 @@ public class Facade {
     }
     public String printItem(String itemID) {
         return items.printSpecificItem(itemID);
-
     }
+
     public String removeItem(String itemID) {
         return items.removeItem(itemID);
     }
@@ -142,7 +142,7 @@ public class Facade {
     }
 
     public String printAllItems() {
-        return "";
+        return items.printAllItems();
     }
 
     public String printMostProfitableItems() {
