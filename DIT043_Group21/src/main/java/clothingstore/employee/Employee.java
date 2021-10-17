@@ -1,6 +1,10 @@
 package clothingstore.employee;
+import clothingstore.Methods;
 
 public class Employee {
+
+    public Methods methods;
+
     private String ID;
     private String name;
     private double grossSalary;
@@ -8,7 +12,7 @@ public class Employee {
     public Employee(String ID, String name, double grossSalary) {
         this.ID = ID;
         this.name = name;
-        this.grossSalary = grossSalary;
+        this.grossSalary = methods.truncateValue(grossSalary);
     }
 
     public String getName(){
@@ -47,21 +51,15 @@ public class Employee {
     }
 
     public String createEmployee (String ID, String name, double grossSalary) {
-
-        if (ID.isEmpty()||name.isEmpty()||grossSalary< 0) {
-            return "Invalid data for an item. ";
-        }
-
-        else {
-            Employee employee = new Employee(ID, name, grossSalary);
-            return "Employee " + ID + " registered successfully.";
-        }
+        Employee employee = new Employee(ID, name, grossSalary);
+        return "Employee " + this.getID() + " registered successfully.";
+        
     }
 
     public double calculateNetSalary() {
         double netSalary = 0.0;
         netSalary = netSalary - (this.grossSalary*0.1);
-        return netSalary;
+        return (methods.truncateValue(netSalary));
     }
 
 

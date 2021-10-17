@@ -3,12 +3,14 @@ package facade;
 import java.util.List;
 import java.util.Map;
 import clothingstore.*;
+import clothingstore.employee.Employee;
 
 public class Facade {
 
     Items items = new Items(); //instantiate the object
     public Item item;
     public Review review;
+    public Employee employee;
 
     // This class only has the skeleton of the methods used by the test.
     // You must fill in this class with your own code. You can (and should) create more classes
@@ -152,7 +154,7 @@ public class Facade {
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary) throws Exception {
-        return "";
+        return employee.createEmployee(employeeID, employeeName, grossSalary);
     }
 
     public String printEmployee(String employeeID) throws Exception {
