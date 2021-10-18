@@ -10,6 +10,7 @@ public class Items {
 
     public ArrayList<Item> itemList;
     public Items(){
+        this.methods = new Methods();
         itemList  =  new ArrayList<Item>();
     }
 

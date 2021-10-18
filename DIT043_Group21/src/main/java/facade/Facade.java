@@ -138,7 +138,10 @@ public class Facade {
     }
 
     public String updateItemName(String itemID, String newName) {
-        return item.updateNameItem(itemID, newName);
+        //return item.updateNameItem(itemID, newName);
+        return items.getItemByID(itemID).updateNameItem(newName);
+        //Item
+        //Items
     }
 
     public String updateItemPrice(String itemID, double newPrice) {

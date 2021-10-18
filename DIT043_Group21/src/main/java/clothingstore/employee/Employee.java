@@ -8,6 +8,7 @@ public class Employee {
     private String ID;
     private String name;
     private double grossSalary;
+    final double TAX_PERCENTAGE = 0.1;
 
     public Employee(String ID, String name, double grossSalary) {
         this.ID = ID;
@@ -53,12 +54,12 @@ public class Employee {
     public String createEmployee (String ID, String name, double grossSalary) {
         Employee employee = new Employee(ID, name, grossSalary);
         return "Employee " + this.getID() + " registered successfully.";
-        
+
     }
 
     public double calculateNetSalary() {
         double netSalary = 0.0;
-        netSalary = netSalary - (this.grossSalary*0.1);
+        netSalary = netSalary - (this.grossSalary * TAX_PERCENTAGE);
         return (methods.truncateValue(netSalary));
     }
 

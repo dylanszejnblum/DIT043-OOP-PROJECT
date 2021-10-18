@@ -28,6 +28,8 @@ public class Item {
         this.writtenComments =  new ArrayList<String>();
 
         this.reviewList = new ArrayList<Review>();
+
+        this.methods = new Methods();
     }
 
     public String getId() {
@@ -65,15 +67,14 @@ public class Item {
 
     }
 
-    public String updateNameItem(String itemID, String newName) {
-        if (!items.itemExistenceChecker(itemID) || newName.isEmpty()) {
+    public String updateNameItem( String newName) {
+        if (newName.isEmpty()) {
             return "Invalid data for the item.";
         }
         else {
 
-            Item item = items.getItemByID(itemID);
-            item.setName(newName);
-            return  "Item "+ itemID+ " was updated successfully.";
+            setName(newName);
+            return  "Item "+ this.getId()+ " was updated successfully.";
         }
 
 
