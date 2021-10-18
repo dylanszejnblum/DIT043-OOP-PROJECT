@@ -149,8 +149,8 @@ public class MenuSelector {
             case 6:
                 //Find the specific item from all items by ID,
                 //Call the item.Update method
-                Price = UserInput.readDouble("Specify the new price of the item: ");
-                item.updatePriceItem( Price);
+                double newPrice = UserInput.readDouble("Specify the new price of the item: ");
+                item.updatePriceItem(newPrice);
                 break;
             default:
                 System.out.println("Invalid menu option. Please type another option");

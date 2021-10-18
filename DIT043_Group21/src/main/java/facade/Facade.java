@@ -145,7 +145,8 @@ public class Facade {
     }
 
     public String updateItemPrice(String itemID, double newPrice) {
-        return "";
+
+        return items.getItemByID(itemID).updatePriceItem(newPrice);
     }
 
     public String printAllItems() {

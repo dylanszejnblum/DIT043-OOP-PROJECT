@@ -36,6 +36,7 @@ public class Item {
         return this.ID;
     }
 
+    public void setPrice (double newPrice) {this.price = newPrice; }
     public double getPrice() {
         return this.methods.truncateValue(price);
     }
@@ -43,8 +44,8 @@ public class Item {
     public String getName() {
         return this.name;
     }
-
     public void setName(String newName) {this.name = newName;}
+
     // A function to update the Item Name and price
     public int getReviewLength(){
         return this.writtenComments.size();
@@ -62,8 +63,15 @@ public class Item {
         return average;
 
     }
-    public void updatePriceItem(double Price) {
-        this.price = Price;
+    public String updatePriceItem(double newPrice) {
+        if (price< 0){
+            return "Invalid data for the item";
+        }
+
+        else {
+            this.setPrice(newPrice);
+            return  "Item "+ this.getId()+ " was updated successfully.";
+        }
 
     }
 
