@@ -2,8 +2,15 @@ package facade;
 
 import java.util.List;
 import java.util.Map;
+import clothingstore.*;
+import clothingstore.employee.Employee;
 
 public class Facade {
+
+    Items items = new Items(); //instantiate the object
+    public Item item;
+    public Review review;
+    public Employee employee;
 
     // This class only has the skeleton of the methods used by the test.
     // You must fill in this class with your own code. You can (and should) create more classes
@@ -14,27 +21,28 @@ public class Facade {
     }
 
     public String createItem(String itemID, String itemName, double unitPrice){
-        return "";
+        //instantiate the item object
+        return  items.createItem(itemName, unitPrice, itemID);
     }
-
     public String printItem(String itemID) {
-        return "";
+        return items.printSpecificItem(itemID);
     }
 
     public String removeItem(String itemID) {
-        return "";
+        return items.removeItem(itemID);
     }
 
     public boolean containsItem(String itemID) {
-        return false;
+        return items.itemExistenceChecker(itemID);
     }
 
     public double buyItem(String itemID, int amount) {
-        return -1.0;
+        return items.buyItems(itemID, amount);
     }
 
     public String reviewItem(String itemID, String reviewComment, int reviewGrade) {
-        return "";
+
+        return review.createReview( itemID,reviewGrade, reviewComment);
     }
 
     public String reviewItem(String itemID, int reviewGrade) {
@@ -130,15 +138,19 @@ public class Facade {
     }
 
     public String updateItemName(String itemID, String newName) {
-        return "";
+        //return item.updateNameItem(itemID, newName);
+        return items.getItemByID(itemID).updateNameItem(newName);
+        //Item
+        //Items
     }
 
     public String updateItemPrice(String itemID, double newPrice) {
-        return "";
+
+        return items.getItemByID(itemID).updatePriceItem(newPrice);
     }
 
     public String printAllItems() {
-        return "";
+        return items.printAllItems();
     }
 
     public String printMostProfitableItems() {
@@ -146,7 +158,7 @@ public class Facade {
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary) throws Exception {
-        return "";
+        return employee.createEmployee(employeeID, employeeName, grossSalary);
     }
 
     public String printEmployee(String employeeID) throws Exception {
