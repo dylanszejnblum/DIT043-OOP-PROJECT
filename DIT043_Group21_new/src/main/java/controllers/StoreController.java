@@ -1,5 +1,7 @@
 package controllers;
 
+import helpers.MathHelpers;
+import primitives.Employee;
 import primitives.Item;
 import primitives.Review;
 import primitives.Transaction;
@@ -9,13 +11,17 @@ import java.util.ArrayList;
 
 // I should have added a get by id , i'm not thingking logically
 public class StoreController {
+    public ArrayList<Employee> employees;
     public ArrayList<Item> items;
     public ArrayList<Transaction> transactions;
+    public Employee employee;
+    public MathHelpers mathHelper;
+
     public StoreController(){
+        ArrayList<Employee> employees = new ArrayList<Employee>();
         ArrayList<Item> items = new ArrayList<Item>();
         ArrayList<Transaction> transactions = new ArrayList<Transaction>();
     }
-
 
     public boolean itemExists(String ID){
         for(int i = 0 ; i< items.size(); i++){
@@ -94,7 +100,44 @@ public class StoreController {
         return total;
         // need to add a -1 at the end
     }
+
+
+//---------------------------------------EPIC FEATURE 5-------------------------------------------------
+
+    public boolean equals(Employee anotherEmployee){
+    if(anotherEmployee == this.employee){
+        return true;
+
+    } else if(anotherEmployee == null){
+        return false;
+
+    } else if ( anotherEmployee instanceof Employee ){
+        return (this.employee.getID().equals(anotherEmployee.getID()));
+
+    } else {
+        return false;
     }
+}
+
+    public String toString() {
+        return this.employee.getName() + "'s gross salary is " + this.employee.getInitialGrossSalary() + " SEK per month";
+    }
+
+    public String createEmployee (String ID, String name, double grossSalary) {
+        Employee employee = new Employee(ID, name, grossSalary);
+        return "Employee " + this.employee.getID() + " registered successfully.";
+
+    }
+
+    public double calculateNetSalary() {
+         double finalNetSalary = 0.0;
+         finalNetSalary= employee.getNetSalary() - (this.employee.getInitialGrossSalary() * employee.getTAX_PERCENTAGE());
+         return MathHelpers.truncateDouble(finalNetSalary);
+        // Add the truncate function into the helpers
+    }
+
+
+}
 
 
 

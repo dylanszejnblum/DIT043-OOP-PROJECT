@@ -54,9 +54,7 @@ public class Item {
         }
         // find the average value
         avg = sum / reviews.size();
-
-
-        return MathHelpers.TruncateDouble(avg,2);
+        return MathHelpers.truncateDouble(avg);
     }
 
 
