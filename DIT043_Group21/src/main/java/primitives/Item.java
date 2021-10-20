@@ -35,50 +35,8 @@ public class Item {
     }
     public void setName(String newName) {this.name = newName;}
 
-    // A function to update the Item Name and price
-    public int getReviewLength(){
-        return this.writtenComments.size();
-    }
 
-    public int getMeanGrade(){
-        int total = 0;
-        int average = 0;
-        for(int i = 0 ; i < grades.size(); i++){
-            total += grades.get(i);
-            average = total / grades.size();
-            return average;
-
-        }
-        return average;
-
-    }
-    public String updatePriceItem(double newPrice) {
-        if (price< 0){
-            return "Invalid data for the item";
-        }
-
-        else {
-            this.setPrice(newPrice);
-            return  "Item "+ this.getId()+ " was updated successfully.";
-        }
-
-    }
-
-    public String updateNameItem( String newName) {
-        if (newName.isEmpty()) {
-            return "Invalid data for the item.";
-        }
-        else {
-
-            setName(newName);
-            return  "Item "+ this.getId()+ " was updated successfully.";
-        }
-
-
-
-
-    }
-
+    /*
     public boolean equals(Item anotherItem){
         if(anotherItem == this){
             return true;
@@ -93,4 +51,6 @@ public class Item {
             return false;
         }
     }
+
+     */
 }

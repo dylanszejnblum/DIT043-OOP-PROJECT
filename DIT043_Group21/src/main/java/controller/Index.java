@@ -7,9 +7,9 @@ public class Index  {
 
     public Items items;
     public Item item;
+    public Transaction transaction;
 
-
-//----------------------------EPIC FEATURE 1 --------------------------------------------------------------------
+//----------------------------EPIC FEATURE 2 --------------------------------------------------------------------
     //We need a method for checking if an item exists
     public boolean itemExistenceChecker(String ID){
         for (Item item : items.itemList) {
@@ -31,18 +31,16 @@ public class Index  {
         }
         return null;
     }
-    //METHOD FOR BUYING AN ITEM
 
+    //METHOD FOR BUYING AN ITEM
     public String updatePriceItem(double newPrice) {
         if (item.getPrice()< 0){
             return "Invalid data for the item";
         }
-
         else {
             this.item.setPrice(newPrice);
             return  "Item "+ this.item.getId()+ " was updated successfully.";
         }
-
     }
 
     public String updateNameItem( String newName) {
@@ -54,7 +52,6 @@ public class Index  {
             item.setName(newName);
             return  "Item "+ this.item.getId()+ " was updated successfully.";
         }
-
     }
 
 
@@ -87,8 +84,6 @@ public class Index  {
             final String transactionString = transaction.getID() + ": " + transaction.getUnitsSold() + " item(s). " + item.getPrice() + " SEK";
             item.transactionStringArray.add(transactionString);
              */
-
-
         }
     }
 
@@ -109,7 +104,6 @@ public class Index  {
         items.itemList.add(newItem);
     }
 
-    // ##  I did changes to 2.5; 2.6; 2.7
     //remove items - 2.5
     public String removeItem (String inputID){
 
@@ -120,7 +114,6 @@ public class Index  {
         if (checker) {
             return ("Item " + inputItem.getId() + " was successfully removed.");
         }
-
         else{
             return ("Item" + inputID + "could not be removed.");
         }
@@ -129,20 +122,17 @@ public class Index  {
 
 
     //print specific item? - 2.6
-
     public String printSpecificItem(String ID) {
 
         if (!itemExistenceChecker(ID)) {
             return("Item " + ID + " was not registered yet.");
 
         } else {
-
             Item item = getItemByID(ID);
             double priceOfItem = item.getPrice();
             priceOfItem = priceOfItem;
 
             return(item.getId() + ": " + item.getName() + ". " + priceOfItem + " SEK");
-
         }
     }
     //print all registered items - 2.7
@@ -162,7 +152,23 @@ public class Index  {
 
         }
     }
-//---------------------------------------EPIC FEATURE 2-------------------------------------------------
+//---------------------------------------EPIC FEATURE 3-------------------------------------------------
+
+    public int getReviewLength(){
+        return this.writtenComments.size();
+    }
+
+    public int getMeanGrade(){
+        int total = 0;
+        int average = 0;
+        for(int i = 0 ; i < grades.size(); i++){
+            total += grades.get(i);
+            average = total / grades.size();
+            return average;
+        }
+        return average;
+    }
+
     //method transaction menu
     public void totalProfitFromAllItemsPurchased() {
         double totalProfit = 0;
@@ -381,7 +387,7 @@ public class Index  {
                 maxIndex = i;
             }
         }
-        
+
         return max;
     }
 
@@ -405,8 +411,110 @@ public class Index  {
         return min;
 
     }
+//----------------------EPIC FEATURE 4-----------------------------------------------------------
 
-    //4.1 - Nia and Oscar - Implemented in buy product method
+    //method for getting the profit of all transactions
+    public double getTotalProfit(){
+        double profitOfAllPurchases = 0.0;
+        for (Item item : items.itemList) {
+            for (Transaction currentTransaction :item.transactionList) {
+                profitOfAllPurchases += currentTransaction.getProfit();
+            }
+        }
+        return profitOfAllPurchases;
+    }
 
-    //4.2
+    //method for getting the units sold of all the transactions made till the moment.
+    public int getTotalUnitsSold(){
+        int unitsSoldOfAllPurchases = 0;
+        for (Item item : items.itemList) {
+            for (Transaction currentTransaction :item.transactionList) {
+                unitsSoldOfAllPurchases += currentTransaction.getProfit();
+            }
+        }
+        return unitsSoldOfAllPurchases;
+    }
+
+    //method for getting the all the transactions made till the moment.
+    public int getTotalTransactions(){
+        int totalTransactions = 0;
+        for (Item item : items.itemList) {
+            for (Transaction currentTransaction :item.transactionList) {
+                totalTransactions += currentTransaction.getProfit();
+            }
+        }
+        return totalTransactions;
+    }
+
+
+    public double getTotalProfitItem(Item item) {
+        double totalProfit = 0.0;
+        for (Transaction transaction : item.transactionList) {
+            totalProfit += transaction.getProfit();
+        }
+        return totalProfit;
+    }
+
+    public int getTotalUnitsSoldItem(Item item) {
+        int totalUnitsSold = 0;
+        for (Transaction transaction : item.transactionList) {
+            totalUnitsSold += transaction.getUnitsSold();
+        }
+        return totalUnitsSold;
+    }
+
+    public int getNumberOfTransactionsItem(Item item) {
+        int numberOfTransactions = item.transactionList.size();
+
+        return numberOfTransactions;
+    }
+
+    public void printTransactionsItem(Item item) {
+
+        System.out.println("Transactions for item: "+ item.getId() + ": " + item.getName() + ". " + item.getPrice() + " SEK" );
+
+        for (String transaction : item.transactionStringArray) {
+
+            System.out.println(transaction);
+        }
+    }
+
+    //4.3 - Oscar
+    public String printTransactionsItem(String ID){
+        String result = "";
+        Item item = items.getItemByID(ID);
+        if (item == null){
+            return "Item " + ID + " was not registered yet.";
+        }
+
+        else if (item.transactionList.isEmpty()){
+            return "Transactions for item: " + ID +": " + item.getName() + ". " + item.getPrice() + " SEK \n "+
+                    "No transactions have been registered for item " + ID + " yet.";
+        }
+        for (Transaction currentTransaction : item.transactionList){
+            result += "Transactions for item:"+ ID+ ": " + item.getName() +". "+ item.getPrice()+ "SEK + \n";
+            result += currentTransaction.getID() + ": " + currentTransaction.getUnitsSold() + " item(s). " + item.getPrice() + " SEK + \n";
+
+        }
+        return result;
+    }
+
+    //4.4 - Oscar
+
+    public double retrieveAllItemPurchases (){
+        if (item.transactionList.isEmpty()){return 0;}
+        return getTotalProfit();
+    }
+    public int retrieveAllUnitsSold() {
+        if (item.transactionList.isEmpty()){return 0;}
+        return getTotalUnitsSold();
+    }
+    public int retrieveAllTransactions(){
+        if (item.transactionList.isEmpty()){return 0;}
+        return getTotalTransactions();
+    }
+
+
+
+
 }
