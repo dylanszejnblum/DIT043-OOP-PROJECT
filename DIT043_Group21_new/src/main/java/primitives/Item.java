@@ -8,7 +8,7 @@ public class Item {
     public String name;
     public double price;
     public String ID;
-    public ArrayList<Review> Reviews;
+    public ArrayList<Review> reviews;
     public Item(String  ID,String name, double price) {
         if(name!=null || ID!=null|| price > 0){
             this.name = name;
@@ -22,21 +22,18 @@ public class Item {
         return this.name;
     }
 
-
-
-
     public String getId(){
         return this.ID;
     }
-    public Double GetPrice(){
+    public Double getPrice(){
         return this.price;
     }
 
-    public void UpdatePrice(double NewPrice){
-        this.price = NewPrice;
+    public void setPrice(double newPrice){
+        this.price = newPrice;
     }
-    public void UpdateName(String NewName){
-        this.name = NewName;
+    public void setName(String newName){
+        this.name = newName;
     }
 
     // Add to string method to the rest of the classes
@@ -44,43 +41,43 @@ public class Item {
        return  this.ID + ": " + this.name+" ." + String.valueOf(this.price);
     }
 
-    public void CreateReview(int grade , String writtenReview){
+    public void createReview(int grade , String writtenReview){
         Review NewReview = new Review(this.ID, grade , writtenReview);
-        Reviews.add(NewReview);
+        reviews.add(NewReview);
     }
 
-    public double GetMeanReview(){
+    public double getMeanReview(){
          double avg; double sum=0;
-        for(int i = 0; i < Reviews.size(); i++) {
-            Review n = Reviews.get(i);
-            sum = sum + Double.valueOf(n.GetGrade());
+        for(int i = 0; i < reviews.size(); i++) {
+            Review n = reviews.get(i);
+            sum = sum + Double.valueOf(n.getGrade());
         }
         // find the average value
-        avg = sum / Reviews.size();
+        avg = sum / reviews.size();
 
 
         return MathHelpers.TruncateDouble(avg,2);
     }
 
 
-    public String PrintAllWrittenReviews() {
+    public String printAllWrittenReviews() {
 
-        String AllReviews = "";
-        for (Review review : Reviews) {
-            AllReviews = review.GetWrittenReview() + "\n ";
+        String allReviews = "";
+        for (Review review : reviews) {
+            allReviews = review.getWrittenReview() + "\n ";
         }
-        return AllReviews;
+        return allReviews;
     }
 
 
 
     public String printAllReviews(){
 
-        String AllReviews = "";
-        for(Review review:Reviews){
-            AllReviews = review.printItem() + "\n ";
+        String allReviews = "";
+        for(Review review:reviews){
+            allReviews = review.printItem() + "\n ";
         }
-        return AllReviews;
+        return allReviews;
     }
 
 

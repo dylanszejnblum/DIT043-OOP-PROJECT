@@ -12,12 +12,12 @@ public class StoreController {
     public ArrayList<Item> items;
     public ArrayList<Transaction> transactions;
     public StoreController(){
-         ArrayList<Item> items = new ArrayList<Item>();
+        ArrayList<Item> items = new ArrayList<Item>();
         ArrayList<Transaction> transactions = new ArrayList<Transaction>();
     }
 
 
-    public boolean ItemExists(String ID){
+    public boolean itemExists(String ID){
         for(int i = 0 ; i< items.size(); i++){
             Item n = items.get(i);
             if(n.getId().equals(ID)){
@@ -28,7 +28,7 @@ public class StoreController {
     }
 
 
-    public Item GetItemById(String id){
+    public Item getItemById(String id){
         for(int i =0  ; i < items.size() ; i++){
             if(items.get(i).getId() == id){
                 return items.get(i);
@@ -37,13 +37,13 @@ public class StoreController {
         return null;
     }
 
-    public void CreateItem(String  ID,String name, double price){
-        if(ItemExists(ID) == false) {
+    public void createItem(String  ID,String name, double price){
+        if(itemExists(ID) == false) {
             Item newItem = new Item(ID, name, price);
         }
     }
 
-    public void RemoveItem(String ID){
+    public void removeItem(String ID){
         for(int i = 0; i< items.size(); i++){
             Item n = items.get(i);
             if(n.getId().equals(ID)){
@@ -51,29 +51,29 @@ public class StoreController {
                 System.out.println("Item" + ID +"was successfully removed");
             }
         }
-        if(ItemExists(ID) == false){
+        if(itemExists(ID) == false){
             System.out.println("Item" + ID +" could not be removed"); // This is 3 am coding voiding any logic
 
         }
     }
-    public void UpdatePrice(String ID , Double NewPrice){
+    public void updatePrice(String ID , double newPrice){
          for(int i = 0; i< items.size(); i++){
              Item n = items.get(i);
              if(n.getId().equals(ID)){
-                 items.get(i).UpdatePrice(NewPrice);
+                 items.get(i).setPrice(newPrice);
              }
         }
     }
-    public void UpdateName(String ID , String NewName){
+    public void updateName(String ID , String newName){
         for(int i = 0; i< items.size(); i++){
             Item n = items.get(i);
             if(n.getId().equals(ID)){
-                items.get(i).UpdateName(NewName);
+                items.get(i).setName(newName);
             }
         }
     }
 
-    public String GetAllItems(){
+    public String getAllItems(){
             for (Item item : items) {
                System.out.println(item.toString());
             }
@@ -81,8 +81,8 @@ public class StoreController {
     }
 
     // Not finished , it shoudl acomodate for the transactions class
-    public Double BuyItem(int quantity , String ID){
-        Item BoughtItem = GetItemById(ID);
+    public double buyItem(int quantity , String ID){
+        Item BoughtItem = getItemById(ID);
         double total = BoughtItem.price * quantity;
         Transaction transaction = new Transaction(ID , quantity ,  BoughtItem.price);
         transactions.add(transaction);

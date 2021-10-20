@@ -10,7 +10,7 @@ public class Facade {
     // that implement the functionalities listed in the Facade and in the Test Cases.
 
     public Facade(){
-
+        //Declare stuff in here
     }
 
     public String createItem(String itemID, String itemName, double unitPrice){
