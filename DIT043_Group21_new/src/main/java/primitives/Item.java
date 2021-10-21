@@ -70,6 +70,15 @@ public class Item {
     }
 
 
+    public String getSpecificReview(int index){
+
+        for(int i = 0 ; i < reviews.size(); i++){
+            if(index == i){
+                return reviews.get(i).toString();
+            }
+        }
+         throw new IllegalArgumentException();
+    }
 
     public String printAllReviews(){
 

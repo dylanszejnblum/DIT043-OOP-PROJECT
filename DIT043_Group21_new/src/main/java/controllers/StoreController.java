@@ -28,6 +28,88 @@ public class StoreController {
     }
 
 
+
+
+    public double totalPurchases(){
+        double totalProffit = 0;
+        for(int i = 0; i < transactions.size();i++){
+            totalProffit += transactions.get(i).getPrice();
+        }
+        return totalProffit;
+    }
+
+    public int totalUnits(){
+        int units = 0;
+        for(int i = 0; i < transactions.size();i++){
+            units += transactions.get(i).getAmount();
+        }
+        return units;
+    }
+
+    public int totalTransaction(){
+        return transactions.size();
+
+    }
+
+    public double getSpecificItemProfit(String ID){
+        double profit = 0;
+        if(itemExists(ID)){
+            for(int i = 0; i < transactions.size();i++){
+                if(ID.equals(transactions.get(i).getId())) {
+                    profit += transactions.get(i).getPrice();
+                }
+            }
+            return profit;
+        }
+        return profit;
+    }
+    public int getSpecificItemAmmount(String ID){
+        int unitSold = 0;
+        if(itemExists(ID)){
+            for(int i = 0; i < transactions.size();i++){
+                if(ID.equals(transactions.get(i).getId())) {
+                    unitSold += transactions.get(i).getAmount();
+                }
+            }
+            return unitSold;
+        }
+        return unitSold;
+
+    }
+    public int getSpecificTransactions(String ID){
+        int transactionCount = 0;
+        if(itemExists(ID)){
+            for(int i = 0; i < transactions.size();i++){
+                if(ID.equals(transactions.get(i).getId())) {
+                    transactionCount++;
+                }
+            }
+            return transactionCount;
+        }
+        return transactionCount;
+
+    }
+
+
+    // If it is a print i think void could also work
+    // By tommorrow the best thing to do it would be to decouple this functions from transactions into two diffrernt ones
+    public String getAllItemTransactions(String ID){
+        if(itemExists(ID) == true){
+            System.out.println("Transactions for item: <item ID>: <item name>. <unit price> SEK");
+
+            for(int i = 0 ; i < transactions.size();i++){
+                if(ID == transactions.get(i).getId()){
+                   System.out.println(transactions.get(i).toString());
+                }
+            }
+        }else{
+            System.out.println("Transactions for item: <item ID>: <item name>. <unit price> SEK\n" +
+                    "No transactions have been registered for item <item ID> yet.\n");
+        }
+
+        return null;
+
+    }
     public Item getItemById(String id){
         for(int i =0  ; i < items.size() ; i++){
             if(items.get(i).getId() == id){
@@ -73,12 +155,19 @@ public class StoreController {
         }
     }
 
+
     public String getAllItems(){
             for (Item item : items) {
                System.out.println(item.toString());
             }
             return null;
     }
+
+
+    public String printItem(String ID){
+        return getItemById(ID).toString();
+    }
+
 
     // Not finished , it shoudl acomodate for the transactions class
     public double buyItem(int quantity , String ID){
@@ -94,6 +183,28 @@ public class StoreController {
         return total;
         // need to add a -1 at the end
     }
+
+    public String getSpecificItemReview(String ID , int index){
+        Item n = getItemById(ID);
+        return n.getSpecificReview(index);
+    }
+
+    public String getAllReviewsItem(String ID){
+        Item n = getItemById(ID);
+        return n.printAllReviews();
+    }
+
+    public String getAllReviews(){
+        for(int i = 0; i< items.size();i++){
+           System.out.println(items.get(i).printAllReviews());
+        }
+        return null;
+
+    }
+
+
+    // Add sorting functions
+
     }
 
 

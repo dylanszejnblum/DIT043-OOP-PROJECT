@@ -12,7 +12,11 @@ public class Transaction {
             this.price = price;
 
     }
-
+    public String getId(){
+        return this.ID;
+    }
+    public int getAmount(){return this.amount;}
+    public double getPrice(){return this.price;}
     @Override
     public String toString(){
         return this.ID + ": " + this.amount + "  item(s). "+ this.price+" SEK";
