@@ -74,45 +74,35 @@ public class EmployeeController {
     //------CREATE METHODS FOR EVERY KIND OF EMPLOYEES------\\
 
 
-<<<<<<< HEAD
+
     public String createEmployee (String ID, String name, double initialGrossSalary) throws Exception {
-=======
-    public String createEmployee(String ID, String name, double initialGrossSalary) {
->>>>>>> 6d00b85c62348ff0fe3bc54022dbdfea66e1472e
+
         Employee employee = new Employee(ID, name, initialGrossSalary);
         employees.add(employee);
         return "Employee " + this.employee.getID() + " registered successfully.";
     }
 
 
-<<<<<<< HEAD
     public String createManager(String ID, String name, double initialGrossSalary, String degree) throws Exception {
         Employee managerEmployee = new Manager(ID, name ,initialGrossSalary, degree);
-=======
-    public String createManager(String ID, String name, double initialGrossSalary, String degree) {
-        Employee managerEmployee = new Manager(ID, name, initialGrossSalary, degree);
->>>>>>> 6d00b85c62348ff0fe3bc54022dbdfea66e1472e
         employees.add(managerEmployee);
         return "Employee " + managerEmployee.getID() + " registered successfully.";
     }
 
 
-<<<<<<< HEAD
+
     public String createDirector(String ID, String name, double initialGrossSalary,String degree, String department) throws Exception {
-=======
-    public String createDirector(String ID, String name, double initialGrossSalary, String degree, String department) {
->>>>>>> 6d00b85c62348ff0fe3bc54022dbdfea66e1472e
+
+
         Employee directorEmployee = new Director(ID, name, initialGrossSalary, degree, department);
         employees.add(directorEmployee);
         return "Employee " + directorEmployee.getID() + " registered successfully.";
     }
 
 
-<<<<<<< HEAD
+
     public String createIntern(String ID, String name, double initialGrossSalary,int gpa) throws Exception {
-=======
-    public String createIntern(String ID, String name, double initialGrossSalary, int gpa) {
->>>>>>> 6d00b85c62348ff0fe3bc54022dbdfea66e1472e
+
         Employee internEmployee = new Intern(ID, name, initialGrossSalary, gpa);
         employees.add(internEmployee);
         return "Employee " + internEmployee.getID() + " registered successfully.";
@@ -135,11 +125,8 @@ public class EmployeeController {
 
 
     //printing specific employee - 5.5\\
-<<<<<<< HEAD
+
     public String printSpecificEmployee(String ID) throws Exception {
-=======
-    public String printSpecificEmployee(String ID) {
->>>>>>> 6d00b85c62348ff0fe3bc54022dbdfea66e1472e
 
         if (checker(ID)) {
             return getEmployeeById(ID).toString();
@@ -216,15 +203,8 @@ public class EmployeeController {
         if (employee == null) {
             return "Update unsuccessful.No employee existing with that ID";
         }
-<<<<<<< HEAD
-
-        public void promoteEmployee(){
-
-        }
-=======
         employee.setInitialGrossSalary(initialGrossSalary);
         return "Employee " + ID + "was updated successfully";
->>>>>>> 6d00b85c62348ff0fe3bc54022dbdfea66e1472e
     }
 
 
