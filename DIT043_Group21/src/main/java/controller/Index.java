@@ -81,7 +81,7 @@ public class Index  {
             /*
             Transaction transaction = new Transaction(ID, total, amount);
             item.transactionList.add(transaction);
-            final String transactionString = transaction.getID() + ": " + transaction.getUnitsSold() + " item(s). " + item.getPrice() + " SEK";
+            // toString ----- final String transactionString = transaction.getID() + ": " + transaction.getUnitsSold() + " item(s). " + item.getPrice() + " SEK";
             item.transactionStringArray.add(transactionString);
              */
         }

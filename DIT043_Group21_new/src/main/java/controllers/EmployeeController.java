@@ -1,9 +1,14 @@
 package controllers;
+import primitives.*;
+import java.util.ArrayList;
+import helpers.*;
+
 
 public class EmployeeController {
-    public ArrayList<Employee> employees;
+
     public Employee employee;
-    public MathHelpers mathHelper;
+    public ArrayList<Employee> employees;
+
 
     public EmployeeController(){
         ArrayList<Employee> employees = new ArrayList<Employee>();
