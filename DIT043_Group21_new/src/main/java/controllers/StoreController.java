@@ -1,5 +1,7 @@
 package controllers;
 
+import helpers.MathHelpers;
+import primitives.Employee;
 import primitives.Item;
 import primitives.Review;
 import primitives.Transaction;
@@ -9,13 +11,15 @@ import java.util.ArrayList;
 
 // I should have added a get by id , i'm not thingking logically
 public class StoreController {
+    public ArrayList<Employee> employees;
     public ArrayList<Item> items;
     public ArrayList<Transaction> transactions;
+
+
     public StoreController(){
         ArrayList<Item> items = new ArrayList<Item>();
         ArrayList<Transaction> transactions = new ArrayList<Transaction>();
     }
-
 
     public boolean itemExists(String ID){
         for(int i = 0 ; i< items.size(); i++){
@@ -184,6 +188,7 @@ public class StoreController {
         // need to add a -1 at the end
     }
 
+
     public String getSpecificItemReview(String ID , int index){
         Item n = getItemById(ID);
         return n.getSpecificReview(index);
@@ -205,7 +210,9 @@ public class StoreController {
 
     // Add sorting functions
 
-    }
+
+
+}
 
 
 
