@@ -148,9 +148,15 @@ public class EmployeeController  {
 
 
         //print employees sorted by gross salary - 5.8\\
-        public ArrayList<Employee> printSortedEmployees(){
+        public String printSortedEmployees(){
+            String result = "Employees sorted by gloss salary (ascending order): \n";
             ArrayList<Employee> sortedEmployees = employees;
-            return  Collections.sort(sortedEmployees);
+            Collections.sort(sortedEmployees);
+            for (Employee currentEmployee : sortedEmployees) {
+                result += currentEmployee + "\n";
+            }
+
+            return result;
 
         }
 
