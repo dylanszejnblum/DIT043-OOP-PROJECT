@@ -3,7 +3,6 @@ import primitives.*;
 import java.util.ArrayList;
 import helpers.*;
 
-
 public class EmployeeController {
 
     public Employee employee;
@@ -28,6 +27,8 @@ public class EmployeeController {
             return false;
         }
     }
+
+    
 
     public String toString() {
         return this.employee.getName() + "'s gross salary is " + this.employee.getInitialGrossSalary() + " SEK per month";
