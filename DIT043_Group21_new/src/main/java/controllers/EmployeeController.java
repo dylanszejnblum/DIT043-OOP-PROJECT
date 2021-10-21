@@ -10,8 +10,11 @@ public class EmployeeController  {
 
     public Employee employee;
     public ArrayList<Employee> employees;
+    public ArrayList<Employee> sortedEmployees;
     public EmployeeController(){
+
         ArrayList<Employee> employees = new ArrayList<Employee>();
+        ArrayList<Employee> sortedEmployees = new ArrayList<Employee>();
     }
 
 
@@ -145,12 +148,9 @@ public class EmployeeController  {
 
 
         //print employees sorted by gross salary - 5.8\\
-        public String printEmployeesSortedByGrossSalary(){
-
-            Collections.sort(employees);
-
-
-        return "";
+        public ArrayList<Employee> printSortedEmployees(){
+            ArrayList<Employee> sortedEmployees = employees;
+            return  Collections.sort(sortedEmployees);
 
         }
 
