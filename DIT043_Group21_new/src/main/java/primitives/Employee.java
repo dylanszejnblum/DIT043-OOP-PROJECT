@@ -54,6 +54,7 @@ public class Employee implements Comparable<Employee> {
         }
     }
 
+
     public String toString() {
         return this.getName() + "'s gross salary is " + this.getInitialGrossSalary() + " SEK per month";
     }
@@ -72,6 +73,7 @@ public class Employee implements Comparable<Employee> {
     }
 
     @Override
+    //is it getInitialGrossSalary or grossSalary here??
     public int compareTo(Employee anotherEmployee) {
         if (anotherEmployee.getInitialGrossSalary() > this.getInitialGrossSalary()) {
             return 1;

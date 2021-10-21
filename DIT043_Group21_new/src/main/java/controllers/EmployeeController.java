@@ -8,6 +8,7 @@ import primitives.Employee;
 
 public class EmployeeController  {
 
+    public Exception exception;
     public Employee employee;
     public ArrayList<Employee> employees;
     public ArrayList<Employee> sortedEmployees;
@@ -20,13 +21,25 @@ public class EmployeeController  {
 
     //method for retrieving an Employee by its ID.\\
 
-    public Employee getEmployeeById(String ID){
+    public boolean employeeExists(String ID) throws Exception{
+        for(int i = 0 ; i< employees.size(); i++){
+            Employee e = employees.get(i);
+            if(e.getID().equals(ID)){
+                return true;
+            }
+        }
+        throw new Exception("No employee has been registered yet.") ;
+    }
+
+    public Employee getEmployeeById(String ID) throws Exception{
 
         for(int i = 0; i < employees.size() ; i++){
             if(employees.get(i).getID().equals(ID)){
                 return employees.get(i);
             } }
-        return null; }
+        throw new Exception("Employee <ID> was not registered yet.")
+
+    }
 
     public boolean equals(Employee anotherEmployee){
         if(anotherEmployee == this.employee){

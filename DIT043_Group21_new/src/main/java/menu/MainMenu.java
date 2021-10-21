@@ -8,7 +8,9 @@ public class MainMenu {
                 "0. Close system.\n" +
                 "1. Open Item options.\n" +
                 "2. Open Review options.\n" +
-                "3. Open Transaction History options.\n" + "\n" + "\n" +
+                "3. Open Transaction History options.\n" +
+                "4. Open Employee Options." +
+                "\n" +
                 "Type an option number:\n");
     }
 

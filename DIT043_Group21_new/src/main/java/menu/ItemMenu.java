@@ -12,6 +12,7 @@ public class ItemMenu {
                 "4. Buy an Item.\n" +
                 "5. Update an item’s name.\n" +
                 "6. Update an item’s price.\n" +
+                "7. Print a specific item.\n" +
                 "\n" +
                 "Type an option number:\n" + " ");
 
