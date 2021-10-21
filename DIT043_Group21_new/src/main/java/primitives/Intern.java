@@ -4,10 +4,12 @@ public class Intern extends Employee{
     private int gpa;
     double grossSalary = this.initialGrossSalary;
 
-    public Intern( final String ID, String name, double initialGrossSalary, int gpa){
+    public Intern( final String ID, String name, double initialGrossSalary, int gpa) throws Exception {
         super(ID, name,initialGrossSalary) ;
+        if (gpa < 0 || gpa > 9){
+            throw new Exception(gpa +" outside range. Must be between 0-10.");
+        }
         this.gpa = gpa;
-        //gpa can only be between 0 and 9
     }
 
     public double getGrossSalary(){

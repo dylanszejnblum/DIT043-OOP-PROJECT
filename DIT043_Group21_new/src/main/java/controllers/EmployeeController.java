@@ -74,28 +74,28 @@ public class EmployeeController  {
               //------CREATE METHODS FOR EVERY KIND OF EMPLOYEES------\\
 
 
-    public String createEmployee (String ID, String name, double initialGrossSalary) {
+    public String createEmployee (String ID, String name, double initialGrossSalary) throws Exception {
         Employee employee = new Employee(ID, name, initialGrossSalary);
         employees.add(employee);
         return "Employee " + this.employee.getID() + " registered successfully.";
     }
 
 
-    public String createManager(String ID, String name, double initialGrossSalary, String degree){
+    public String createManager(String ID, String name, double initialGrossSalary, String degree) throws Exception {
         Employee managerEmployee = new Manager(ID, name ,initialGrossSalary, degree);
         employees.add(managerEmployee);
          return "Employee " + managerEmployee.getID() + " registered successfully.";
     }
 
 
-    public String createDirector(String ID, String name, double initialGrossSalary,String degree, String department){
+    public String createDirector(String ID, String name, double initialGrossSalary,String degree, String department) throws Exception {
         Employee directorEmployee = new Director(ID, name, initialGrossSalary, degree, department);
         employees.add(directorEmployee);
       return "Employee " + directorEmployee.getID() + " registered successfully.";
     }
 
 
-    public String createIntern(String ID, String name, double initialGrossSalary,int gpa){
+    public String createIntern(String ID, String name, double initialGrossSalary,int gpa) throws Exception {
         Employee internEmployee = new Intern(ID, name, initialGrossSalary, gpa);
         employees.add(internEmployee);
         return "Employee " + internEmployee.getID() + " registered successfully.";
@@ -117,7 +117,7 @@ public class EmployeeController  {
 
 
     //printing specific employee - 5.5\\
-    public String printSpecificEmployee(String ID){
+    public String printSpecificEmployee(String ID) throws Exception {
 
         if(checker(ID)) {
             return getEmployeeById(ID).toString();
@@ -169,6 +169,10 @@ public class EmployeeController  {
                 result += currentEmployee + "\n";
             }
             return result;
+        }
+
+        public void promoteEmployee(){
+
         }
     }
 

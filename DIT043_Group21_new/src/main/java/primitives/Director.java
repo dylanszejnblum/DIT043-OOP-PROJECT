@@ -4,8 +4,11 @@ public class Director extends Manager{
 
     private String department;
 
-    public Director(final String ID, String name, double initialGrossSalary, String degree, String department){
+    public Director(final String ID, String name, double initialGrossSalary, String degree, String department) throws Exception {
         super(ID, name, initialGrossSalary, degree);
+        if (!department.equals("Business")&&!department.equals("Human Resources")&& !department.equals("Technical")){
+            throw new Exception("Department must be one of the options: Business, Human Resources or Technical.");
+        }
         this.department = department;
     }
 

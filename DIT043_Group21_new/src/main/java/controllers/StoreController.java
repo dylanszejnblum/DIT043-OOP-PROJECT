@@ -21,6 +21,15 @@ public class StoreController {
         ArrayList<Transaction> transactions = new ArrayList<Transaction>();
     }
 
+    public boolean itemExistenceChecker(String ID){
+        for (Item item : items) {
+            if (item.getId().equals(ID)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean itemExists(String ID){
         for(int i = 0 ; i< items.size(); i++){
             Item n = items.get(i);
@@ -30,9 +39,6 @@ public class StoreController {
         }
         return false;
     }
-
-
-
 
     public double totalPurchases(){
         double totalProffit = 0;
@@ -124,9 +130,7 @@ public class StoreController {
     }
 
     public void createItem(String  ID,String name, double price){
-        if(itemExists(ID) == false) {
-            Item newItem = new Item(ID, name, price);
-        }
+        
     }
 
     public void removeItem(String ID){

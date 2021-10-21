@@ -12,9 +12,18 @@ public class Employee implements Comparable<Employee> {
     public MathHelpers mathHelpers;
 
 
-    public Employee(final String ID, String name, double initialGrossSalary) {
+    public Employee(final String ID, String name, double initialGrossSalary) throws Exception{
+        if (ID.isEmpty()){
+            throw new Exception("ID cannot be blank.");
+        }
         this.ID = ID;
+        if (name.isEmpty()){
+            throw new Exception("Name cannot be blank.");
+        }
         this.name = name;
+        if (initialGrossSalary < 0){
+            throw new Exception("Salary must be greater than zero.");
+        }
         this.initialGrossSalary = MathHelpers.truncateDouble(initialGrossSalary);
     }
     public String getName(){
@@ -59,7 +68,7 @@ public class Employee implements Comparable<Employee> {
         return this.getName() + "'s gross salary is " + this.getInitialGrossSalary() + " SEK per month";
     }
 
-    public String createEmployee (String ID, String name, double grossSalary) {
+    public String createEmployee (String ID, String name, double grossSalary) throws Exception {
         Employee employee = new Employee(ID, name, grossSalary);
         return "Employee " + this.getID() + " registered successfully.";
 
