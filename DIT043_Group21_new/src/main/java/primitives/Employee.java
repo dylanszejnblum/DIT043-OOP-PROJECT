@@ -36,6 +36,7 @@ public class Employee {
     public void setNetSalary(double newNetSalary){this.netSalary = newNetSalary;}
     public double getTAX_PERCENTAGE(){return TAX_PERCENTAGE;}
 
+
     public boolean equals(Employee anotherEmployee){
         if(anotherEmployee == this){
             return true;
@@ -63,7 +64,7 @@ public class Employee {
 
     public double calculateNetSalary() {
         double netSalary = 0.0;
-        netSalary = netSalary - (this.initialGrossSalary * TAX_PERCENTAGE);
+        netSalary = this.initialGrossSalary - (this.initialGrossSalary * TAX_PERCENTAGE);
         return netSalary;
         // Add the truncate function into the helpers
     }
