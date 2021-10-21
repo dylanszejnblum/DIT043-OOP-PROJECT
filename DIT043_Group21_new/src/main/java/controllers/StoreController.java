@@ -14,6 +14,7 @@ public class StoreController {
     public ArrayList<Employee> employees;
     public ArrayList<Item> items;
     public ArrayList<Transaction> transactions;
+    public Item item;
 
 
     public StoreController(){
@@ -129,8 +130,13 @@ public class StoreController {
         return null;
     }
 
-    public void createItem(String  ID,String name, double price){
-        
+    public String createValidItem (String ID, String name , double price){
+        Item item = new Item (ID, name, MathHelpers.truncateDouble(price));
+        if(price < 0 || ID.isEmpty() || name.isEmpty()) {
+            return "Invalid data for item.";
+        }
+        items.add(item);
+        return ("Item " + ID + " was registered successfully.");
     }
 
     public void removeItem(String ID){

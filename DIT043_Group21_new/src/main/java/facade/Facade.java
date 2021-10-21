@@ -1,11 +1,14 @@
 package facade;
 
+import controllers.StoreController;
+
 import java.util.List;
 import java.util.Map;
 
 public class Facade {
 
     //Declare the objects ("this is what we are gonna have")
+    public StoreController storeController;
 
     // This class only has the skeleton of the methods used by the test.
     // You must fill in this class with your own code. You can (and should) create more classes
@@ -14,11 +17,12 @@ public class Facade {
     public Facade(){
         //Declare stuff in here
         //Create here the object
-
+        StoreController storeController = new StoreController();
     }
 
     public String createItem(String itemID, String itemName, double unitPrice){
-        return "";
+
+        return storeController.createValidItem(itemID, itemName, unitPrice);
     }
 
     public String printItem(String itemID) {
