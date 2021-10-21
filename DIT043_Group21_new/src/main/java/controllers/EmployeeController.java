@@ -146,7 +146,6 @@ public class EmployeeController  {
             return total;
         }
 
-
         //print employees sorted by gross salary - 5.8\\
         public String printSortedEmployees(){
             String result = "Employees sorted by gloss salary (ascending order): \n";
@@ -155,19 +154,8 @@ public class EmployeeController  {
             for (Employee currentEmployee : sortedEmployees) {
                 result += currentEmployee + "\n";
             }
-
             return result;
-
         }
-
-
-
-
-
-
-
-
-
     }
 
 
