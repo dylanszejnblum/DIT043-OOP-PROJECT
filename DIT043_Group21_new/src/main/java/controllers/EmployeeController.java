@@ -1,13 +1,18 @@
 package controllers;
 import primitives.*;
 import java.util.ArrayList;
+import java.util.Collections;
+
 import helpers.*;
 import primitives.Employee;
 
-public class EmployeeController {
+public class EmployeeController  {
 
     public Employee employee;
     public ArrayList<Employee> employees;
+    public EmployeeController(){
+        ArrayList<Employee> employees = new ArrayList<Employee>();
+    }
 
 
     //method for retrieving an Employee by its ID.\\
@@ -19,11 +24,6 @@ public class EmployeeController {
                 return employees.get(i);
             } }
         return null; }
-
-
-    public EmployeeController(){
-        ArrayList<Employee> employees = new ArrayList<Employee>();
-    }
 
     public boolean equals(Employee anotherEmployee){
         if(anotherEmployee == this.employee){
@@ -135,20 +135,27 @@ public class EmployeeController {
         //print total salary expenses - 5.7\\
 
         public double printTotalSalaryExpenses(){
-         double total = 0.0;
+            double total = 0.0;
 
-         for(int i = 0; i < employees.size(); i++){
-             total += employees.get(i).getNetSalary();
-         }
-        return total;
+            for(int i = 0; i < employees.size(); i++){
+                total += employees.get(i).getNetSalary();
+            }
+            return total;
         }
 
 
         //print employees sorted by gross salary - 5.8\\
-        public String printEmployeesSortedByGrossSalary(){return "";}
+        public String printEmployeesSortedByGrossSalary(){
+
+            Collections.sort(employees);
 
 
-       //
+        return "";
+
+        }
+
+
+
 
 
 

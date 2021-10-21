@@ -5,12 +5,16 @@ import java.util.Map;
 
 public class Facade {
 
+    //Declare the objects ("this is what we are gonna have")
+
     // This class only has the skeleton of the methods used by the test.
     // You must fill in this class with your own code. You can (and should) create more classes
     // that implement the functionalities listed in the Facade and in the Test Cases.
 
     public Facade(){
         //Declare stuff in here
+        //Create here the object
+
     }
 
     public String createItem(String itemID, String itemName, double unitPrice){

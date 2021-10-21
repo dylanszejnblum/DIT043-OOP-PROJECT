@@ -2,7 +2,7 @@ package primitives;
 
 import helpers.MathHelpers;
 
-public class Employee {
+public class Employee implements Comparable<Employee>{
 
     final String ID;
     private String name;
@@ -69,4 +69,17 @@ public class Employee {
         // Add the truncate function into the helpers
     }
 
+
+    @Override
+    public int compareTo(Employee anotherEmployee) {
+        if (this.getInitialGrossSalary() > anotherEmployee.getInitialGrossSalary()){
+            return 1;
+        }
+        else if (this.getInitialGrossSalary() < anotherEmployee.getInitialGrossSalary()){
+            return -1;
+        }
+        else {
+            return 0;
+        }
+    }
 }
