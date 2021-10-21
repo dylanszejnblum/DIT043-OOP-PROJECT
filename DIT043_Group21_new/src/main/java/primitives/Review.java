@@ -24,6 +24,10 @@ public class Review {
         return this.grade;
     }
 
+    public String reviewToString(){
+        return "Grade: " + this.getGrade() + ". " + this.getWrittenReview();
+    }
+
 
     public String printItem(){
         return "Grade: "+ this.grade + " " + this.writtenReview;

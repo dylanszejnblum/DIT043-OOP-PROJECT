@@ -1,6 +1,5 @@
 package controllers;
 
-import helpers.MathHelpers;
 import primitives.Employee;
 import primitives.Item;
 import primitives.Review;
@@ -12,14 +11,15 @@ import java.util.ArrayList;
 // I should have added a get by id , i'm not thingking logically
 public class StoreController {
     public ArrayList<Employee> employees;
-    public ArrayList<Item> items;
-    public ArrayList<Transaction> transactions;
+    ArrayList<Item> items;
+    ArrayList<Transaction> transactions = new ArrayList<Transaction>();
     public Item item;
+    public Review review;
 
 
     public StoreController(){
-        ArrayList<Item> items = new ArrayList<Item>();
-        ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+        items = new ArrayList<Item>();
+        transactions = new ArrayList<Transaction>();
     }
 
     public boolean itemExistenceChecker(String ID){
@@ -42,11 +42,11 @@ public class StoreController {
     }
 
     public double totalPurchases(){
-        double totalProffit = 0;
+        double totalProfit = 0;
         for(int i = 0; i < transactions.size();i++){
-            totalProffit += transactions.get(i).getPrice();
+            totalProfit += transactions.get(i).getPrice();
         }
-        return totalProffit;
+        return totalProfit;
     }
 
     public int totalUnits(){
@@ -105,7 +105,7 @@ public class StoreController {
     // If it is a print i think void could also work
     // By tommorrow the best thing to do it would be to decouple this functions from transactions into two diffrernt ones
     public String getAllItemTransactions(String ID){
-        if(itemExists(ID) == true){
+        if(itemExists(ID)){
             System.out.println("Transactions for item: <item ID>: <item name>. <unit price> SEK");
 
             for(int i = 0 ; i < transactions.size();i++){
@@ -131,44 +131,47 @@ public class StoreController {
     }
 
     public String createValidItem (String ID, String name , double price){
-        Item item = new Item (ID, name, MathHelpers.truncateDouble(price));
         if(price < 0 || ID.isEmpty() || name.isEmpty()) {
             return "Invalid data for item.";
         }
+        //double newPrice = MathHelpers.truncateDouble(price);
+        Item item = new Item (ID, name, price);
         items.add(item);
         return ("Item " + ID + " was registered successfully.");
     }
 
-    public void removeItem(String ID){
-        for(int i = 0; i< items.size(); i++){
-            Item n = items.get(i);
-            if(n.getId().equals(ID)){
-                items.remove(i);
-                System.out.println("Item" + ID +"was successfully removed");
-            }
-        }
-        if(itemExists(ID) == false){
-            System.out.println("Item" + ID +" could not be removed"); // This is 3 am coding voiding any logic
+    public String removeValidItem (String inputID){
 
+        Item inputItem = getItemById(inputID);
+        boolean checker = items.remove(inputItem);
+        if (checker) {
+            return ("Item " + inputItem.getId() + " was successfully removed.");
         }
-    }
-    public void updatePrice(String ID , double newPrice){
-         for(int i = 0; i< items.size(); i++){
-             Item n = items.get(i);
-             if(n.getId().equals(ID)){
-                 items.get(i).setPrice(newPrice);
-             }
+        else{
+            return ("Item" + inputID + "could not be removed.");
         }
+
     }
-    public void updateName(String ID , String newName){
-        for(int i = 0; i< items.size(); i++){
-            Item n = items.get(i);
-            if(n.getId().equals(ID)){
-                items.get(i).setName(newName);
-            }
+    public String updatePriceItem(double newPrice) {
+        if (item.getPrice()< 0){
+            return "Invalid data for the item";
+        }
+        else {
+            this.item.setPrice(newPrice);
+            return  "Item "+ this.item.getId()+ " was updated successfully.";
         }
     }
 
+    public String updateNameItem( String newName, String ID) {
+        if (ID.isEmpty() ||newName.isEmpty()|| !itemExistenceChecker(ID)) {
+            return "Invalid data for the item.";
+        }
+        else {
+            Item inputItem = getItemById(ID);
+            inputItem.setName(newName);
+            return  "Item " + ID + " was updated successfully.";
+        }
+    }
 
     public String getAllItems(){
             for (Item item : items) {
@@ -178,16 +181,23 @@ public class StoreController {
     }
 
 
-    public String printItem(String ID){
-        return getItemById(ID).toString();
+    public String printSpecificItem(String ID) {
+        if (!itemExistenceChecker(ID)) {
+            return("Item " + ID + " was not registered yet.");
+        } else {
+            Item item = getItemById(ID);
+            return(item.getId() + ": " + item.getName() + ". " + item.getPrice() + " SEK");
+        }
     }
 
 
     // Not finished , it shoudl acomodate for the transactions class
     public double buyItem(int quantity , String ID){
+
         Item BoughtItem = getItemById(ID);
-        double total = BoughtItem.price * quantity;
-        Transaction transaction = new Transaction(ID , quantity ,  BoughtItem.price);
+        double total = BoughtItem.getPrice() * quantity;
+
+        Transaction transaction = new Transaction(ID , quantity ,  BoughtItem.getPrice());
         transactions.add(transaction);
 
         if(quantity >4){
@@ -220,6 +230,144 @@ public class StoreController {
 
     // Add sorting functions
 
+    // 3.1 - Nia
+
+//method creating reviews
+
+    public String createReviews(String ID, int grade, String writtenComment){
+
+        if (!itemExistenceChecker(ID)) {
+            return("Item " + ID + " was not registered yet.");
+        }
+        else if (grade < 1 || grade > 5) {
+            return("Grade values must be between 1 and 5.");
+        }
+        else {
+            Item item = getItemById(ID);
+            Review review = new Review (ID,grade, writtenComment);
+            item.reviews.add(review);
+            return("Your item review was registered successfully.");
+        }
+
+    }
+//3.2 - Nia
+//print a specific item review
+
+    public String printSpecificItemReview(String ID,int i) {
+
+        Item item = getItemById(ID);
+
+        if (itemExistenceChecker(ID)) {
+            return "Item" + ID + "was not registered yet.";
+        }
+        else if (item.reviews.isEmpty()) {
+            return "Item " + item.getName() + " has not been reviewed yet.";
+        }
+        else if (i < 1 || i > item.reviews.size()) {
+            return "Invalid review  number. Choose between 1 and " + item.reviews.size();
+        }
+        return item.reviews.get(i).reviewToString();
+    }
+
+    //3.3 - Nia
+    public String printAllReviewsForAnItem(String ID){
+        String result = "";
+        Item item = getItemById(ID);
+
+        if(itemExistenceChecker(ID)){
+            return "Item" + ID + "was not registered yet.";
+        }
+        else if (item.reviews.isEmpty()){
+
+            return "Review(s) for " + ID + ": " + item.getName() + ". " + item.getPrice() + "SEK.\n" +
+                    "Item " + item.getName() + " has not been reviewed yet." ;
+        }
+
+        else{
+
+            for(int i = 0; i < item.reviews.size(); i++) {;
+
+                result += "Grade: " + item.reviews.get(i).getGrade() + "." + item.reviews.get(i).getWrittenReview() + "\n";;
+            }
+        }
+        return "Review(s) for "  + ID + ": " + item.getName() + ". " + item.getPrice() + "SEK.\n" +
+                result ;
+    }
+    //3.4 - Oscar
+    public String retrieveMeanGradeItem(String ID) {
+        if (itemExistenceChecker(ID)){
+            return ("Item " + ID + " was not registered yet.");
+        }
+
+        else if(item.reviews.isEmpty()) {
+            Item inputItem = getItemById(ID);
+            return ("Item " + inputItem.getName() + " has not been reviewed yet");
+        }
+
+        else {
+            Item inputItem = getItemById(ID);
+            double totalGrades = 0;
+            for (int i = 0; i < item.reviews.size(); i++) {
+                totalGrades += inputItem.reviews.get(i).getGrade();
+            }
+            double mean = (totalGrades/item.reviews.size())*Math.pow(10,1); //math pow useless here
+            return(String.valueOf(mean));
+        }
+
+    }
+
+    //3.5 - Oscar
+    public String retrieveCommentsItem(String ID){
+
+        Item inputItem = getItemById(ID);
+
+        if (itemExistenceChecker(ID) || item.reviews.isEmpty()) {
+            return "Empty Collection";
+        }
+
+        else {
+            String result = "";
+            for (int i = 0; i < item.reviews.size(); i++) {
+                result += item.reviews.get(i).getWrittenReview() + "\n";
+            }
+
+            return result;
+        }
+    }
+
+//3.6 - Oscar
+
+    public String retrieveRegisteredReviews() {
+        int noReviewedItem = 0;
+        String result = "";
+
+        if (items.size() == 0) {
+            return "No items registered yet";
+        }
+
+        else {
+
+            for (Item item : items) {
+                if (item.reviews.size() == 0) {
+                    noReviewedItem++;
+                }
+            }
+
+            if (noReviewedItem == items.size()) {
+                return ("No items were reviewed yet");
+            } else {
+                for (Item item : items) {
+                    result = "--------------------------\n" + "Review(s) for " + item.getId() + ": " + item.getName() + ". " + item.getPrice() + " SEK + \n";
+
+                    for (int j = 0; j < item.reviews.size(); j++) {
+                        result += "Grade: " + item.reviews.get(j).getGrade() + "." + item.reviews.get(j).getWrittenReview();
+                    }
+                }
+            }
+        }
+
+        return "All registered reviews:\n" + result;
+    }
 
 
 }

@@ -1,6 +1,7 @@
 package facade;
 
 import controllers.StoreController;
+import primitives.Item;
 
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ public class Facade {
 
     //Declare the objects ("this is what we are gonna have")
     public StoreController storeController;
+    public Item item;
 
     // This class only has the skeleton of the methods used by the test.
     // You must fill in this class with your own code. You can (and should) create more classes
@@ -17,20 +19,19 @@ public class Facade {
     public Facade(){
         //Declare stuff in here
         //Create here the object
-        StoreController storeController = new StoreController();
+        storeController = new StoreController();
     }
 
     public String createItem(String itemID, String itemName, double unitPrice){
-
         return storeController.createValidItem(itemID, itemName, unitPrice);
     }
 
     public String printItem(String itemID) {
-        return "";
+        return storeController.printSpecificItem(itemID);
     }
 
     public String removeItem(String itemID) {
-        return "";
+       return storeController.removeValidItem(itemID);
     }
 
     public boolean containsItem(String itemID) {
@@ -38,15 +39,15 @@ public class Facade {
     }
 
     public double buyItem(String itemID, int amount) {
-        return -1.0;
+        return storeController.buyItem(amount, itemID);
     }
 
     public String reviewItem(String itemID, String reviewComment, int reviewGrade) {
-        return "";
+        return storeController.createReviews(itemID, reviewGrade, reviewComment );
     }
 
     public String reviewItem(String itemID, int reviewGrade) {
-        return "";
+        return storeController.createReviews(itemID, reviewGrade, "");
     }
 
     public String getItemCommentsPrinted(String itemID) {
@@ -138,7 +139,8 @@ public class Facade {
     }
 
     public String updateItemName(String itemID, String newName) {
-        return "";
+
+        return storeController.updateNameItem(itemID, newName);
     }
 
     public String updateItemPrice(String itemID, double newPrice) {

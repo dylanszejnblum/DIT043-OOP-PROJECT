@@ -1,8 +1,11 @@
 package primitives;
 
+import java.util.ArrayList;
+
 public class Intern extends Employee{
     private int gpa;
     double grossSalary = this.initialGrossSalary;
+    ArrayList<Review> reviewList = new ArrayList<Review>();
 
     public Intern( final String ID, String name, double initialGrossSalary, int gpa) throws Exception {
         super(ID, name,initialGrossSalary) ;

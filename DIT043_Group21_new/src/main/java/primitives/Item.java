@@ -5,20 +5,18 @@ import helpers.MathHelpers;
 import java.util.ArrayList;
 
 public class Item {
-    public String name;
-    public double price;
-    public String ID;
+    private String name;
+    private double price;
+    private String ID;
     public ArrayList<Review> reviews;
     public Item(String  ID,String name, double price) {
-        if(name!=null || ID!=null|| price > 0){
-            this.name = name;
-            this.price = price; // do we really need to truncate :)
-            this.ID = ID;
-        }
-        throw new IllegalArgumentException("Invalid data for item");
+        reviews = new ArrayList<Review>();
+        this.name = name;
+        this.price = MathHelpers.truncateDouble(price); // do we really need to truncate :)
+        this.ID = ID;
     }
 
-    public String GetName(){
+    public String getName(){
         return this.name;
     }
 
