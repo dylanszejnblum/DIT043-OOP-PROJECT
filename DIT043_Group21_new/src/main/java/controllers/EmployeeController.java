@@ -36,9 +36,10 @@ public class EmployeeController  {
         for(int i = 0; i < employees.size() ; i++){
             if(employees.get(i).getID().equals(ID)){
                 return employees.get(i);
-            } }
-        throw new Exception("Employee <ID> was not registered yet.")
-
+            }
+        }
+        //how to try and catch the error
+        throw new Exception("Employee "+ ID +" was not registered yet.");
     }
 
     public boolean equals(Employee anotherEmployee){
