@@ -144,11 +144,11 @@ public class Facade {
     }
 
     public String updateItemPrice(String itemID, double newPrice) {
-        return "";
+        return  storeController.updateItemPrice(itemID, newPrice);
     }
 
     public String printAllItems() {
-        return "";
+        return  storeController.printAllItems();
     }
 
     public String printMostProfitableItems() {

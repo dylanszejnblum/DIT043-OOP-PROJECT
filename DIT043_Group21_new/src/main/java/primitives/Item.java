@@ -2,6 +2,7 @@ package primitives;
 
 import helpers.MathHelpers;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Item {
@@ -12,7 +13,7 @@ public class Item {
     public Item(String  ID,String name, double price) {
         reviews = new ArrayList<Review>();
         this.name = name;
-        this.price = MathHelpers.truncateDouble(price); // do we really need to truncate :)
+        this.price = price; // do we really need to truncate :)
         this.ID = ID;
     }
 
@@ -24,7 +25,7 @@ public class Item {
         return this.ID;
     }
     public Double getPrice(){
-        return this.price;
+        return MathHelpers.truncateDouble(this.price );
     }
 
     public void setPrice(double newPrice){
@@ -36,7 +37,9 @@ public class Item {
 
     // Add to string method to the rest of the classes
     public String toString(){
-       return  this.ID + ": " + this.name+" ." + String.valueOf(this.price);
+        DecimalFormat df = new DecimalFormat("0.00");
+
+        return  this.ID + ": " + this.name+". " + df.format(this.price)+ " SEK";
     }
 
     public void createReview(int grade , String writtenReview){
