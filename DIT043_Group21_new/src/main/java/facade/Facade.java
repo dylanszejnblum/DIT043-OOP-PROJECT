@@ -1,5 +1,6 @@
 package facade;
 
+import controllers.EmployeeController;
 import controllers.StoreController;
 import primitives.Item;
 
@@ -10,6 +11,7 @@ public class Facade {
 
     //Declare the objects ("this is what we are gonna have")
     public StoreController storeController;
+    public EmployeeController employeeController;
     public Item item;
 
     // This class only has the skeleton of the methods used by the test.
@@ -20,6 +22,7 @@ public class Facade {
         //Declare stuff in here
         //Create here the object
         storeController = new StoreController();
+        employeeController = new EmployeeController();
     }
 
     public String createItem(String itemID, String itemName, double unitPrice){
@@ -144,11 +147,11 @@ public class Facade {
     }
 
     public String updateItemPrice(String itemID, double newPrice) {
-        return  storeController.updateItemPrice(itemID, newPrice);
+        return  ""; //storeController.updateItemPrice(itemID, newPrice);
     }
 
     public String printAllItems() {
-        return  storeController.printAllItems();
+        return  ""; //storeController.printAllItems();
     }
 
     public String printMostProfitableItems() {
@@ -156,27 +159,27 @@ public class Facade {
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary) throws Exception {
-        return "";
+        return employeeController.createEmployee(employeeID, employeeName, grossSalary);
     }
 
     public String printEmployee(String employeeID) throws Exception {
-        return "";
+        return employeeController.printSpecificEmployee(employeeID);
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree) throws Exception {
-        return "";
+        return employeeController.createManager(employeeID, employeeName, grossSalary, degree);
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary, int gpa) throws Exception {
-        return "";
+        return employeeController.createIntern(employeeID, employeeName, grossSalary, gpa);
     }
 
     public double getNetSalary(String employeeID) throws Exception {
-        return -1.0;
+        return employeeController.calculateNetSalary(employeeID);
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree, String dept) throws Exception {
-        return "";
+        return employeeController.createDirector(employeeID, employeeName, grossSalary, degree, dept );
     }
 
     public String removeEmployee(String empID) throws Exception {
