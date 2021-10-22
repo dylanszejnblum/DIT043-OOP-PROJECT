@@ -23,8 +23,8 @@ public class StoreController {
     }
 
     public boolean itemExistenceChecker(String ID){
-        for (Item item : items) {
-            if (item.getId().equals(ID)) {
+        for (Item currentItem : items) {
+            if (currentItem.getId().equals(ID)) {
                 return true;
             }
         }
@@ -163,9 +163,10 @@ public class StoreController {
     }
 
     public String updateNameItem( String newName, String ID) {
-        if (ID.isEmpty() ||newName.isEmpty()|| !itemExistenceChecker(ID)) {
+        if (ID == null || newName == null|| !itemExistenceChecker(ID)) {
             return "Invalid data for the item.";
         }
+
         else {
             Item inputItem = getItemById(ID);
             inputItem.setName(newName);
