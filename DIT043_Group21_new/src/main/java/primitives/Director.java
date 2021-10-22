@@ -21,18 +21,19 @@ public class Director extends Manager{
 
 
     //changed it from initialGrossSalary to this.grossSalary.
-    public double netSalary(){
+    public double getNetSalary(){
+        double grossSalary = this.getGrossSalary();
         double netSalary = 0.0;
 
-        if (this.grossSalary < 30000){
-            netSalary = this.grossSalary - (this.grossSalary* 0.1);
+        if (grossSalary < 30000){
+            netSalary = grossSalary - (grossSalary * 0.1);
         }
-        else if (this.grossSalary <= 50000){
-            netSalary = this.grossSalary - (this.grossSalary*0.2);
+        else if (grossSalary <= 50000){
+            netSalary = grossSalary  - (grossSalary * 0.2);
         }
         else {
-            double newValue = this.grossSalary - 30000;
-            netSalary = this.grossSalary - (30000*0.2) - (newValue * 0.4);
+            double newValue = grossSalary - 30000;
+            netSalary = grossSalary  - (30000*0.2) - (newValue * 0.4);
         }
         return netSalary;
     }

@@ -1,12 +1,15 @@
 package primitives;
 
+import controllers.EmployeeController;
+import helpers.MathHelpers;
+import controllers.EmployeeController;
+
 public class Employee implements Comparable<Employee> {
 
     private String ID; //should this be final?
     private String name;
     protected double initialGrossSalary;
     final double TAX_PERCENTAGE = 0.1;
-    private double netSalary;
 
 
     public Employee( String ID, String name, double initialGrossSalary) throws Exception{
@@ -35,7 +38,6 @@ public class Employee implements Comparable<Employee> {
         }
 
     }
-
     public String getName(){
         return this.name;
     }
@@ -51,9 +53,10 @@ public class Employee implements Comparable<Employee> {
     public String getID() {
         return this.ID;
     }
-    public double getNetSalary(){return this.netSalary;}
-    public void setNetSalary(double newNetSalary){this.netSalary = newNetSalary;}
+
     public double getTAX_PERCENTAGE(){return TAX_PERCENTAGE;}
+
+
 
 
     public boolean equals(Employee anotherEmployee){
@@ -72,7 +75,20 @@ public class Employee implements Comparable<Employee> {
     }
 
 
-    public String toString() {
+    public double calculateNetSalary() {
+        double finalNetSalay = this.initialGrossSalary - (this.initialGrossSalary*TAX_PERCENTAGE);
+        return finalNetSalay;
+    }
+
+
+
+
+
+
+
+
+
+        public String toString() {
         return this.getName()+"’s gross salary is "+this.getInitialGrossSalary()+" SEK per month.";
     }
 
@@ -81,6 +97,7 @@ public class Employee implements Comparable<Employee> {
         return "Employee " + this.getID() + " registered successfully.";
 
     }
+
 
     //should the function calculate net salary be moved to the controller??
 
@@ -98,4 +115,10 @@ public class Employee implements Comparable<Employee> {
             return 0;
         }
     }
+
+
+
+
+
+
 }
