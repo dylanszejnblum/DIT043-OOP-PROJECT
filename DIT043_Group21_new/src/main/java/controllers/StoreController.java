@@ -1,10 +1,12 @@
 package controllers;
 
+import helpers.MathHelpers;
 import primitives.Employee;
 import primitives.Item;
 import primitives.Review;
 import primitives.Transaction;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -134,7 +136,7 @@ public class StoreController {
         if(price < 0 || ID.isEmpty() || name.isEmpty()) {
             return "Invalid data for item.";
         }
-        //double newPrice = MathHelpers.truncateDouble(price);
+
         Item item = new Item (ID, name, price);
         items.add(item);
         return ("Item " + ID + " was registered successfully.");
@@ -152,24 +154,26 @@ public class StoreController {
         }
 
     }
-    public String updatePriceItem(double newPrice) {
-        if (item.getPrice()< 0){
-            return "Invalid data for the item";
+    public String updateItemPrice( String ID  ,double newPrice) {
+        DecimalFormat df = new DecimalFormat("0.00");
+        if (ID.isEmpty() ||newPrice <= 0 || itemExistenceChecker(ID) != true) {
+            return "Invalid data for the item.";
         }
         else {
-            this.item.setPrice(newPrice);
-            return  "Item "+ this.item.getId()+ " was updated successfully.";
+            Item inputItem = getItemById(ID);
+            inputItem.setPrice(newPrice);
+            return  "Item " + inputItem.getId() + " was updated successfully.";
         }
     }
 
-    public String updateNameItem( String newName, String ID) {
-        if (ID.isEmpty() ||newName.isEmpty()|| !itemExistenceChecker(ID)) {
+    public String updateNameItem( String ID  ,String newName) {
+        if (ID.isEmpty() ||newName.isEmpty()|| itemExistenceChecker(ID) != true) {
             return "Invalid data for the item.";
         }
         else {
             Item inputItem = getItemById(ID);
             inputItem.setName(newName);
-            return  "Item " + ID + " was updated successfully.";
+            return  "Item " + inputItem.getId() + " was updated successfully.";
         }
     }
 
@@ -182,29 +186,36 @@ public class StoreController {
 
 
     public String printSpecificItem(String ID) {
+        // Dunno why but it's the only
+        DecimalFormat df = new DecimalFormat("0.00");
         if (!itemExistenceChecker(ID)) {
             return("Item " + ID + " was not registered yet.");
         } else {
             Item item = getItemById(ID);
-            return(item.getId() + ": " + item.getName() + ". " + item.getPrice() + " SEK");
+            return(item.getId() + ": " + item.getName() + ". " + df.format(item.getPrice()) + " SEK");
         }
     }
 
 
     // Not finished , it shoudl acomodate for the transactions class
     public double buyItem(int quantity , String ID){
-
+        int discountedQuantity;
         Item BoughtItem = getItemById(ID);
-        double total = BoughtItem.getPrice() * quantity;
 
         Transaction transaction = new Transaction(ID , quantity ,  BoughtItem.getPrice());
         transactions.add(transaction);
 
-        if(quantity >4){
-            total = total * 0.7;
+        if(quantity <= 4){
+            double total = BoughtItem.getPrice() * (double) quantity;
+
             return total;
+        } else{
+            double totalWithoutDiscount = BoughtItem.getPrice() * 4;
+
+            discountedQuantity = quantity - 4;
+
+            return MathHelpers.truncateDouble((totalWithoutDiscount + (BoughtItem.getPrice() * discountedQuantity) * (1-0.3)));
         }
-        return total;
         // need to add a -1 at the end
     }
 
@@ -369,6 +380,15 @@ public class StoreController {
         return "All registered reviews:\n" + result;
     }
 
+
+    public String printAllItems(){
+
+        String message = "All registered items:\n";
+        for (Item item : items) {
+            message += item.toString() + "\n";
+        }
+        return message;
+    }
 
 }
 
