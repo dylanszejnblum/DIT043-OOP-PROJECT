@@ -8,7 +8,6 @@ import primitives.Employee;
 
 public class EmployeeController  {
 
-    public Exception exception;
     public Employee employee;
     public ArrayList<Employee> employees;
     public ArrayList<Employee> sortedEmployees;
@@ -63,21 +62,28 @@ public class EmployeeController  {
         return this.employee.getName() + "'s gross salary is " + this.employee.getInitialGrossSalary() + " SEK per month";
     }
 
-    public double calculateNetSalary() {
-        double finalNetSalary = 0.0;
-        finalNetSalary= employee.getNetSalary() - (this.employee.getInitialGrossSalary() * employee.getTAX_PERCENTAGE());
-        return MathHelpers.truncateDouble(finalNetSalary);
+    public double calculateNetSalary(String ID) throws Exception {
+        if (!employeeExists(ID)){
+            return 0;
+        }
+        else{
+            Employee employee = getEmployeeById(ID);
+            double finalNetSalary = 0.0;
+            finalNetSalary= employee.getNetSalary() - (this.employee.getInitialGrossSalary() * employee.getTAX_PERCENTAGE());
+            return MathHelpers.truncateDouble(finalNetSalary);
+        }
+
         // Add the truncate function into the helpers
     }
-
 
               //------CREATE METHODS FOR EVERY KIND OF EMPLOYEES------\\
 
 
+
     public String createEmployee (String ID, String name, double initialGrossSalary) throws Exception {
-        Employee employee = new Employee(ID, name, initialGrossSalary);
-        employees.add(employee);
-        return "Employee " + this.employee.getID() + " registered successfully.";
+        Employee newEmployee = new Employee(ID, name, initialGrossSalary);
+        employees.add(newEmployee);
+        return "Employee " + newEmployee.getID() + " registered successfully.";
     }
 
 
@@ -103,6 +109,7 @@ public class EmployeeController  {
 
          // --------------------------------------------------------------------------\\
 
+
      //removing stored employee 5.4\\
     public String removeStoredEmployees(String ID) {
         for (int i = 0; i < employees.size(); i++) {
@@ -118,12 +125,11 @@ public class EmployeeController  {
 
     //printing specific employee - 5.5\\
     public String printSpecificEmployee(String ID) throws Exception {
-
-        if(checker(ID)) {
+        if(employeeExists(ID)) {
             return getEmployeeById(ID).toString();
         }
         return "No employee with such an ID"; //not sure what should be printed in this case.
-        }
+    }
 
 
 

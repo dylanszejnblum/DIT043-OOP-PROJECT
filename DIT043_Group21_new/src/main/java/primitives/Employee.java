@@ -4,27 +4,38 @@ import helpers.MathHelpers;
 
 public class Employee implements Comparable<Employee> {
 
-    final String ID;
+    private String ID; //should this be final?
     private String name;
     protected double initialGrossSalary;
     final double TAX_PERCENTAGE = 0.1;
     private double netSalary;
-    public MathHelpers mathHelpers;
 
 
-    public Employee(final String ID, String name, double initialGrossSalary) throws Exception{
+    public Employee( String ID, String name, double initialGrossSalary) throws Exception{
+
         if (ID.isEmpty()){
             throw new Exception("ID cannot be blank.");
         }
-        this.ID = ID;
+        else {
+            this.ID = ID;
+        }
+
         if (name.isEmpty()){
             throw new Exception("Name cannot be blank.");
         }
-        this.name = name;
+
+        else {
+            this.name = name;
+        }
+
         if (initialGrossSalary < 0){
             throw new Exception("Salary must be greater than zero.");
         }
-        this.initialGrossSalary = MathHelpers.truncateDouble(initialGrossSalary);
+
+        else {
+            this.initialGrossSalary = initialGrossSalary;
+        }
+
     }
     public String getName(){
         return this.name;
@@ -65,7 +76,7 @@ public class Employee implements Comparable<Employee> {
 
 
     public String toString() {
-        return this.getName() + "'s gross salary is " + this.getInitialGrossSalary() + " SEK per month";
+        return this.getName()+"’s gross salary is "+this.getInitialGrossSalary()+" SEK per month.";
     }
 
     public String createEmployee (String ID, String name, double grossSalary) throws Exception {
@@ -74,12 +85,9 @@ public class Employee implements Comparable<Employee> {
 
     }
 
-    public double calculateNetSalary() {
-        double netSalary = 0.0;
-        netSalary = this.initialGrossSalary - (this.initialGrossSalary * TAX_PERCENTAGE);
-        return netSalary;
-        // Add the truncate function into the helpers
-    }
+
+    //should the function calculate net salary be moved to the controller??
+
 
     @Override
     //is it getInitialGrossSalary or grossSalary here??
