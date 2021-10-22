@@ -1,7 +1,5 @@
 package primitives;
 
-import helpers.MathHelpers;
-
 public class Employee implements Comparable<Employee> {
 
     private String ID; //should this be final?
@@ -37,6 +35,7 @@ public class Employee implements Comparable<Employee> {
         }
 
     }
+
     public String getName(){
         return this.name;
     }
@@ -55,8 +54,6 @@ public class Employee implements Comparable<Employee> {
     public double getNetSalary(){return this.netSalary;}
     public void setNetSalary(double newNetSalary){this.netSalary = newNetSalary;}
     public double getTAX_PERCENTAGE(){return TAX_PERCENTAGE;}
-
-
 
 
     public boolean equals(Employee anotherEmployee){
@@ -84,7 +81,6 @@ public class Employee implements Comparable<Employee> {
         return "Employee " + this.getID() + " registered successfully.";
 
     }
-
 
     //should the function calculate net salary be moved to the controller??
 

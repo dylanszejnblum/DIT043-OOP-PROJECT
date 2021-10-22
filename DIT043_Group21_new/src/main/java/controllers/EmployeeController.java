@@ -11,12 +11,12 @@ public class EmployeeController  {
     public Employee employee;
     public ArrayList<Employee> employees;
     public ArrayList<Employee> sortedEmployees;
+
     public EmployeeController(){
 
-        ArrayList<Employee> employees = new ArrayList<Employee>();
-        ArrayList<Employee> sortedEmployees = new ArrayList<Employee>();
+        employees = new ArrayList<Employee>();
+        sortedEmployees = new ArrayList<Employee>();
     }
-
 
     //method for retrieving an Employee by its ID.\\
 
@@ -76,38 +76,36 @@ public class EmployeeController  {
         // Add the truncate function into the helpers
     }
 
-              //------CREATE METHODS FOR EVERY KIND OF EMPLOYEES------\\
-
-
+    //----------CREATE METHODS FOR EVERY KIND OF EMPLOYEES----------\\
 
     public String createEmployee (String ID, String name, double initialGrossSalary) throws Exception {
         Employee newEmployee = new Employee(ID, name, initialGrossSalary);
         employees.add(newEmployee);
-        return "Employee " + newEmployee.getID() + " registered successfully.";
+        return "Employee " + newEmployee.getID() + " was registered successfully.";
     }
 
 
     public String createManager(String ID, String name, double initialGrossSalary, String degree) throws Exception {
         Employee managerEmployee = new Manager(ID, name ,initialGrossSalary, degree);
         employees.add(managerEmployee);
-         return "Employee " + managerEmployee.getID() + " registered successfully.";
+         return "Employee " + managerEmployee.getID() + " was registered successfully.";
     }
 
 
     public String createDirector(String ID, String name, double initialGrossSalary,String degree, String department) throws Exception {
         Employee directorEmployee = new Director(ID, name, initialGrossSalary, degree, department);
         employees.add(directorEmployee);
-      return "Employee " + directorEmployee.getID() + " registered successfully.";
+      return "Employee " + directorEmployee.getID() + " was registered successfully.";
     }
 
 
     public String createIntern(String ID, String name, double initialGrossSalary,int gpa) throws Exception {
         Employee internEmployee = new Intern(ID, name, initialGrossSalary, gpa);
         employees.add(internEmployee);
-        return "Employee " + internEmployee.getID() + " registered successfully.";
+        return "Employee " + internEmployee.getID() + " was registered successfully.";
     }
 
-         // --------------------------------------------------------------------------\\
+    // --------------------------------------------------------------------------\\
 
 
      //removing stored employee 5.4\\
@@ -130,8 +128,6 @@ public class EmployeeController  {
         }
         return "No employee with such an ID"; //not sure what should be printed in this case.
     }
-
-
 
 
         //checker if an employee with such an ID exists\\
@@ -177,10 +173,139 @@ public class EmployeeController  {
             return result;
         }
 
-        public void promoteEmployee(){
+    //---------------------update employee's information - 5.9------------------------\\
 
+
+//--------update employee's name----------\\
+
+    public String updateEmployeeName(String ID, String name) throws Exception {
+        Employee employee = getEmployeeById(ID);
+        if (employee == null) {
+            return "Update unsuccessful.No employee existing with that ID";
+        }
+        employee.setName(name);
+        return "Employee " + ID + "was updated successfully";
+    }
+
+
+
+//--------update employee's initialGrossSalary----------\\
+
+    public String updateEmployeeInitialGrossSalary(String ID, double initialGrossSalary) throws Exception {
+        Employee employee = getEmployeeById(ID);
+        if (employee == null) {
+            return "Update unsuccessful.No employee existing with that ID";
+        }
+        employee.setInitialGrossSalary(initialGrossSalary);
+        return "Employee " + ID + "was updated successfully";
+    }
+
+
+
+
+//--------update employee's degree----------\\
+
+    public String updateEmployeeDegree(String ID, String degree) throws Exception {
+        Employee employee = getEmployeeById(ID);
+        if (employee == null) {
+            return "Update unsuccessful.No employee existing with that ID";
+        }
+        if (employee instanceof Manager) {
+            ((Manager) employee).setDegree(degree);
+            return "Employee " + ID + "was updated successfully";
+
+        } else if (employee instanceof Director) {
+            ((Director) employee).setDegree(degree);
+            return "Employee " + ID + "was updated successfully";
+
+        } else {
+            return "Employee " + ID + "does not have a degree";
         }
     }
+
+
+
+//--------update employee's department----------\\
+
+    public String updateEmployeeDepartment(String ID, String department) throws Exception {
+        Employee employee = getEmployeeById(ID);
+        if (employee == null) {
+            return "Update unsuccessful.No employee existing with that ID";
+        }
+        if (employee instanceof Director) {
+            ((Director) employee).setDepartment(department);
+            return "Employee " + ID + "was updated successfully";
+        }
+        return "Employee " + ID + "does not have a department";
+    }
+
+
+
+//--------update employee's gpa----------\\
+
+
+    public String updateEmployeeGpa(String ID, int gpa) throws Exception {
+        Employee employee = getEmployeeById(ID);
+        if (employee == null) {
+            return "Update unsuccessful.No employee existing with that ID";
+        }
+        if (employee instanceof Intern) {
+            ((Intern) employee).setGpa(gpa);
+            return "Employee " + ID + "was updated successfully";
+        }
+        return "Employee " + ID + "does not have a gpa";
+
+    }
+
+    public String printNumOfEmployeesPerDegree(){
+        String result = "Academic background of employees:";
+        String degree = "";
+        int counterBsc = 0;
+        int counterMsc = 0;
+        int counterPhd = 0;
+
+        for(int i = 0; i<employees.size(); i++) {
+
+            if (employees.get(i) instanceof Manager || employees.get(i) instanceof Director) {
+                degree = ((Manager) employees.get(i)).getDegree();
+
+                if (degree.equals("BSc")) {
+                    counterBsc++;
+
+                } else if (degree.equals("MSc")) {
+                    counterMsc++;
+
+                } else {
+                    counterPhd++;
+                }
+
+                return result + "\n BSc: => " + counterBsc +
+                        "\n MSc: => " + counterMsc +
+                        "\n PhD: => " + counterPhd;
+
+            }} return result;}
+
+
+    /*
+    public String updateEmployeeDegree(String ID, String degree) {
+
+        Employee employee = getEmployeeById(ID);
+        if (employee == null) {
+            return "Update unsuccessful.No employee existing with that ID";
+        }
+        if (employee instanceof Manager || employee instanceof Director ) {
+            ((Manager) employee).setDegree(degree);
+            return "Employee " + ID + "was updated successfully";
+
+        }
+        return "Update unsuccessful. The employee does nor have a degree";
+    }
+    
+     */
+
+
+
+}
 
 
 
