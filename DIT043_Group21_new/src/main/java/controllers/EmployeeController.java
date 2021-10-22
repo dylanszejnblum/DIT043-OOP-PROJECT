@@ -3,6 +3,7 @@ import primitives.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import exceptions.*;
 import helpers.*;
 import primitives.Employee;
 
@@ -62,23 +63,24 @@ public class EmployeeController  {
         return this.employee.getName() + "'s gross salary is " + this.employee.getInitialGrossSalary() + " SEK per month";
     }
 
-    public double calculateNetSalary(String ID) throws Exception {
-        if (!employeeExists(ID)){
-            return 0;
-        }
-        else{
-            Employee employee = getEmployeeById(ID);
-            double finalNetSalary = 0.0;
-            finalNetSalary= employee.getNetSalary() - (this.employee.getInitialGrossSalary() * employee.getTAX_PERCENTAGE());
-            return MathHelpers.truncateDouble(finalNetSalary);
-        }
 
         // Add the truncate function into the helpers
-    }
+
 
     //----------CREATE METHODS FOR EVERY KIND OF EMPLOYEES----------\\
-
+    public boolean checkName(String employee){
+        for (int i = 0; i < employee.length();i++){
+            int ascii = (int) employee.charAt(i);
+            if (ascii != 32){
+                return false;
+            }
+        }
+        return true;
+    }
     public String createEmployee (String ID, String name, double initialGrossSalary) throws Exception {
+        if (name.isEmpty() || checkName(name)){
+            throw new BlankNameException();
+        }
         Employee newEmployee = new Employee(ID, name, initialGrossSalary);
         employees.add(newEmployee);
         return "Employee " + newEmployee.getID() + " was registered successfully.";
@@ -86,6 +88,9 @@ public class EmployeeController  {
 
 
     public String createManager(String ID, String name, double initialGrossSalary, String degree) throws Exception {
+        if (name.isEmpty() || checkName(name)){
+            throw new BlankNameException();
+        }
         Employee managerEmployee = new Manager(ID, name ,initialGrossSalary, degree);
         employees.add(managerEmployee);
          return "Employee " + managerEmployee.getID() + " was registered successfully.";
@@ -93,6 +98,9 @@ public class EmployeeController  {
 
 
     public String createDirector(String ID, String name, double initialGrossSalary,String degree, String department) throws Exception {
+        if (name.isEmpty() || checkName(name)){
+            throw new BlankNameException();
+        }
         Employee directorEmployee = new Director(ID, name, initialGrossSalary, degree, department);
         employees.add(directorEmployee);
       return "Employee " + directorEmployee.getID() + " was registered successfully.";
@@ -100,6 +108,9 @@ public class EmployeeController  {
 
 
     public String createIntern(String ID, String name, double initialGrossSalary,int gpa) throws Exception {
+        if (name.isEmpty() || checkName(name)){
+            throw new BlankNameException();
+        }
         Employee internEmployee = new Intern(ID, name, initialGrossSalary, gpa);
         employees.add(internEmployee);
         return "Employee " + internEmployee.getID() + " was registered successfully.";
@@ -107,6 +118,17 @@ public class EmployeeController  {
 
     // --------------------------------------------------------------------------\\
 
+    //getNetSalary\\
+    public double getNetSalary(String ID) throws Exception {
+        double finalNetSalary = 0.0;
+        if (!employeeExists(ID)) {
+            return 0;
+        } else {
+            Employee employee = getEmployeeById(ID);
+            finalNetSalary = employee.calculateNetSalary();
+        }
+        return finalNetSalary;
+    }
 
      //removing stored employee 5.4\\
     public String removeStoredEmployees(String ID) {
@@ -142,7 +164,10 @@ public class EmployeeController  {
 
         //printing all employees - 5.6\\
 
-        public String printAllEmployees(){
+        public String printAllEmployees() throws Exception{
+        if (employees.size() == 0){
+            throw new EmptyIdException();
+        }
         String result = "";
         for (int i = 0; i < employees.size(); i++){
             result += employees.get(i).toString() + "\n";
@@ -153,17 +178,22 @@ public class EmployeeController  {
 
         //print total salary expenses - 5.7\\
 
-        public double printTotalSalaryExpenses(){
+        public double printTotalSalaryExpenses() throws Exception{
             double total = 0.0;
-
+            if (employees.size() == 0){
+                throw new EmptyIdException();
+            }
             for(int i = 0; i < employees.size(); i++){
-                total += employees.get(i).getNetSalary();
+                total += employees.get(i).calculateNetSalary();
             }
             return total;
         }
 
         //print employees sorted by gross salary - 5.8\\
-        public String printSortedEmployees(){
+        public String printSortedEmployees() throws Exception{
+            if (employees.size() == 0){
+                throw new EmptyIdException();
+            }
             String result = "Employees sorted by gloss salary (ascending order): \n";
             ArrayList<Employee> sortedEmployees = employees;
             Collections.sort(sortedEmployees);
@@ -179,10 +209,10 @@ public class EmployeeController  {
 //--------update employee's name----------\\
 
     public String updateEmployeeName(String ID, String name) throws Exception {
-        Employee employee = getEmployeeById(ID);
-        if (employee == null) {
-            return "Update unsuccessful.No employee existing with that ID";
+        if (name.isEmpty() || checkName(name)){
+            throw new BlankNameException();
         }
+        Employee employee = getEmployeeById(ID);
         employee.setName(name);
         return "Employee " + ID + "was updated successfully";
     }
@@ -193,9 +223,6 @@ public class EmployeeController  {
 
     public String updateEmployeeInitialGrossSalary(String ID, double initialGrossSalary) throws Exception {
         Employee employee = getEmployeeById(ID);
-        if (employee == null) {
-            return "Update unsuccessful.No employee existing with that ID";
-        }
         employee.setInitialGrossSalary(initialGrossSalary);
         return "Employee " + ID + "was updated successfully";
     }
@@ -207,9 +234,6 @@ public class EmployeeController  {
 
     public String updateEmployeeDegree(String ID, String degree) throws Exception {
         Employee employee = getEmployeeById(ID);
-        if (employee == null) {
-            return "Update unsuccessful.No employee existing with that ID";
-        }
         if (employee instanceof Manager) {
             ((Manager) employee).setDegree(degree);
             return "Employee " + ID + "was updated successfully";
@@ -217,10 +241,7 @@ public class EmployeeController  {
         } else if (employee instanceof Director) {
             ((Director) employee).setDegree(degree);
             return "Employee " + ID + "was updated successfully";
-
-        } else {
-            return "Employee " + ID + "does not have a degree";
-        }
+        } 
     }
 
 

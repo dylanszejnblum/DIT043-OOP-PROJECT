@@ -175,7 +175,7 @@ public class Facade {
     }
 
     public double getNetSalary(String employeeID) throws Exception {
-        return employeeController.calculateNetSalary(employeeID);
+        return employeeController.getNetSalary(employeeID);
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree, String dept) throws Exception {
@@ -207,7 +207,7 @@ public class Facade {
     }
 
     public String updateManagerDegree(String empID, String newDegree) throws Exception {
-        return "";
+        return employeeController.updateEmployeeDegree(empID, newDegree);
     }
 
     public String updateDirectorDept(String empID, String newDepartment) throws Exception {
