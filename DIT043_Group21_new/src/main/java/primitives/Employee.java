@@ -1,5 +1,7 @@
 package primitives;
 
+import helpers.MathHelpers;
+
 public class Employee implements Comparable<Employee> {
 
     private String ID; //should this be final?
@@ -7,6 +9,7 @@ public class Employee implements Comparable<Employee> {
     protected double initialGrossSalary;
     final double TAX_PERCENTAGE = 0.1;
     private double netSalary;
+
 
 
     public Employee( String ID, String name, double initialGrossSalary) throws Exception{
@@ -63,24 +66,25 @@ public class Employee implements Comparable<Employee> {
         } else if(anotherEmployee == null){
             return false;
 
-        } else if ( anotherEmployee instanceof Employee ){
+        } else {
             return (this.getID().equals(anotherEmployee.getID()));
 
-        } else {
-            return false;
         }
     }
 
 
     public String toString() {
-        return this.getName()+"’s gross salary is "+this.getInitialGrossSalary()+" SEK per month.";
+        return this.getName()+"'s gross salary is "+String.format("%.2f", MathHelpers.truncateDouble(this.getInitialGrossSalary()))+" SEK per month.";
     }
 
+    /*
     public String createEmployee (String ID, String name, double grossSalary) throws Exception {
         Employee employee = new Employee(ID, name, grossSalary);
         return "Employee " + this.getID() + " registered successfully.";
 
     }
+
+     */
 
     //should the function calculate net salary be moved to the controller??
 

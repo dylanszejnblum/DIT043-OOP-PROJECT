@@ -283,7 +283,11 @@ public class EmployeeController  {
                         "\n MSc: => " + counterMsc +
                         "\n PhD: => " + counterPhd;
 
-            }} return result;}
+            }
+        }
+
+        return result;
+    }
 
 
     /*
@@ -300,11 +304,87 @@ public class EmployeeController  {
         }
         return "Update unsuccessful. The employee does nor have a degree";
     }
-    
+
      */
 
 
+    //--------------------------PROMOTIONS---------------------------------------------
+    public String promoteToManager(String degree, String ID) throws Exception{
 
+        String result = "";
+        if (!degree.equals("PhD") && !degree.equals("BSc")&& !degree.equals("MSc")) {
+            throw new Exception("Degree must be one of the options: PhD, MSc or PhD");
+        }
+
+        if (ID.isEmpty()){
+            throw new Exception("ID cannot be blank.");
+        }
+
+        if (employeeExists(ID)) {
+            Employee inputEmployee = getEmployeeById(ID);
+            Employee manager = new Manager(ID, inputEmployee.getName(), inputEmployee.getInitialGrossSalary(), degree);
+            int pastIndex = employees.indexOf(inputEmployee);
+            employees.set(pastIndex, manager);
+            result = ID + " promoted successfully to Manager.";
+            return result;
+
+        }
+        else {
+            throw new Exception("Employee " + ID + " was not registered yet.");
+        }
+
+    }
+
+    public String promoteToDirector(String department, String ID, String degree) throws Exception{
+
+        String result = "";
+        if (!department.equals("Business") && !department.equals("Human Resources") && !department.equals("Technical") ) {
+            throw new Exception("Department must be one of the options: Business, Human Resources or Technical.");
+        }
+
+        if (!degree.equals("PhD") && !degree.equals("BSc")&& !degree.equals("MSc")) {
+            throw new Exception("Degree must be one of the options: PhD, MSc or PhD");
+        }
+
+        if (ID.isEmpty()){
+            throw new Exception("ID cannot be blank.");
+        }
+
+        if (employeeExists(ID)) {
+            Employee inputEmployee = getEmployeeById(ID);
+            Employee director = new Director(ID, inputEmployee.getName(), inputEmployee.getInitialGrossSalary(), degree ,department);
+            int pastIndex = employees.indexOf(inputEmployee);
+            employees.set(pastIndex, director);
+            result = ID + " promoted successfully to Director.";
+            return result;
+
+        }
+        else {
+            throw new Exception("Employee " + ID + " was not registered yet.");
+        }
+
+    }
+
+    public String promoteToIntern(String ID, int gpa) throws Exception{
+        String result = "";
+
+        if (ID.isEmpty()){
+            throw new Exception("ID cannot be blank.");
+        }
+
+        if (employeeExists(ID)) {
+            Employee inputEmployee = getEmployeeById(ID);
+            Employee intern = new Intern(ID, inputEmployee.getName(), inputEmployee.getInitialGrossSalary(), gpa);
+            int pastIndex = employees.indexOf(inputEmployee);
+            employees.set(pastIndex, intern);
+            result = ID + " promoted successfully to Intern.";
+            return result;
+
+        }
+        else {
+            throw new Exception("Employee " + ID + " was not registered yet.");
+        }
+    }
 }
 
 
