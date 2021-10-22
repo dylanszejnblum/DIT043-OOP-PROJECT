@@ -1,5 +1,7 @@
 package primitives;
 
+import java.text.DecimalFormat;
+
 public class Transaction {
     String ID;
     int amount;
@@ -19,7 +21,9 @@ public class Transaction {
     public double getPrice(){return this.price;}
     @Override
     public String toString(){
-        return this.ID + ": " + this.amount + "  item(s). "+ this.price+" SEK";
+        DecimalFormat df = new DecimalFormat("0.00");
+
+        return this.ID + ": " + this.amount +  " item(s). " + df.format(this.price) + " SEK"  ;
     }
 
 }

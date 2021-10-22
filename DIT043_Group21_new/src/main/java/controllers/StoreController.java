@@ -5,16 +5,17 @@ import primitives.Employee;
 import primitives.Item;
 import primitives.Review;
 import primitives.Transaction;
-
+import primitives.ItemTransactionIndex;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
-// I should have added a get by id , i'm not thingking logically
+
 public class StoreController {
     public ArrayList<Employee> employees;
     ArrayList<Item> items;
     ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+    ArrayList<ItemTransactionIndex> profitList;
     public Item item;
     public Review review;
 
@@ -22,6 +23,7 @@ public class StoreController {
     public StoreController(){
         items = new ArrayList<Item>();
         transactions = new ArrayList<Transaction>();
+        profitList = new ArrayList<ItemTransactionIndex>();
     }
 
     public boolean itemExistenceChecker(String ID){
@@ -44,11 +46,12 @@ public class StoreController {
     }
 
     public double totalPurchases(){
-        double totalProfit = 0;
-        for(int i = 0; i < transactions.size();i++){
-            totalProfit += transactions.get(i).getPrice();
+        double total = 0;
+        for(Transaction a : transactions){
+            total = total + a.getPrice();
         }
-        return totalProfit;
+
+        return total;
     }
 
     public int totalUnits(){
@@ -104,23 +107,34 @@ public class StoreController {
     }
 
 
-    // If it is a print i think void could also work
-    // By tommorrow the best thing to do it would be to decouple this functions from transactions into two diffrernt ones
-    public String getAllItemTransactions(String ID){
-        if(itemExists(ID)){
-            System.out.println("Transactions for item: <item ID>: <item name>. <unit price> SEK");
 
-            for(int i = 0 ; i < transactions.size();i++){
-                if(ID == transactions.get(i).getId()){
-                   System.out.println(transactions.get(i).toString());
-                }
-            }
-        }else{
-            System.out.println("Transactions for item: <item ID>: <item name>. <unit price> SEK\n" +
+
+
+
+    public String getAllItemTransactions(String ID){
+        if(itemExists(ID) == false) {
+            return ("Transactions for item: <item ID>: <item name>. <unit price> SEK\n" +
                     "No transactions have been registered for item <item ID> yet.\n");
         }
+        Item specificItem = getItemById(ID);
+        String result = ("Transactions for item: " + specificItem.getId() + ": " + specificItem.getName() +". " + specificItem.getPrice() + " SEK\n");
+        int transactionCount = 0;
+        for(int i = 0 ; i < transactions.size();i++){
+            if(ID == transactions.get(i).getId()){
+                result +=  transactions.get(i).toString() + "\n";
+                transactionCount++;
+            }
+        }
+        if(transactionCount == 0){
+            DecimalFormat df = new DecimalFormat("0.00");
 
-        return null;
+            return "Transactions for item: "+ specificItem.getId() +": Sweatpants. "+ df.format(specificItem.getPrice()) + " SEK\n" +
+                    "No transactions have been registered for item "+ specificItem.getId()+" yet.";
+        }
+        return result;
+
+
+
 
     }
     public Item getItemById(String id){
@@ -150,14 +164,17 @@ public class StoreController {
             return ("Item " + inputItem.getId() + " was successfully removed.");
         }
         else{
-            return ("Item" + inputID + "could not be removed.");
+            return ("Item " + inputID + " could not be removed.");
         }
 
     }
     public String updateItemPrice( String ID  ,double newPrice) {
         DecimalFormat df = new DecimalFormat("0.00");
-        if (ID.isEmpty() ||newPrice <= 0 || itemExistenceChecker(ID) != true) {
-            return "Invalid data for the item.";
+        if(itemExistenceChecker(ID) != true){
+            return  "Item " + ID + " was not registered yet.";
+        }
+        else if (ID.isEmpty() ||newPrice <= 0) {
+            return "Invalid data for item.";
         }
         else {
             Item inputItem = getItemById(ID);
@@ -166,9 +183,55 @@ public class StoreController {
         }
     }
 
+    public String printAllTransactions(){
+        String result = "All purchases made: " + "\n" + "Total profit: " + totalPurchases() + " SEK\n" + "Total items sold: "+ totalUnits()+" units\n" + "Total purchases made: " + totalTransaction()+  " transactions\n"+ "------------------------------------\n";
+        if(transactions.isEmpty() == false){
+            for(Transaction n : transactions){
+                result += n.toString()+ "\n";
+            }
+            return  result + "------------------------------------\n";
+        }
+        return  result;
+    }
+
+
+    public  void addAllItemsProffit(){
+        if(items.isEmpty() == false && transactions.isEmpty() == false){
+            for(Item n : items){
+                double nProfit = getSpecificItemProfit(n.getId());
+                ItemTransactionIndex foo = new ItemTransactionIndex(n.getId() , nProfit);
+                profitList.add(foo);
+            }
+        }
+    }
+
+    public String printMostProfitable(){
+        DecimalFormat df = new DecimalFormat("0.00");
+        addAllItemsProffit();
+
+        ItemTransactionIndex min = profitList.get(0);
+        ItemTransactionIndex max = profitList.get(0);
+        int size = profitList.size();
+
+        for(int i = 1;  i < size; i++){
+            if(profitList.get(i).profit > max.profit){
+                max = profitList.get(i);
+            }
+        }
+
+        Item MostProfitable = getItemById(max.getID());
+        return "Most profitable items: \n" + "Total profit: "+ df.format(max.profit) +" SEK\n" + MostProfitable.toString()+"\n";
+
+
+
+
+    }
     public String updateNameItem( String ID  ,String newName) {
-        if (ID.isEmpty() ||newName.isEmpty()|| itemExistenceChecker(ID) != true) {
-            return "Invalid data for the item.";
+        if(itemExistenceChecker(ID) != true){
+            return  "Item " + ID + " was not registered yet.";
+        }
+       else if (ID.isEmpty() ||newName.isEmpty()) {
+            return "Invalid data for item.";
         }
         else {
             Item inputItem = getItemById(ID);
@@ -198,23 +261,27 @@ public class StoreController {
 
 
     // Not finished , it shoudl acomodate for the transactions class
-    public double buyItem(int quantity , String ID){
+    public double buyItem(String ID , int quantity){
         int discountedQuantity;
         Item BoughtItem = getItemById(ID);
 
-        Transaction transaction = new Transaction(ID , quantity ,  BoughtItem.getPrice());
-        transactions.add(transaction);
-
-        if(quantity <= 4){
+        if (itemExistenceChecker(ID) == false){
+            return  -1.0;
+        } else if(quantity <= 4 && quantity > 0){
             double total = BoughtItem.getPrice() * (double) quantity;
+            Transaction transaction = new Transaction(ID , quantity ,  total);
+            transactions.add(transaction);
 
             return total;
-        } else{
-            double totalWithoutDiscount = BoughtItem.getPrice() * 4;
+        }
+        else{
+            double totalWithoutDiscount = BoughtItem.getPrice() * 4.0;
 
-            discountedQuantity = quantity - 4;
 
-            return MathHelpers.truncateDouble((totalWithoutDiscount + (BoughtItem.getPrice() * discountedQuantity) * (1-0.3)));
+            double total = MathHelpers.truncateDouble((totalWithoutDiscount + (BoughtItem.getPrice() * (quantity-4)) * (1-0.3)));
+            Transaction transaction = new Transaction(ID , quantity ,  total);
+            transactions.add(transaction);
+            return total ;
         }
         // need to add a -1 at the end
     }
@@ -245,19 +312,17 @@ public class StoreController {
 
 //method creating reviews
 
-    public String createReviews(String ID, int grade, String writtenComment){
-
-        if (!itemExistenceChecker(ID)) {
-            return("Item " + ID + " was not registered yet.");
-        }
-        else if (grade < 1 || grade > 5) {
-            return("Grade values must be between 1 and 5.");
-        }
-        else {
+    public String createReviews(String ID , String writtenComment , int grade){
+        if(itemExists(ID) != true){
+            return "item does not exist";
+        }  else if (grade < 1 || grade > 5) {
+            return "Grade values must be between 1 and 5.";
+        }else{
             Item item = getItemById(ID);
-            Review review = new Review (ID,grade, writtenComment);
+            Review review = new Review (ID,writtenComment, grade);
             item.reviews.add(review);
             return("Your item review was registered successfully.");
+
         }
 
     }
@@ -381,15 +446,19 @@ public class StoreController {
     }
 
 
-    public String printAllItems(){
+    public String printAllItems() {
+        if (items.isEmpty()) {
+            return "No items registered yet.";
+        } else {
 
-        String message = "All registered items:\n";
-        for (Item item : items) {
-            message += item.toString() + "\n";
+
+            String message = "All registered items:\n";
+            for (Item item : items) {
+                message += item.toString() + "\n";
+            }
+            return message;
         }
-        return message;
     }
-
 }
 
 

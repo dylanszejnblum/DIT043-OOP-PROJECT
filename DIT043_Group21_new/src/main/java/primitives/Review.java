@@ -5,11 +5,11 @@ public class Review {
     public int grade;
     public String writtenReview;
 
-    public Review (String ID , int grade , String writtenReview){
+    public Review (String ID , String writtenReview , int grade ){
         if(grade <=0 || grade >5){
             throw new IllegalArgumentException("Grade values must be between 1 and 5");
-        } else if(writtenReview == null){
-            writtenReview = " ";
+        } else if(writtenReview.isEmpty()){
+            writtenReview = "";
         }
         this.ID = ID;
         this.grade = grade;

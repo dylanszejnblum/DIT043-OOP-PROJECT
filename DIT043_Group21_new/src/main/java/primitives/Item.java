@@ -43,7 +43,7 @@ public class Item {
     }
 
     public void createReview(int grade , String writtenReview){
-        Review NewReview = new Review(this.ID, grade , writtenReview);
+        Review NewReview = new Review(this.ID, writtenReview , grade );
         reviews.add(NewReview);
     }
 

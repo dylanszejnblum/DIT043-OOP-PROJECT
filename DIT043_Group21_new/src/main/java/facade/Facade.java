@@ -39,15 +39,15 @@ public class Facade {
     }
 
     public double buyItem(String itemID, int amount) {
-        return storeController.buyItem(amount, itemID);
+        return storeController.buyItem(itemID ,amount);
     }
 
     public String reviewItem(String itemID, String reviewComment, int reviewGrade) {
-        return storeController.createReviews(itemID, reviewGrade, reviewComment );
+        return storeController.createReviews(itemID, reviewComment, reviewGrade );
     }
 
     public String reviewItem(String itemID, int reviewGrade) {
-        return storeController.createReviews(itemID, reviewGrade, "");
+        return storeController.createReviews(itemID, " ", reviewGrade);
     }
 
     public String getItemCommentsPrinted(String itemID) {
@@ -91,31 +91,31 @@ public class Facade {
     }
 
     public double getTotalProfit() {
-        return -1.0;
+        return storeController.totalPurchases();
     }
 
     public String printItemTransactions(String itemID) {
-        return "";
+        return storeController.getAllItemTransactions(itemID);
     }
 
     public int getTotalUnitsSold() {
-        return -1;
+        return  storeController.totalUnits();
     }
 
     public int getTotalTransactions() {
-        return -1;
+        return storeController.totalTransaction();
     }
 
     public double getProfit(String itemID) {
-        return -1.0;
+        return storeController.getSpecificItemProfit(itemID);
     }
 
     public int getUnitsSolds(String itemID) {
-        return -1;
+     return storeController.getSpecificItemAmmount(itemID);
     }
 
     public String printAllTransactions() {
-        return "";
+        return storeController.printAllTransactions();
     }
 
     public String printWorseReviewedItems() {
@@ -152,7 +152,7 @@ public class Facade {
     }
 
     public String printMostProfitableItems() {
-        return "";
+        return storeController.printMostProfitable();
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary) throws Exception {
