@@ -2,6 +2,8 @@ package primitives;
 
 import helpers.MathHelpers;
 
+import java.util.Comparator;
+
 public class Employee implements Comparable<Employee> {
 
     private String ID; //should this be final?
@@ -31,7 +33,7 @@ public class Employee implements Comparable<Employee> {
         }
 
         else {
-            this.initialGrossSalary = MathHelpers.truncateDouble(initialGrossSalary);
+            this.initialGrossSalary = initialGrossSalary;
         }
 
     }
@@ -68,9 +70,8 @@ public class Employee implements Comparable<Employee> {
         }
     }
 
-
     public double calculateNetSalary(){
-        return (this.getInitialGrossSalary() - (0.1 * this.getInitialGrossSalary()));
+        return this.getInitialGrossSalary() - (0.1 * this.getInitialGrossSalary());
 
     }
 
@@ -87,25 +88,23 @@ public class Employee implements Comparable<Employee> {
 
      */
 
-    //should the function calculate net salary be moved to the controller??
-
-
     @Override
+    public int compareTo(Employee o2) {
+        return (int) Double.compare(this.getInitialGrossSalary(),(o2.getInitialGrossSalary()));
+    }
+
+
+    /*@Override
     //is it getInitialGrossSalary or grossSalary here??
     public int compareTo(Employee anotherEmployee) {
         if (anotherEmployee.getInitialGrossSalary() > this.getInitialGrossSalary()) {
             return -1;
         }
-        else if(anotherEmployee.getInitialGrossSalary() < this.getInitialGrossSalary()){
+        else if(anotherEmployee.getInitialGrossSalary() <= this.getInitialGrossSalary()){
             return 1;
         }
-        else if (anotherEmployee.getInitialGrossSalary() < this.getInitialGrossSalary() && anotherEmployee.getInitialGrossSalary()== 0.00){
-            return 1;
-        }
-
-
         else{
             return 0;
         }
-    }
+    }*/
 }

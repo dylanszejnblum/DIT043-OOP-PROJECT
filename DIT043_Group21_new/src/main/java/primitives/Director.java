@@ -27,15 +27,15 @@ public class Director extends Manager{
         double grossSalary = this.getGrossSalary();
         double netSalary = 0.0;
 
-        if (grossSalary < 30000){
+        if (grossSalary < 30000.00){
             netSalary = grossSalary - (grossSalary * 0.1);
         }
-        else if (grossSalary <= 50000){
+        else if (grossSalary >= 30000.00 && grossSalary <= 50000.00){
             netSalary = grossSalary  - (grossSalary * 0.2);
         }
         else {
-            double newValue = grossSalary - 30000;
-            netSalary = grossSalary  - (30000*0.2) - (newValue * 0.4);
+            double newValue = grossSalary - 30000.00;
+            netSalary = grossSalary  - (30000.00 * 0.2) - (newValue * 0.4);
         }
         return netSalary;
     }

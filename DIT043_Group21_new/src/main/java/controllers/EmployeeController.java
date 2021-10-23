@@ -56,6 +56,15 @@ public class EmployeeController  {
             return false;
         }
     }
+    //public double getNetSalary(String ID){
+
+
+
+
+
+
+     //   return 0.0;
+   // }
 
 
 
@@ -190,6 +199,15 @@ public class EmployeeController  {
         return "All registered employees:\n" + result;
         }
 
+        public double getTotalNetSalary(){
+            double totalNetSalary = 0.0;
+            for (Employee currentEmployee : employees ){
+                totalNetSalary += currentEmployee.calculateNetSalary();
+            }
+
+            return totalNetSalary;
+        }
+
 
         //print total salary expenses - 5.7\\
 
@@ -209,12 +227,13 @@ public class EmployeeController  {
             if (employees.size() == 0){
                 throw new EmptyIdException();
             }
-            String result = "Employees sorted by gloss salary (ascending order): \n";
+            String result = "Employees sorted by gross salary (ascending order):\n";
             ArrayList<Employee> sortedEmployees = employees;
             Collections.sort(sortedEmployees);
-            for (Employee currentEmployee : sortedEmployees) {
-                result += currentEmployee + "\n";
+            for (int i=0; i<sortedEmployees.size();i++) {
+                result += sortedEmployees.get(i).toString() + "\n";
             }
+
             return result;
         }
 
@@ -229,7 +248,7 @@ public class EmployeeController  {
         }
         Employee employee = getEmployeeById(ID);
         employee.setName(name);
-        return "Employee " + ID + "was updated successfully";
+        return "Employee " + ID + " was updated successfully";
     }
 
 
@@ -239,7 +258,7 @@ public class EmployeeController  {
     public String updateEmployeeInitialGrossSalary(String ID, double initialGrossSalary) throws Exception {
         Employee employee = getEmployeeById(ID);
         employee.setInitialGrossSalary(initialGrossSalary);
-        return "Employee " + ID + "was updated successfully";
+        return "Employee " + ID + " was updated successfully";
     }
 
 
@@ -251,11 +270,11 @@ public class EmployeeController  {
         Employee employee = getEmployeeById(ID);
         if (employee instanceof Manager) {
             ((Manager) employee).setDegree(degree);
-            return "Employee " + ID + "was updated successfully";
+            return "Employee " + ID + " was updated successfully";
 
         } else if  (employee instanceof Director) {
             ((Director) employee).setDegree(degree);
-            return "Employee " + ID + "was updated successfully";
+            return "Employee " + ID + " was updated successfully";
         }
         return "";
     }
@@ -267,13 +286,13 @@ public class EmployeeController  {
     public String updateEmployeeDepartment(String ID, String department) throws Exception {
         Employee employee = getEmployeeById(ID);
         if (employee == null) {
-            return "Update unsuccessful.No employee existing with that ID";
+            return "Update unsuccessful. No employee existing with that ID";
         }
         if (employee instanceof Director) {
             ((Director) employee).setDepartment(department);
-            return "Employee " + ID + "was updated successfully";
+            return "Employee " + ID + " was updated successfully";
         }
-        return "Employee " + ID + "does not have a department";
+        return "Employee " + ID + " does not have a department";
     }
 
 
@@ -288,7 +307,7 @@ public class EmployeeController  {
         }
         if (employee instanceof Intern) {
             ((Intern) employee).setGpa(gpa);
-            return "Employee " + ID + "was updated successfully";
+            return "Employee " + ID + " was updated successfully";
         }
         return "Employee " + ID + "does not have a gpa";
 
@@ -346,9 +365,10 @@ public class EmployeeController  {
 
 
     //--------------------------PROMOTIONS---------------------------------------------
-    public String promoteToManager(String degree, String ID) throws Exception{
+    public String promoteToManager(String ID, String degree) throws Exception {
 
-        String result = "";
+        String result;
+
         if (!degree.equals("PhD") && !degree.equals("BSc")&& !degree.equals("MSc")) {
             throw new Exception("Degree must be one of the options: PhD, MSc or PhD");
         }
@@ -372,7 +392,7 @@ public class EmployeeController  {
 
     }
 
-    public String promoteToDirector(String department, String ID, String degree) throws Exception{
+    public String promoteToDirector(String ID, String degree, String department) throws Exception{
 
         String result = "";
         if (!department.equals("Business") && !department.equals("Human Resources") && !department.equals("Technical") ) {
@@ -407,6 +427,10 @@ public class EmployeeController  {
 
         if (ID.isEmpty()){
             throw new Exception("ID cannot be blank.");
+        }
+
+        if (gpa < 0 || gpa > 10){
+            throw new Exception(gpa + " outside range. Must be between 0-10.");
         }
 
         if (employeeExists(ID)) {

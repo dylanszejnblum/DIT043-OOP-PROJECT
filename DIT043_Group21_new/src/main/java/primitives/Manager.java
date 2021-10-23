@@ -4,9 +4,9 @@ import helpers.MathHelpers;
 
 public class Manager extends Employee{
     private String degree;
-    final double PERCENT_BSC = 0.1;
-    final double PERCENT_MSC = 0.2;
-    final double PERCENT_PHD = 0.35;
+    final double PERCENT_BSC = 1.1;
+    final double PERCENT_MSC = 1.2;
+    final double PERCENT_PHD = 1.35;
 
 
     public Manager( String ID, String name, double initialGrossSalary, String degree) throws Exception {
@@ -19,19 +19,25 @@ public class Manager extends Employee{
 
     public double getGrossSalary() {
         switch (this.degree) {
-            case "BSc": return initialGrossSalary + (initialGrossSalary* PERCENT_BSC);
-            case "MSc": return initialGrossSalary + (initialGrossSalary* PERCENT_MSC);
-            case "PhD": return initialGrossSalary + (initialGrossSalary* PERCENT_PHD);
+            case "BSc": return initialGrossSalary* PERCENT_BSC;
+            case "MSc": return initialGrossSalary* PERCENT_MSC;
+            case "PhD": return initialGrossSalary* PERCENT_PHD;
         }
         return initialGrossSalary;
     }
+
+    public double calculateNetSalary(){
+        return this.getGrossSalary() - (0.1 * this.getGrossSalary());
+
+    }
+
 
     public String getDegree(){return this.degree;}
     public void setDegree(String newDegree){this.degree = newDegree;}
 
 
     public String toString(){
-        return this.degree +" "+ this.getName() + "'s gross salary is " + String.format("%.2f", MathHelpers.truncateDouble(getGrossSalary())) + " SEK per month.";
+        return this.degree +" "+ this.getName() + "'s gross salary is " + String.format("%.2f",MathHelpers.truncateDouble(getGrossSalary())) + " SEK per month.";
     }
 
 }
