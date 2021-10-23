@@ -286,43 +286,34 @@ public class StoreController {
     }
 
 
-    public void sortItemsDecendingReviewQuantity(){
-        Item temp ;
-        for(int a = 0; a < items.size(); a++)
-        {
-            for(int b = a + 1; b < items.size(); b++)
-            {
-                if(items.get(a).reviews.isEmpty()){
-                    items.remove(a);
-                }else if(items.get(b).reviews.isEmpty()){
-                    items.remove(b);
-                } else if(items.get(a).reviews.size() > items.get(b).reviews.size())
-                {
-                    temp = items.get(a);
-                    items.set(a,items.get(b));
-                    items.set(b , temp);
-                }
+    public void sortItemsDescendingReviewQuantity(){
+        sortItemsAcendingReviewQuantity();
+        ArrayList<Item> descendingItems = new ArrayList<>();
+        ArrayList<Item> withoutReviewsItems = new ArrayList<>();
+        for (int i = items.size()-1; i >=0; i--){
+            if (items.get(i).reviews.size()>0) {
+                descendingItems.add(items.get(i));
+            }
+            else {
+                withoutReviewsItems.add(items.get(i));
             }
         }
-
-
-
-
-
+        if (withoutReviewsItems.size()> 0){
+            descendingItems.addAll(withoutReviewsItems);
+        }
+        items = descendingItems;
 
 
     }
     public void sortItemsAcendingReviewQuantity(){
+
         Item temp ;
         for(int a = 0; a <= items.size() - 1; a++)
         {
             for(int b = 0; b <= items.size() - 2; b++)
             {
-                if(items.get(a).reviews.isEmpty()){
-                    items.remove(a);
-                }else if(items.get(b).reviews.isEmpty()){
-                    items.remove(b);
-                } else if(items.get(b).reviews.size() < items.get(b + 1).reviews.size())
+
+                if(items.get(b).reviews.size() < items.get(b + 1).reviews.size())
                 {
                     temp = items.get(b);
                     int c = b+1;
@@ -358,7 +349,7 @@ public class StoreController {
     }
 
     public List<String> getItemsWithLeastReviews(){
-        sortItemsDecendingReviewQuantity();
+        sortItemsDescendingReviewQuantity();
         List <String> leastReviews =  new ArrayList<String>();
 
         Item n = items.get(0);

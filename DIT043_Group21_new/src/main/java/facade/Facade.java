@@ -92,7 +92,7 @@ public class Facade {
     }
 
     public String printLeastReviewedItems() {
-        return "";
+        return storeController.printLeastReviewedItems();
     }
 
     public double getTotalProfit() {
