@@ -78,15 +78,15 @@ public class Facade {
     }
 
     public String printMostReviewedItems() {
-        return storeController.printMostReviewedItems();
+        return "";
     }
 
     public List<String> getMostReviewedItems() {
-        return storeController.getItemsWithMostReviews();
+        return null;
     }
 
     public List<String> getLeastReviewedItems() {
-        return storeController.getItemsWithLeastReviews();
+        return null;
     }
 
     public String printLeastReviewedItems() {
@@ -134,7 +134,7 @@ public class Facade {
     }
 
     public List<String> getBestReviewedItems() {
-        return storeController.getItemsWithBestMeanReviews();
+        return null;
     }
 
     public String printAllReviews() {
