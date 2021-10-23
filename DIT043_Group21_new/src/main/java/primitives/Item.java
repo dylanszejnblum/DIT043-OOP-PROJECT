@@ -4,12 +4,14 @@ import helpers.MathHelpers;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Item {
     private String name;
     private double price;
     private String ID;
     public ArrayList<Review> reviews;
+
     public Item(String  ID,String name, double price) {
         reviews = new ArrayList<Review>();
         this.name = name;
@@ -42,41 +44,64 @@ public class Item {
         return  this.ID + ": " + this.name+". " + df.format(this.price)+ " SEK";
     }
 
-    public void createReview(int grade , String writtenReview){
+    public String createReview(int grade , String writtenReview){
         Review NewReview = new Review(this.ID, writtenReview , grade );
         reviews.add(NewReview);
+
+        return "plz dont break ;)";
     }
 
+
+
     public double getMeanReview(){
-         double avg; double sum=0;
+         double avg; double sum= 0;
         for(int i = 0; i < reviews.size(); i++) {
             Review n = reviews.get(i);
-            sum = sum + Double.valueOf(n.getGrade());
+            sum = sum + (double) n.getGrade();
         }
         // find the average value
         avg = sum / reviews.size();
-        return MathHelpers.truncateDouble(avg);
+        DecimalFormat df = new DecimalFormat("0.0");
+
+        String result = df.format(avg);
+
+        return Double.parseDouble(result);
     }
 
 
-    public String printAllWrittenReviews() {
-
-        String allReviews = "";
-        for (Review review : reviews) {
-            allReviews = review.getWrittenReview() + "\n ";
+    public List<String> printAllWrittenReviews() {
+        List<String> writtenReviews= new ArrayList<String>();
+        for(Review review: reviews){
+            if(review.getWrittenReview() != " "  || review.getWrittenReview() == null){
+              writtenReviews.add(review.getWrittenReview());
+            }
         }
-        return allReviews;
+        return writtenReviews;
     }
 
 
+    public int getNumberOfReviews(){
+        return reviews.size();
+    }
     public String getSpecificReview(int index){
 
         for(int i = 0 ; i < reviews.size(); i++){
-            if(index == i){
-                return reviews.get(i).toString();
+            if(index == i +1){
+                return reviews.get(i).reviewToString();
             }
         }
          throw new IllegalArgumentException();
+    }
+
+    public String getAllReviwewsForItem(){
+        DecimalFormat df = new DecimalFormat("0.00");
+        String result = "Review(s) for "+ this.getId() +": "+this.getName()+". "+ df.format(this.getPrice())+" SEK\n";
+        for(Review review: reviews){
+            if(review.getWrittenReview() != " "){
+                result += review.reviewToString() + "\n";
+            }
+        }
+        return result;
     }
 
     public String printAllReviews(){

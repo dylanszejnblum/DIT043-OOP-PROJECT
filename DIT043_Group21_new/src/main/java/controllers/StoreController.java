@@ -8,7 +8,7 @@ import primitives.Transaction;
 import primitives.ItemTransactionIndex;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 public class StoreController {
@@ -113,8 +113,7 @@ public class StoreController {
 
     public String getAllItemTransactions(String ID){
         if(itemExists(ID) == false) {
-            return ("Transactions for item: <item ID>: <item name>. <unit price> SEK\n" +
-                    "No transactions have been registered for item <item ID> yet.\n");
+            return ("Item "+ ID +" was not registered yet.");
         }
         Item specificItem = getItemById(ID);
         String result = ("Transactions for item: " + specificItem.getId() + ": " + specificItem.getName() +". " + specificItem.getPrice() + " SEK\n");
@@ -128,7 +127,7 @@ public class StoreController {
         if(transactionCount == 0){
             DecimalFormat df = new DecimalFormat("0.00");
 
-            return "Transactions for item: "+ specificItem.getId() +": Sweatpants. "+ df.format(specificItem.getPrice()) + " SEK\n" +
+            return "Transactions for item: "+ specificItem.getId() +": "+specificItem.getName() + ". "+ df.format(specificItem.getPrice()) + " SEK\n" +
                     "No transactions have been registered for item "+ specificItem.getId()+" yet.";
         }
         return result;
@@ -184,14 +183,17 @@ public class StoreController {
     }
 
     public String printAllTransactions(){
-        String result = "All purchases made: " + "\n" + "Total profit: " + totalPurchases() + " SEK\n" + "Total items sold: "+ totalUnits()+" units\n" + "Total purchases made: " + totalTransaction()+  " transactions\n"+ "------------------------------------\n";
+        DecimalFormat df = new DecimalFormat("0.00");
+        String result = "All purchases made: " + "\n" + "Total profit: " + df.format(totalPurchases()) + " SEK\n" + "Total items sold: "+ totalUnits()+" units\n" + "Total purchases made: " + totalTransaction()+  " transactions\n"+ "------------------------------------\n";
         if(transactions.isEmpty() == false){
             for(Transaction n : transactions){
                 result += n.toString()+ "\n";
             }
             return  result + "------------------------------------\n";
+        }else{
+            return  result + "------------------------------------\n";
         }
-        return  result;
+
     }
 
 
@@ -315,12 +317,9 @@ public class StoreController {
     public String createReviews(String ID , String writtenComment , int grade){
         if(itemExists(ID) != true){
             return "item does not exist";
-        }  else if (grade < 1 || grade > 5) {
-            return "Grade values must be between 1 and 5.";
-        }else{
+        } else{
             Item item = getItemById(ID);
-            Review review = new Review (ID,writtenComment, grade);
-            item.reviews.add(review);
+            item.createReview(grade , writtenComment);
             return("Your item review was registered successfully.");
 
         }
@@ -328,6 +327,25 @@ public class StoreController {
     }
 //3.2 - Nia
 //print a specific item review
+
+
+    public List<String> getItemComment(String ID){
+        return getItemById(ID).printAllWrittenReviews();
+    }
+
+    public String printAllReviews(){
+        String result = "All registered reviews:\n" + "------------------------------------\n";
+        for(Item item: items){
+            if(item.reviews.isEmpty() == false) {
+                result += item.getAllReviwewsForItem() + "------------------------------------\n";
+            }
+        }
+        return result;
+    }
+
+    public String getReviewsForItem(String ID){
+        return getItemById(ID).getAllReviwewsForItem();
+    }
 
     public String printSpecificItemReview(String ID,int i) {
 
@@ -345,31 +363,17 @@ public class StoreController {
         return item.reviews.get(i).reviewToString();
     }
 
-    //3.3 - Nia
-    public String printAllReviewsForAnItem(String ID){
-        String result = "";
-        Item item = getItemById(ID);
 
-        if(itemExistenceChecker(ID)){
-            return "Item" + ID + "was not registered yet.";
-        }
-        else if (item.reviews.isEmpty()){
-
-            return "Review(s) for " + ID + ": " + item.getName() + ". " + item.getPrice() + "SEK.\n" +
-                    "Item " + item.getName() + " has not been reviewed yet." ;
-        }
-
-        else{
-
-            for(int i = 0; i < item.reviews.size(); i++) {;
-
-                result += "Grade: " + item.reviews.get(i).getGrade() + "." + item.reviews.get(i).getWrittenReview() + "\n";;
-            }
-        }
-        return "Review(s) for "  + ID + ": " + item.getName() + ". " + item.getPrice() + "SEK.\n" +
-                result ;
-    }
     //3.4 - Oscar
+
+    public double getMeanItemGrade(String id){
+        return getItemById(id).getMeanReview();
+    }
+
+    public int getItemReviewById(String ID){
+        return getItemById(ID).getNumberOfReviews();
+    }
+
     public String retrieveMeanGradeItem(String ID) {
         if (itemExistenceChecker(ID)){
             return ("Item " + ID + " was not registered yet.");
@@ -445,6 +449,10 @@ public class StoreController {
         return "All registered reviews:\n" + result;
     }
 
+
+    public String getSpecificReviewFromItem(String ID , int reviewNumbrer){
+        return getItemById(ID).getSpecificReview(reviewNumbrer);
+    }
 
     public String printAllItems() {
         if (items.isEmpty()) {

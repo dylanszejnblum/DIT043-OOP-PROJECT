@@ -55,23 +55,23 @@ public class Facade {
     }
 
     public List<String> getItemComments(String itemID) {
-        return null;
+        return storeController.getItemComment(itemID);
     }
 
     public double getItemMeanGrade(String itemID) {
-        return -1.0;
+        return storeController.getMeanItemGrade(itemID);
     }
 
     public int getNumberOfReviews(String itemID) {
-        return -1;
+        return storeController.getItemReviewById(itemID);
     }
 
     public String getPrintedItemReview(String itemID, int reviewNumber) {
-        return "";
+        return storeController.getSpecificReviewFromItem(itemID , reviewNumber);
     }
 
     public String getPrintedReviews(String itemID) {
-        return "";
+        return storeController.getReviewsForItem(itemID);
     }
 
     public String printMostReviewedItems() {
@@ -135,7 +135,7 @@ public class Facade {
     }
 
     public String printAllReviews() {
-        return "";
+        return storeController.printAllReviews();
     }
 
     public String updateItemName(String itemID, String newName) {
