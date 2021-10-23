@@ -2,6 +2,8 @@ package controllers;
 import primitives.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import exceptions.*;
 import helpers.*;
@@ -56,17 +58,22 @@ public class EmployeeController  {
             return false;
         }
     }
-    //public double getNetSalary(String ID){
 
+    public Map<String, Integer> getNumberOfEmployeesPerDegree(){
+        HashMap<String, Integer> numberOfEmployeesPerDegree = new HashMap<>();
+        for (int i = 0; i < employees.size(); i++){
+            Employee employee = employees.get(i);
+            String degree = employee.getDegree();
+            if (degree != null) {
+                if (!numberOfEmployeesPerDegree.containsKey(degree)) {
+                    numberOfEmployeesPerDegree.put(degree, 0);
+                }
+                numberOfEmployeesPerDegree.put(degree, numberOfEmployeesPerDegree.get(degree) + 1);
+            }
+        }
 
-
-
-
-
-     //   return 0.0;
-   // }
-
-
+        return numberOfEmployeesPerDegree;
+    }
 
     public String toString() {
         return this.employee.getName() + "'s gross salary is " + this.employee.getInitialGrossSalary() + " SEK per month";
@@ -313,37 +320,7 @@ public class EmployeeController  {
 
     }
 
-    public String printNumOfEmployeesPerDegree(){
-        String result = "Academic background of employees:";
-        String degree = "";
-        int counterBsc = 0;
-        int counterMsc = 0;
-        int counterPhd = 0;
 
-        for(int i = 0; i<employees.size(); i++) {
-
-            if (employees.get(i) instanceof Manager || employees.get(i) instanceof Director) {
-                degree = ((Manager) employees.get(i)).getDegree();
-
-                if (degree.equals("BSc")) {
-                    counterBsc++;
-
-                } else if (degree.equals("MSc")) {
-                    counterMsc++;
-
-                } else {
-                    counterPhd++;
-                }
-
-                return result + "\n BSc: => " + counterBsc +
-                        "\n MSc: => " + counterMsc +
-                        "\n PhD: => " + counterPhd;
-
-            }
-        }
-
-        return result;
-    }
 
 
     /*

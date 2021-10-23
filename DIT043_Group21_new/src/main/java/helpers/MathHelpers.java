@@ -9,7 +9,7 @@ public class MathHelpers {
         int truncatedValue = (int)(value*100);
         //String correctTruncation = String.format("%.2f SEK", newValue);
         double finalValue = (double)truncatedValue / 100.00;
-        return finalValue;
+        return (finalValue);
     }
 
     public static double round(double value) {

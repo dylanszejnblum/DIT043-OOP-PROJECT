@@ -10,6 +10,10 @@ public class Employee implements Comparable<Employee> {
     private String name;
     protected double initialGrossSalary;
     final double TAX_PERCENTAGE = 0.1;
+    private String degree = null;
+    final double PERCENT_BSC = 1.1;
+    final double PERCENT_MSC = 1.2;
+    final double PERCENT_PHD = 1.35;
 
     public Employee( String ID, String name, double initialGrossSalary) throws Exception{
 
@@ -33,11 +37,35 @@ public class Employee implements Comparable<Employee> {
         }
 
         else {
-            this.initialGrossSalary = initialGrossSalary;
+            this.initialGrossSalary = MathHelpers.truncateDouble(initialGrossSalary);
         }
 
     }
 
+    public Employee( String ID, String name, double initialGrossSalary, String degree) throws Exception{
+
+        this(ID, name, initialGrossSalary);
+        if (degree != "BSc" && degree!= "MSc" && degree!= "PhD"){
+            throw new Exception("Degree must be one of the options: PhD, MSc or PhD.");
+        }
+        this.degree = degree;
+
+    }
+
+    public double getGrossSalary() {
+        if (this.degree == null){
+            return initialGrossSalary;
+        }
+        switch (this.degree) {
+            case "BSc": return initialGrossSalary* PERCENT_BSC;
+            case "MSc": return initialGrossSalary* PERCENT_MSC;
+            case "PhD": return initialGrossSalary* PERCENT_PHD;
+        }
+        return initialGrossSalary;
+    }
+
+    public String getDegree(){return this.degree;}
+    public void setDegree(String newDegree){this.degree = newDegree;}
     public String getName(){
         return this.name;
     }
@@ -54,7 +82,6 @@ public class Employee implements Comparable<Employee> {
         return this.ID;
     }
 
-    public double getTAX_PERCENTAGE(){return TAX_PERCENTAGE;}
 
 
     public boolean equals(Employee anotherEmployee){
@@ -66,27 +93,17 @@ public class Employee implements Comparable<Employee> {
 
         } else {
             return (this.getID().equals(anotherEmployee.getID()));
-
         }
     }
 
     public double calculateNetSalary(){
-        return this.getInitialGrossSalary() - (0.1 * this.getInitialGrossSalary());
+        return MathHelpers.truncateDouble(this.getGrossSalary() - (0.1 * this.getGrossSalary()));
 
     }
 
     public String toString() {
-        return this.getName()+"'s gross salary is "+String.format("%.2f", MathHelpers.truncateDouble(this.getInitialGrossSalary()))+" SEK per month.";
+        return this.getName()+"'s gross salary is "+String.format("%.2f",this.getGrossSalary())+" SEK per month.";
     }
-
-    /*
-    public String createEmployee (String ID, String name, double grossSalary) throws Exception {
-        Employee employee = new Employee(ID, name, grossSalary);
-        return "Employee " + this.getID() + " registered successfully.";
-
-    }
-
-     */
 
     @Override
     public int compareTo(Employee o2) {
@@ -94,17 +111,4 @@ public class Employee implements Comparable<Employee> {
     }
 
 
-    /*@Override
-    //is it getInitialGrossSalary or grossSalary here??
-    public int compareTo(Employee anotherEmployee) {
-        if (anotherEmployee.getInitialGrossSalary() > this.getInitialGrossSalary()) {
-            return -1;
-        }
-        else if(anotherEmployee.getInitialGrossSalary() <= this.getInitialGrossSalary()){
-            return 1;
-        }
-        else{
-            return 0;
-        }
-    }*/
 }

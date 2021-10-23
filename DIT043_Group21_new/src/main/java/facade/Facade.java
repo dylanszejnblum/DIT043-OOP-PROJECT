@@ -219,7 +219,7 @@ public class Facade {
     }
 
     public Map<String, Integer> mapEachDegree() throws Exception {
-        return null;
+        return employeeController.getNumberOfEmployeesPerDegree();
     }
 
     public String promoteToManager(String empID, String degree) throws Exception {
