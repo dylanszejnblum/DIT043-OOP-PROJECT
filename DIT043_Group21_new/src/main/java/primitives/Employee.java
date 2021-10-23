@@ -78,6 +78,11 @@ public class Employee implements Comparable<Employee> {
     public void setInitialGrossSalary(double newGrossSalary) {
         this.initialGrossSalary = newGrossSalary;
     }
+
+    public double getEmployeeRawSalary(){
+        return this.initialGrossSalary;
+    }
+
     public String getID() {
         return this.ID;
     }
@@ -109,6 +114,8 @@ public class Employee implements Comparable<Employee> {
     public int compareTo(Employee o2) {
         return (int) Double.compare(this.getInitialGrossSalary(),(o2.getInitialGrossSalary()));
     }
+
+
 
 
 }
