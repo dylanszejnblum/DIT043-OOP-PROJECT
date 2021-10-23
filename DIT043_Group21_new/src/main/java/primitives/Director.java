@@ -1,5 +1,7 @@
 package primitives;
 
+import helpers.MathHelpers;
+
 public class Director extends Manager{
 
     private String department;
@@ -16,29 +18,30 @@ public class Director extends Manager{
     public void setDepartment(String newDepartment){this.department = newDepartment;}
 
     public double getGrossSalary(){
-        return super.getInitialGrossSalary() + 5000.0;
+        return super.getGrossSalary()+ 5000.0;
     }
 
 
     //changed it from initialGrossSalary to this.grossSalary.
-    public double netSalary(){
+    public double calculateNetSalary(){
+        double grossSalary = this.getGrossSalary();
         double netSalary = 0.0;
 
-        if (this.grossSalary < 30000){
-            netSalary = this.grossSalary - (this.grossSalary* 0.1);
+        if (grossSalary < 30000.00){
+            netSalary = grossSalary - (grossSalary * 0.1);
         }
-        else if (this.grossSalary <= 50000){
-            netSalary = this.grossSalary - (this.grossSalary*0.2);
+        else if (grossSalary >= 30000.00 && grossSalary <= 50000.00){
+            netSalary = grossSalary  - (grossSalary * 0.2);
         }
         else {
-            double newValue = this.grossSalary - 30000;
-            netSalary = this.grossSalary - (30000*0.2) - (newValue * 0.4);
+            double newValue = grossSalary - 30000.00;
+            netSalary = grossSalary  - (30000.00 * 0.2) - (newValue * 0.4);
         }
         return netSalary;
     }
 
     public String toString(){
-        return this.getDegree() + " " +this.getName() + "'s gross salary is " + this.initialGrossSalary + " SEK per month. Dept: " + this.department;
+        return this.getDegree() + " " +this.getName() + "'s gross salary is " + String.format("%.2f", MathHelpers.truncateDouble(getGrossSalary())) + " SEK per month. Dept: " + this.department;
     }
 
 }

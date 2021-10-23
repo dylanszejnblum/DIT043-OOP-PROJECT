@@ -1,21 +1,11 @@
 package controllers;
 
-import helpers.MathHelpers;
 import primitives.Employee;
 import primitives.Item;
 import primitives.Review;
 import primitives.Transaction;
-import primitives.ItemTransactionIndex;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 
 public class StoreController {
-    public ArrayList<Employee> employees;
-    ArrayList<Item> items;
-    ArrayList<Transaction> transactions = new ArrayList<Transaction>();
     ArrayList<ItemTransactionIndex> profitList;
     public Item item;
     public Review review;
@@ -150,7 +140,7 @@ public class StoreController {
         if(price < 0 || ID.isEmpty() || name.isEmpty()) {
             return "Invalid data for item.";
         }
-
+        //double newPrice = MathHelpers.truncateDouble(price);
         Item item = new Item (ID, name, price);
         items.add(item);
         return ("Item " + ID + " was registered successfully.");
@@ -177,9 +167,8 @@ public class StoreController {
             return "Invalid data for item.";
         }
         else {
-            Item inputItem = getItemById(ID);
-            inputItem.setPrice(newPrice);
-            return  "Item " + inputItem.getId() + " was updated successfully.";
+            this.item.setPrice(newPrice);
+            return  "Item "+ this.item.getId()+ " was updated successfully.";
         }
     }
 
@@ -239,7 +228,7 @@ public class StoreController {
         else {
             Item inputItem = getItemById(ID);
             inputItem.setName(newName);
-            return  "Item " + inputItem.getId() + " was updated successfully.";
+            return  "Item " + ID + " was updated successfully.";
         }
     }
 
@@ -403,13 +392,11 @@ public class StoreController {
 
 
     public String printSpecificItem(String ID) {
-        // Dunno why but it's the only
-        DecimalFormat df = new DecimalFormat("0.00");
         if (!itemExistenceChecker(ID)) {
             return("Item " + ID + " was not registered yet.");
         } else {
             Item item = getItemById(ID);
-            return(item.getId() + ": " + item.getName() + ". " + df.format(item.getPrice()) + " SEK");
+            return(item.getId() + ": " + item.getName() + ". " + item.getPrice() + " SEK");
         }
     }
 
@@ -418,6 +405,7 @@ public class StoreController {
     public double buyItem(String ID , int quantity){
         int discountedQuantity;
         Item BoughtItem = getItemById(ID);
+        double total = BoughtItem.getPrice() * quantity;
 
         if (itemExistenceChecker(ID) == false){
             return  -1.0;
@@ -437,6 +425,7 @@ public class StoreController {
             transactions.add(transaction);
             return total ;
         }
+        return total;
         // need to add a -1 at the end
     }
 
