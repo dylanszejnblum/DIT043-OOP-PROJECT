@@ -1,19 +1,21 @@
 package controllers;
 
+import helpers.MathHelpers;
 import primitives.Employee;
 import primitives.Item;
 import primitives.Review;
 import primitives.Transaction;
-<<<<<<< HEAD
-=======
 import primitives.ItemTransactionIndex;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
->>>>>>> parent of db77bee (More of epic 3)
 
 public class StoreController {
+    public ArrayList<Employee> employees;
+    ArrayList<Item> items;
+    ArrayList<Transaction> transactions = new ArrayList<Transaction>();
     ArrayList<ItemTransactionIndex> profitList;
     public Item item;
     public Review review;
@@ -148,7 +150,7 @@ public class StoreController {
         if(price < 0 || ID.isEmpty() || name.isEmpty()) {
             return "Invalid data for item.";
         }
-        //double newPrice = MathHelpers.truncateDouble(price);
+
         Item item = new Item (ID, name, price);
         items.add(item);
         return ("Item " + ID + " was registered successfully.");
@@ -175,8 +177,9 @@ public class StoreController {
             return "Invalid data for item.";
         }
         else {
-            this.item.setPrice(newPrice);
-            return  "Item "+ this.item.getId()+ " was updated successfully.";
+            Item inputItem = getItemById(ID);
+            inputItem.setPrice(newPrice);
+            return  "Item " + inputItem.getId() + " was updated successfully.";
         }
     }
 
@@ -230,30 +233,183 @@ public class StoreController {
         if(itemExistenceChecker(ID) != true){
             return  "Item " + ID + " was not registered yet.";
         }
-       else if (ID.isEmpty() ||newName.isEmpty()) {
+        else if (ID.isEmpty() ||newName.isEmpty()) {
             return "Invalid data for item.";
         }
         else {
             Item inputItem = getItemById(ID);
             inputItem.setName(newName);
-            return  "Item " + ID + " was updated successfully.";
+            return  "Item " + inputItem.getId() + " was updated successfully.";
         }
     }
 
     public String getAllItems(){
-            for (Item item : items) {
-               System.out.println(item.toString());
+        for (Item item : items) {
+            System.out.println(item.toString());
+        }
+        return null;
+    }
+
+    public void sortItemsDecendingMeanReview(){
+        Item temp ;
+        for(int a = 0; a < items.size(); a++)
+        {
+            for(int b = a + 1; b < items.size(); b++)
+            {
+                if(items.get(a).getMeanReview() > items.get(b).getMeanReview())
+                {
+                    temp = items.get(a);
+                    items.set(a,items.get(b));
+                    items.set(b , temp);
+                }
             }
-            return null;
+        }
+    }
+    public void sortItemsAcendingMeanReview(){
+        Item temp ;
+        for(int a = 0; a <= items.size() - 1; a++)
+        {
+            for(int b = 0; b <= items.size() - 2; b++)
+            {  if(items.get(a).reviews.isEmpty()){
+                items.remove(a);
+            }else if(items.get(b).reviews.isEmpty()){
+                items.remove(b);
+            } else if(items.get(b).getMeanReview() < items.get(b + 1).getMeanReview())
+            {
+                temp = items.get(b);
+                int c = b+1;
+                items.set(b,items.get(b+1)) ;
+                items.set((b+1) , temp);
+            }
+            }
+        }
     }
 
 
+    public void sortItemsDecendingReviewQuantity(){
+        Item temp ;
+        for(int a = 0; a < items.size(); a++)
+        {
+            for(int b = a + 1; b < items.size(); b++)
+            {
+                if(items.get(a).reviews.isEmpty()){
+                    items.remove(a);
+                }else if(items.get(b).reviews.isEmpty()){
+                    items.remove(b);
+                } else if(items.get(a).reviews.size() > items.get(b).reviews.size())
+                {
+                    temp = items.get(a);
+                    items.set(a,items.get(b));
+                    items.set(b , temp);
+                }
+            }
+        }
+
+
+
+
+
+
+
+    }
+    public void sortItemsAcendingReviewQuantity(){
+        Item temp ;
+        for(int a = 0; a <= items.size() - 1; a++)
+        {
+            for(int b = 0; b <= items.size() - 2; b++)
+            {
+                if(items.get(a).reviews.isEmpty()){
+                    items.remove(a);
+                }else if(items.get(b).reviews.isEmpty()){
+                    items.remove(b);
+                } else if(items.get(b).reviews.size() < items.get(b + 1).reviews.size())
+                {
+                    temp = items.get(b);
+                    int c = b+1;
+                    items.set(b,items.get(b+1)) ;
+                    items.set((b+1) , temp);
+                }
+            }
+        }
+
+    }
+
+    public List<String> getItemsWithMostReviews(){
+        sortItemsAcendingReviewQuantity();
+        List <String> mostReviews = new ArrayList<String>();
+        for(Item n : items){
+            if(n.reviews != null || n.reviews.size()!=0) {
+                mostReviews.add(n.getId());
+            }
+        }
+
+
+        return mostReviews;
+    }
+
+    public String printMostReviewedItems(){
+        List <String> mostReviews = getItemsWithMostReviews();
+        String Result = "Most reviews: " + getItemById(mostReviews.get(0)).getNumberOfReviews() + " review(s) each.\n";
+        for(String id : mostReviews){
+            Result += getItemById(id).toString() + "\n";
+
+        }
+        return Result;
+    }
+
+    public List<String> getItemsWithLeastReviews(){
+        sortItemsDecendingReviewQuantity();
+        List <String> leastReviews =  new ArrayList<String>();
+
+        Item n = items.get(0);
+
+        for(int i = 1; i < n.getNumberOfReviews(); i++){
+            if(items.get(i).getNumberOfReviews() < n.getNumberOfReviews()){
+                n = items.get(i);
+            }
+        }
+        leastReviews.add(n.getId());
+
+        // leastReviews.add(items.get(0).getId());
+
+        return leastReviews;
+
+    }
+
+    public String printLeastReviewedItems(){
+        List <String> leastReviews = getItemsWithLeastReviews();
+        String Result = "Most reviews: " + getItemById(leastReviews.get(0)).getNumberOfReviews() + " review(s) each.\n";
+        for(String id : leastReviews){
+            Result += getItemById(id).toString() + "\n";
+
+        }
+        return Result;
+    }
+
+    public List<String> getItemsWithBestMeanReviews(){
+        sortItemsAcendingMeanReview();
+        List <String> mostReviews = new ArrayList<String>();
+        for(Item n : items){
+            if(n.reviews != null || n.reviews.size()!=0) {
+                mostReviews.add(n.getId());
+            }
+        }
+
+
+        return mostReviews;
+    }
+
+
+
+
     public String printSpecificItem(String ID) {
+        // Dunno why but it's the only
+        DecimalFormat df = new DecimalFormat("0.00");
         if (!itemExistenceChecker(ID)) {
             return("Item " + ID + " was not registered yet.");
         } else {
             Item item = getItemById(ID);
-            return(item.getId() + ": " + item.getName() + ". " + item.getPrice() + " SEK");
+            return(item.getId() + ": " + item.getName() + ". " + df.format(item.getPrice()) + " SEK");
         }
     }
 
@@ -262,7 +418,6 @@ public class StoreController {
     public double buyItem(String ID , int quantity){
         int discountedQuantity;
         Item BoughtItem = getItemById(ID);
-        double total = BoughtItem.getPrice() * quantity;
 
         if (itemExistenceChecker(ID) == false){
             return  -1.0;
@@ -282,7 +437,6 @@ public class StoreController {
             transactions.add(transaction);
             return total ;
         }
-        return total;
         // need to add a -1 at the end
     }
 
@@ -299,7 +453,7 @@ public class StoreController {
 
     public String getAllReviews(){
         for(int i = 0; i< items.size();i++){
-           System.out.println(items.get(i).printAllReviews());
+            System.out.println(items.get(i).printAllReviews());
         }
         return null;
 
@@ -466,7 +620,4 @@ public class StoreController {
         }
     }
 }
-
-
-
 

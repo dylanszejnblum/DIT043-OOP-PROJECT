@@ -25,6 +25,8 @@ public class Facade {
         employeeController = new EmployeeController();
     }
 
+
+
     public String createItem(String itemID, String itemName, double unitPrice){
         return storeController.createValidItem(itemID, itemName, unitPrice);
     }
@@ -34,7 +36,7 @@ public class Facade {
     }
 
     public String removeItem(String itemID) {
-       return storeController.removeValidItem(itemID);
+        return storeController.removeValidItem(itemID);
     }
 
     public boolean containsItem(String itemID) {
@@ -78,15 +80,15 @@ public class Facade {
     }
 
     public String printMostReviewedItems() {
-        return "";
+        return storeController.printMostReviewedItems();
     }
 
     public List<String> getMostReviewedItems() {
-        return null;
+        return storeController.getItemsWithMostReviews();
     }
 
     public List<String> getLeastReviewedItems() {
-        return null;
+        return storeController.getItemsWithLeastReviews();
     }
 
     public String printLeastReviewedItems() {
@@ -114,7 +116,7 @@ public class Facade {
     }
 
     public int getUnitsSolds(String itemID) {
-     return storeController.getSpecificItemAmmount(itemID);
+        return storeController.getSpecificItemAmmount(itemID);
     }
 
     public String printAllTransactions() {
@@ -134,7 +136,7 @@ public class Facade {
     }
 
     public List<String> getBestReviewedItems() {
-        return null;
+        return storeController.getItemsWithBestMeanReviews();
     }
 
     public String printAllReviews() {
@@ -147,11 +149,11 @@ public class Facade {
     }
 
     public String updateItemPrice(String itemID, double newPrice) {
-        return  ""; //storeController.updateItemPrice(itemID, newPrice);
+        return  storeController.updateItemPrice(itemID, newPrice);
     }
 
     public String printAllItems() {
-        return  ""; //storeController.printAllItems();
+        return  storeController.printAllItems();
     }
 
     public String printMostProfitableItems() {
