@@ -8,9 +8,6 @@ public class Employee implements Comparable<Employee> {
     private String name;
     protected double initialGrossSalary;
     final double TAX_PERCENTAGE = 0.1;
-    private double netSalary;
-
-
 
     public Employee( String ID, String name, double initialGrossSalary) throws Exception{
 
@@ -34,7 +31,7 @@ public class Employee implements Comparable<Employee> {
         }
 
         else {
-            this.initialGrossSalary = initialGrossSalary;
+            this.initialGrossSalary = MathHelpers.truncateDouble(initialGrossSalary);
         }
 
     }
@@ -54,8 +51,7 @@ public class Employee implements Comparable<Employee> {
     public String getID() {
         return this.ID;
     }
-    public double getNetSalary(){return this.netSalary;}
-    public void setNetSalary(double newNetSalary){this.netSalary = newNetSalary;}
+
     public double getTAX_PERCENTAGE(){return TAX_PERCENTAGE;}
 
 
@@ -72,6 +68,11 @@ public class Employee implements Comparable<Employee> {
         }
     }
 
+
+    public double calculateNetSalary(){
+        return (this.getInitialGrossSalary() - (0.1 * this.getInitialGrossSalary()));
+
+    }
 
     public String toString() {
         return this.getName()+"'s gross salary is "+String.format("%.2f", MathHelpers.truncateDouble(this.getInitialGrossSalary()))+" SEK per month.";
@@ -93,11 +94,16 @@ public class Employee implements Comparable<Employee> {
     //is it getInitialGrossSalary or grossSalary here??
     public int compareTo(Employee anotherEmployee) {
         if (anotherEmployee.getInitialGrossSalary() > this.getInitialGrossSalary()) {
-            return 1;
-        }
-        else if(anotherEmployee.getInitialGrossSalary() < this.getInitialGrossSalary()){
             return -1;
         }
+        else if(anotherEmployee.getInitialGrossSalary() < this.getInitialGrossSalary()){
+            return 1;
+        }
+        else if (anotherEmployee.getInitialGrossSalary() < this.getInitialGrossSalary() && anotherEmployee.getInitialGrossSalary()== 0.00){
+            return 1;
+        }
+
+
         else{
             return 0;
         }

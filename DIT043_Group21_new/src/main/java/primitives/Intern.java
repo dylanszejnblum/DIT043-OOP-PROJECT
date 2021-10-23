@@ -1,5 +1,7 @@
 package primitives;
 
+import helpers.MathHelpers;
+
 import java.util.ArrayList;
 
 public class Intern extends Employee{
@@ -10,7 +12,7 @@ public class Intern extends Employee{
     public Intern( final String ID, String name, double initialGrossSalary, int gpa) throws Exception {
         super(ID, name,initialGrossSalary) ;
         if (gpa < 0 || gpa > 9){
-            throw new Exception(gpa +" outside range. Must be between 0-10.");
+            throw new Exception(gpa + " outside range. Must be between 0-10.");
         }
         this.gpa = gpa;
     }
@@ -32,7 +34,7 @@ public class Intern extends Employee{
     public void setGpa(int newGpa){this.gpa = newGpa;}
 
     public String toString(){
-        return this.getName() + " 's gross salary is " + this.getGrossSalary() + " SEK per month. GPA: " + this.getGpa();
+        return this.getName() + "'s gross salary is " + String.format("%.2f", MathHelpers.truncateDouble(getGrossSalary())) + " SEK per month. GPA: " + this.getGpa();
     }
 
 }

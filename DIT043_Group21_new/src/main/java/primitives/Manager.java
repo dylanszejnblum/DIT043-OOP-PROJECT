@@ -19,18 +19,19 @@ public class Manager extends Employee{
 
     public double getGrossSalary() {
         switch (this.degree) {
-            case "BSc": return MathHelpers.truncateDouble(initialGrossSalary + (initialGrossSalary* 0.1));
-            case "MSc": return MathHelpers.truncateDouble(initialGrossSalary + (initialGrossSalary* 0.2));
-            case "PhD": return MathHelpers.truncateDouble(initialGrossSalary + (initialGrossSalary* 0.35));
+            case "BSc": return initialGrossSalary + (initialGrossSalary* PERCENT_BSC);
+            case "MSc": return initialGrossSalary + (initialGrossSalary* PERCENT_MSC);
+            case "PhD": return initialGrossSalary + (initialGrossSalary* PERCENT_PHD);
         }
         return initialGrossSalary;
     }
+
     public String getDegree(){return this.degree;}
     public void setDegree(String newDegree){this.degree = newDegree;}
 
 
     public String toString(){
-        return this.degree + this.getName() + "'s gross salary is " + this.getGrossSalary() + " SEK per month";
+        return this.degree +" "+ this.getName() + "'s gross salary is " + String.format("%.2f", MathHelpers.truncateDouble(getGrossSalary())) + " SEK per month.";
     }
 
 }

@@ -28,7 +28,7 @@ public class EmployeeController  {
                 return true;
             }
         }
-        throw new Exception("No employee has been registered yet.") ;
+        throw new Exception("Employee " + ID + " was not registered yet.") ;
     }
 
     public Employee getEmployeeById(String ID) throws Exception{
@@ -119,6 +119,7 @@ public class EmployeeController  {
     // --------------------------------------------------------------------------\\
 
     //getNetSalary\\
+
     public double getNetSalary(String ID) throws Exception {
         double finalNetSalary = 0.0;
         if (!employeeExists(ID)) {
@@ -130,17 +131,31 @@ public class EmployeeController  {
         return finalNetSalary;
     }
 
-     //removing stored employee 5.4\\
-    public String removeStoredEmployees(String ID) {
-        for (int i = 0; i < employees.size(); i++) {
 
+
+     //removing stored employee 5.4\\
+    /*
+    public String removeStoredEmployees(String ID) {
+
+        for (int i = 0; i < employees.size(); i++) {
             if (ID.equals(employees.get(i).getID())) {
                 employees.remove(employees.get(i));
 
                 return "Employee " + ID + " was successfully removed.";
             }
-          } return "";}  //idk what to return if it's not removed successfully.}
+        } return "Employee "+ ID +" was not registered yet.";}  //idk what to return if it's not removed successfully.}
 
+    */
+
+
+    public String removeStoredEmployees(String ID) throws Exception {
+        if (employeeExists(ID)){
+            Employee inputEmployee = getEmployeeById(ID);
+            employees.remove(inputEmployee);
+            return "Employee "+ ID + " was successfully removed.";
+        }
+        return "Employee " + ID + " was not registered yet.";
+    }
 
 
     //printing specific employee - 5.5\\
@@ -172,7 +187,7 @@ public class EmployeeController  {
         for (int i = 0; i < employees.size(); i++){
             result += employees.get(i).toString() + "\n";
         }
-        return "All registered employees: \n" + result;
+        return "All registered employees:\n" + result;
         }
 
 
@@ -238,10 +253,11 @@ public class EmployeeController  {
             ((Manager) employee).setDegree(degree);
             return "Employee " + ID + "was updated successfully";
 
-        } else if (employee instanceof Director) {
+        } else if  (employee instanceof Director) {
             ((Director) employee).setDegree(degree);
             return "Employee " + ID + "was updated successfully";
-        } 
+        }
+        return "";
     }
 
 

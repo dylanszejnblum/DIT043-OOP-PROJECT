@@ -183,19 +183,19 @@ public class Facade {
     }
 
     public String removeEmployee(String empID) throws Exception {
-        return "";
+        return employeeController.removeStoredEmployees(empID);
     }
 
     public String printAllEmployees() throws Exception {
-        return "";
+        return employeeController.printAllEmployees();
     }
 
     public double getTotalNetSalary() throws Exception {
-        return -1.0;
+        return 0;
     }
 
     public String printSortedEmployees() throws Exception {
-        return "";
+        return employeeController.printSortedEmployees();
     }
 
     public String updateEmployeeName(String empID, String newName) throws Exception {
@@ -228,10 +228,10 @@ public class Facade {
     }
 
     public String promoteToDirector(String empID, String degree, String department) throws Exception {
-        return "";
+        return employeeController.promoteToDirector(empID, degree, department);
     }
 
     public String promoteToIntern(String empID, int gpa) throws Exception {
-        return "";
+        return employeeController.promoteToIntern(empID, gpa);
     }
 }

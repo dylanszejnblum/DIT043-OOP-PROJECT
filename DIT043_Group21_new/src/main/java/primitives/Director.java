@@ -1,5 +1,7 @@
 package primitives;
 
+import helpers.MathHelpers;
+
 public class Director extends Manager{
 
     private String department;
@@ -16,12 +18,12 @@ public class Director extends Manager{
     public void setDepartment(String newDepartment){this.department = newDepartment;}
 
     public double getGrossSalary(){
-        return super.getInitialGrossSalary() + 5000.0;
+        return super.getGrossSalary()+ 5000.0;
     }
 
 
     //changed it from initialGrossSalary to this.grossSalary.
-    public double getNetSalary(){
+    public double calculateNetSalary(){
         double grossSalary = this.getGrossSalary();
         double netSalary = 0.0;
 
@@ -39,7 +41,7 @@ public class Director extends Manager{
     }
 
     public String toString(){
-        return this.getDegree() + " " +this.getName() + "'s gross salary is " + this.initialGrossSalary + " SEK per month. Dept: " + this.department;
+        return this.getDegree() + " " +this.getName() + "'s gross salary is " + String.format("%.2f", MathHelpers.truncateDouble(getGrossSalary())) + " SEK per month. Dept: " + this.department;
     }
 
 }
