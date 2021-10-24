@@ -116,7 +116,7 @@ public class Facade {
     }
 
     public int getUnitsSolds(String itemID) {
-        return storeController.getSpecificItemAmmount(itemID);
+        return storeController.getSpecificUnitsSold(itemID);
     }
 
     public String printAllTransactions() {

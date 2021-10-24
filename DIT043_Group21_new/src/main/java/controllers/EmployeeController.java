@@ -454,7 +454,7 @@ public class EmployeeController {
     }
 
     private void validateDegree(String degree) throws Exception{
-        if (degree != "BSc" && degree!= "MSc" && degree!= "PhD"){
+        if (!degree.equals("BSc") && !degree.equals("MSc") && !degree.equals("PhD")){
             throw new Exception("Degree must be one of the options: BSc, MSc or PhD.");
         }
     }

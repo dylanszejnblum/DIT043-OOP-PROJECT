@@ -1,5 +1,7 @@
 package menu;
 
+import controllers.EmployeeController;
+import controllers.StoreController;
 import helpers.UserInput;
 
 public class MainMenu {
@@ -15,6 +17,8 @@ public class MainMenu {
 
     public static void mainMenuOptions(int option) throws Exception {
         int choice;
+        EmployeeController employeeController = new EmployeeController();
+        StoreController storeController = new StoreController();
         do {
             switch (option) {
                 case 0:
@@ -23,24 +27,24 @@ public class MainMenu {
                 case 1:
                     ItemMenu.printItemOptionsMenu();
                     choice = UserInput.readInt("Enter your choice: "); // new change
-                    ItemMenu.ItemOptionsMenu(choice);
+                    ItemMenu.ItemOptionsMenu(choice, storeController);
                     break;
                 case 2:
                     ReviewsMenu.printReviewsOptionsMenu();
                     choice = UserInput.readInt("Enter your choice: "); // new change
-                    ReviewsMenu.ReviewsOptionsMenu(choice);
+                    ReviewsMenu.ReviewsOptionsMenu(choice, storeController);
 
                     break;
                 case 3:
                     TransactionMenu.printTransactionsHistoryOptionsMenu();
                     choice = UserInput.readInt("Enter your choice: ");
-                    TransactionMenu.TransactionsHistoryOptionsMenu(choice);
+                    TransactionMenu.TransactionsHistoryOptionsMenu(choice, storeController);
 
                     break;
                 case 4:
                     EmployeeMenu.printEmployeeMenu();
                     choice = UserInput.readInt("Enter your choice: ");
-                    EmployeeMenu.employeeOptionsMenu(choice);
+                    EmployeeMenu.employeeOptionsMenu(choice, employeeController);
 
                     break;
 

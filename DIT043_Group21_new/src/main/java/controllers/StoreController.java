@@ -52,7 +52,7 @@ public class StoreController {
             total = total + a.getPrice();
         }
 
-        return total;
+        return MathHelpers.truncateDouble(total);
     }
 
     public int totalUnits(){
@@ -76,11 +76,11 @@ public class StoreController {
                     profit += transactions.get(i).getPrice();
                 }
             }
-            return profit;
+            return MathHelpers.truncateDouble(profit);
         }
         return profit;
     }
-    public int getSpecificItemAmmount(String ID){
+    public int getSpecificUnitsSold(String ID){
         int unitSold = 0;
         if(itemExists(ID)){
             for(int i = 0; i < transactions.size();i++){
@@ -139,7 +139,7 @@ public class StoreController {
     }
     public Item getItemById(String id){
         for(int i =0  ; i < items.size() ; i++){
-            if(items.get(i).getId() == id){
+            if(items.get(i).getId().equals(id)){
                 return items.get(i);
             }
         }
@@ -157,11 +157,17 @@ public class StoreController {
     }
 
     public String removeValidItem (String inputID){
-
-        Item inputItem = getItemById(inputID);
-        boolean checker = items.remove(inputItem);
+        ArrayList<Item> copyItems = new ArrayList<>();
+        boolean checker = false;
+        for (int i = 0; i < items.size(); i++) {
+            if (!items.get(i).getId().equals(inputID)) {
+                copyItems.add(items.get(i));
+                checker = true;
+            }
+        }
         if (checker) {
-            return ("Item " + inputItem.getId() + " was successfully removed.");
+            items = copyItems;
+            return ("Item " + inputID + " was successfully removed.");
         }
         else{
             return ("Item " + inputID + " could not be removed.");

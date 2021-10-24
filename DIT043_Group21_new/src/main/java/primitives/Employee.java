@@ -45,8 +45,8 @@ public class Employee implements Comparable<Employee> {
     public Employee( String ID, String name, double initialGrossSalary, String degree) throws Exception{
 
         this(ID, name, initialGrossSalary);
-        if (degree != "BSc" && degree!= "MSc" && degree!= "PhD"){
-            throw new Exception("Degree must be one of the options: PhD, MSc or PhD.");
+        if (!degree.equals("BSc")  && !degree.equals("MSc") && !degree.equals("PhD")){
+            throw new Exception("Degree must be one of the options: BSc, MSc or PhD.");
         }
         this.degree = degree;
 

@@ -5,9 +5,6 @@ import helpers.UserInput;
 
 public class EmployeeMenu {
 
-    private static EmployeeController employeeController = new EmployeeController();
-
-
     public static void printEmployeeMenu() {
         System.out.println("Item options menu:\n" +
                 "0. Return to Main Menu.\n" +
@@ -18,12 +15,10 @@ public class EmployeeMenu {
                 "5. Remove an employee.\n" +
                 "6. Print specific employee.\n" +
                 "7. Print all registered employees.\n" +
-                "\n" +
-                "Type an option number:\n" + " ");
+                "\n");
     }
 
-    public static void employeeOptionsMenu(int option) throws Exception {
-        int choice;
+    public static void employeeOptionsMenu(int option, EmployeeController employeeController) throws Exception {
         String ID;
         String name;
         double initialGrossSalary;
@@ -98,6 +93,11 @@ public class EmployeeMenu {
                 case 7:
                     System.out.println(employeeController.printAllEmployees());
                     printEmployeeMenu();
+                    option = UserInput.readInt("Enter your choice: ");
+                    break;
+
+                default:
+                    System.out.println("Invalid menu option. Please type another option");
                     option = UserInput.readInt("Enter your choice: ");
                     break;
             }

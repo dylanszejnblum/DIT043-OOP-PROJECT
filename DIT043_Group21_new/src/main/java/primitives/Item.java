@@ -110,6 +110,15 @@ public class Item {
         return result;
     }
 
+    public String printAllComments(){
+        String comments = "";
+        for (Review review : reviews) {
+            comments += review.getWrittenReview() + "\n";
+        }
+
+        return comments;
+    }
+
     public String printAllReviews(){
 
         String allReviews = "";
