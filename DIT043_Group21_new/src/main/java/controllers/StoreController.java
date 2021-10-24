@@ -265,30 +265,43 @@ public class StoreController {
             }
         }
     }
-    public void sortItemsAcendingMeanReview(){
+    public void sortItemsAscendingMeanReview(){
         Item temp ;
-        for(int a = 0; a <= items.size() - 1; a++)
-        {
-            for(int b = 0; b <= items.size() - 2; b++)
-            {  if(items.get(a).reviews.isEmpty()){
-                items.remove(a);
-            }else if(items.get(b).reviews.isEmpty()){
-                items.remove(b);
-            } else if(items.get(b).getMeanReview() < items.get(b + 1).getMeanReview())
-            {
-                temp = items.get(b);
-                int c = b+1;
-                items.set(b,items.get(b+1)) ;
-                items.set((b+1) , temp);
+        for(int a = 0; a <= items.size() - 1; a++) {
+            for (int b = 0; b <= items.size() - 2; b++)
+                if (items.get(b).getMeanReview() < items.get(b + 1).getMeanReview()) {
+
+                    temp = items.get(b);
+                    int c = b + 1;
+                    items.set(b, items.get(b + 1));
+                    items.set((b + 1), temp);
+                }
+        }
+    }
+
+    public void sortItemsDescendingMeanReview(){
+        sortItemsAscendingMeanReview();
+        ArrayList<Item> descendingItems = new ArrayList<>();
+        ArrayList<Item> withoutReviewsItems = new ArrayList<>();
+        for (int i = items.size()-1; i >=0; i--){
+            if (items.get(i).reviews.size()>0) {
+                descendingItems.add(items.get(i));
             }
+            else {
+                withoutReviewsItems.add(items.get(i));
             }
         }
-
+        if (withoutReviewsItems.size()> 0){
+            descendingItems.addAll(withoutReviewsItems);
+        }
+        items = descendingItems;
     }
 
 
-    public void sortItemsDescendingReviewQuantity(){
 
+
+    public void sortItemsDescendingReviewQuantity(){
+        sortItemsAscendingReviewQuantity();
         ArrayList<Item> descendingItems = new ArrayList<>();
         ArrayList<Item> withoutReviewsItems = new ArrayList<>();
         for (int i = items.size()-1; i >=0; i--){
@@ -306,19 +319,14 @@ public class StoreController {
 
 
     }
-    public void sortItemsAcendingReviewQuantity(){
+    public void sortItemsAscendingReviewQuantity(){
 
         Item temp ;
         for(int a = 0; a <= items.size() - 1; a++)
         {
             for(int b = 0; b <= items.size() - 2; b++)
             {
-
-                if(items.get(a).reviews.isEmpty()){
-                    items.remove(a);
-                }else if(items.get(b).reviews.isEmpty()){
-                    items.remove(b);
-                } else if(items.get(b).reviews.size() < items.get(b + 1).reviews.size())
+                 if(items.get(b).reviews.size() < items.get(b + 1).reviews.size())
                 {
                     temp = items.get(b);
                     int c = b+1;
@@ -327,25 +335,35 @@ public class StoreController {
                 }
             }
         }
-        int last = items.size() - 1;
-        items.remove(last);
 
     }
 
     public List<String> getItemsWithMostReviews(){
-        sortItemsAcendingReviewQuantity();
+        sortItemsAscendingReviewQuantity();
         List <String> mostReviews = new ArrayList<String>();
-        for(Item n : items){
-            if(n.reviews != null || n.reviews.size()!=0) {
-                mostReviews.add(n.getId());
+        if (items.size() == 0 || (items.size()>0 && items.get(0).getNumberOfReviews() == 0)){
+            return mostReviews;
+        }
+        Item firstItem = items.get(0);
+        mostReviews.add(firstItem.getId());
+        for(Item currentItem : items){
+            if(currentItem.getId() != firstItem.getId() && currentItem.getNumberOfReviews() == firstItem.getNumberOfReviews()) {
+                mostReviews.add(currentItem.getId());
             }
         }
-
-
         return mostReviews;
     }
 
     public String printMostReviewedItems(){
+
+        String invalidItemsMessage = validateItems(items.size());
+        if (!invalidItemsMessage.isEmpty()) {
+            return invalidItemsMessage;
+        }
+        String invalidReviewsMessage = validateReviews(items);
+        if (!invalidReviewsMessage.isEmpty()){
+            return invalidReviewsMessage;
+        }
         List <String> mostReviews = getItemsWithMostReviews();
         String Result = "Most reviews: " + getItemById(mostReviews.get(0)).getNumberOfReviews() + " review(s) each.\n";
         for(String id : mostReviews){
@@ -356,12 +374,17 @@ public class StoreController {
     }
 
     public List<String> getItemsWithLeastReviews(){
-        sortItemsAcendingReviewQuantity();
+        sortItemsDescendingReviewQuantity();
         List <String> leastReviews = new ArrayList<String>();
 
-        for(Item n : items){
-            if(n.reviews != null || n.reviews.size()!=0) {
-                leastReviews.add(n.getId());
+        if (items.size() == 0 || (items.size()>0 && items.get(0).getNumberOfReviews() == 0)){
+            return leastReviews;
+        }
+        Item firstItem = items.get(0);
+        leastReviews.add(firstItem.getId());
+        for(Item currentItem : items){
+            if(currentItem.getId() != firstItem.getId() && currentItem.getNumberOfReviews() == firstItem.getNumberOfReviews()) {
+                leastReviews.add(currentItem.getId());
             }
         }
 
@@ -371,6 +394,14 @@ public class StoreController {
     }
 
     public String printLeastReviewedItems(){
+        String invalidItemsMessage = validateItems(items.size());
+        if (!invalidItemsMessage.isEmpty()) {
+            return invalidItemsMessage;
+        }
+        String invalidReviewsMessage = validateReviews(items);
+        if (!invalidReviewsMessage.isEmpty()){
+            return invalidReviewsMessage;
+        }
         List <String> leastReviews = getItemsWithLeastReviews();
         String Result = "Least reviews: " + getItemById(leastReviews.get(0)).getNumberOfReviews() + " review(s) each.\n";
         for(String id : leastReviews){
@@ -381,33 +412,75 @@ public class StoreController {
     }
 
     public List<String> getItemsWithBestMeanReviews(){
-        sortItemsAcendingMeanReview();
+        sortItemsAscendingMeanReview();
         List <String> sortedIds = new ArrayList<String>();
-        double bestMean = getMeanItemGrade(items.get(0).getId());
-        double SecondBestMean = getMeanItemGrade(items.get(1).getId());
-
-        for(Item n : items){
-            if(n.reviews != null || n.reviews.size()!=0) {
-                    if(n.getMeanReview() <= bestMean || n.getMeanReview() >= SecondBestMean){
-                        sortedIds.add(n.getId());
-                    }
+        if (items.size() == 0 || (items.size()>0 && items.get(0).getNumberOfReviews() == 0)){
+            return sortedIds;
+        }
+        Item firstItem = items.get(0);
+        sortedIds.add(firstItem.getId());
+        for(Item currentItem : items){
+            if(currentItem.getId() != firstItem.getId() && currentItem.getMeanReview() == firstItem.getMeanReview()) {
+                sortedIds.add(currentItem.getId());
             }
         }
-        String second = sortedIds.get(0);
-        System.out.println(getItemById(second).getName());
 
         return sortedIds;
     }
 
-    public String printMostMeanReviews(){
+    public List<String> getItemsWithWorseMeanReviews(){
+        sortItemsDescendingMeanReview();
+        List <String> sortedIds = new ArrayList<String>();
+        if (items.size() == 0 || (items.size()>0 && items.get(0).getNumberOfReviews() == 0)){
+            return sortedIds;
+        }
+        Item firstItem = items.get(0);
+        sortedIds.add(firstItem.getId());
+        for(Item currentItem : items){
+            if(currentItem.getId() != firstItem.getId() && currentItem.getMeanReview() == firstItem.getMeanReview()) {
+                sortedIds.add(currentItem.getId());
+            }
+        }
+
+        return sortedIds;
+    }
+
+    public String printBestMeanReviews(){
+        String invalidItemsMessage = validateItems(items.size());
+        if (!invalidItemsMessage.isEmpty()) {
+            return invalidItemsMessage;
+        }
+        String invalidReviewsMessage = validateReviews(items);
+        if (!invalidReviewsMessage.isEmpty()){
+            return invalidReviewsMessage;
+        }
         List <String> bestMeanReviews = getItemsWithBestMeanReviews();
-        String Result = "Items with best mean reviews:\n"+ "Grade: " + getItemById(bestMeanReviews.get(0)).getMeanReview() +"\n";
+        String Result = "Items with best mean reviews:\n"+ "Grade: " + String.format("%.1f" ,getItemById(bestMeanReviews.get(0)).getMeanReview()) +"\n";
         for(String id : bestMeanReviews){
             Result += getItemById(id).toString() + "\n";
 
         }
         return Result;
     }
+
+    public String printWorseMeanReviews(){
+        String invalidItemsMessage = validateItems(items.size());
+        if (!invalidItemsMessage.isEmpty()) {
+            return invalidItemsMessage;
+        }
+        String invalidReviewsMessage = validateReviews(items);
+        if (!invalidReviewsMessage.isEmpty()){
+            return invalidReviewsMessage;
+        }
+        List <String> worseMeanReviews = getItemsWithWorseMeanReviews();
+        String Result = "Items with worst mean reviews:\n"+ "Grade: " + getItemById(worseMeanReviews.get(0)).getMeanReview() +"\n";
+        for(String id : worseMeanReviews){
+            Result += getItemById(id).toString() + "\n";
+
+        }
+        return Result;
+    }
+
 
 
 
@@ -476,15 +549,17 @@ public class StoreController {
 //method creating reviews
 
     public String createReviews(String ID , String writtenComment , int grade){
-        if(itemExists(ID) != true){
-            return "item does not exist";
-        } else{
-            Item item = getItemById(ID);
-            item.createReview(grade , writtenComment);
-            return("Your item review was registered successfully.");
-
+        String invalidIDMessage = validateID(ID);
+        if (!invalidIDMessage.isEmpty()) {
+            return invalidIDMessage;
         }
-
+        String invalidGradeMessage = validateGrade(grade);
+        if (!invalidGradeMessage.isEmpty()) {
+            return invalidGradeMessage;
+        }
+        Item item = getItemById(ID);
+        item.createReview(grade, writtenComment);
+        return ("Your item review was registered successfully.");
     }
 //3.2 - Nia
 //print a specific item review
@@ -495,6 +570,14 @@ public class StoreController {
     }
 
     public String printAllReviews(){
+        String invalidItemsMessage = validateItems(items.size());
+        if (!invalidItemsMessage.isEmpty()) {
+            return invalidItemsMessage;
+        }
+        String invalidReviewsMessage = validateReviews(items);
+        if (!invalidReviewsMessage.isEmpty()){
+            return invalidReviewsMessage;
+        }
         String result = "All registered reviews:\n" + "------------------------------------\n";
         for(Item item: items){
             if(item.reviews.isEmpty() == false) {
@@ -505,6 +588,17 @@ public class StoreController {
     }
 
     public String getReviewsForItem(String ID){
+        String invalidItemMessage = validateItem(ID);
+        if (!invalidItemMessage.isEmpty()) {
+            return invalidItemMessage;
+        }
+
+        Item item = getItemById(ID);
+        String invalidReviewMessage = validateReviewSize(item);
+        if (!invalidReviewMessage.isEmpty()) {
+            return invalidReviewMessage;
+        }
+
         return getItemById(ID).getAllReviwewsForItem();
     }
 
@@ -611,8 +705,18 @@ public class StoreController {
     }
 
 
-    public String getSpecificReviewFromItem(String ID , int reviewNumbrer){
-        return getItemById(ID).getSpecificReview(reviewNumbrer);
+    public String getSpecificReviewFromItem(String ID , int reviewNumber){
+        Item item = getItemById(ID);
+        String name = item.getName();
+        String invalidReviewSizeMessage = validateReviewSize(name, item.reviews.size());
+        if (!invalidReviewSizeMessage.isEmpty()){
+            return  invalidReviewSizeMessage;
+        }
+        String invalidReviewNumberMessage = validateReviewIndex(reviewNumber, item.reviews.size());
+        if (!invalidReviewNumberMessage.isEmpty()){
+            return  invalidReviewNumberMessage;
+        }
+        return getItemById(ID).getSpecificReview(reviewNumber);
     }
 
     public String printAllItems() {
@@ -628,5 +732,71 @@ public class StoreController {
             return message;
         }
     }
+
+    private String validateID(String ID) {
+        if (!itemExists(ID)) {
+            return "Item " + ID + " not found.";
+        }
+        return "";
+    }
+
+
+    private String validateGrade(int grade) {
+        if (grade > 5 || grade < 1){
+            return "Grade values must be between 1 and 5.";
+        }
+        return "";
+    }
+
+    private String validateReviewIndex(int index, int reviewsSize) {
+        if (index > reviewsSize || index < 1){
+            return "Invalid review number. Choose between 1 and " + reviewsSize+".";
+        }
+        return "";
+    }
+
+    private String validateReviewSize(String name, int reviewSize){
+        if (reviewSize == 0){
+            return "Item "+ name+ " has not been reviewed yet.";
+        }
+        return "";
+    }
+
+    private String validateReviewSize(Item item){
+
+        if (item.reviews.size() == 0){
+            String expectedNonReviewed = "Review(s) for "+ item.getId() + ": " + item.getName() + ". "+String.format("%.2f",item.getPrice()) + " SEK\n" +
+                    "The item "+ item.getName() +" has not been reviewed yet.";
+            return expectedNonReviewed;
+        }
+        return "";
+    }
+
+    private String validateItem(String ID){
+        if (!itemExists(ID)) {
+            return "Item " + ID + " was not registered yet.";
+        }
+        return "";
+    }
+
+    private String validateItems(int itemsListSize){
+        if (itemsListSize == 0){
+            return "No items registered yet.";
+        }
+        return  "";
+    }
+
+    private String validateReviews(List<Item> items) {
+        for (Item currentItem : items){
+            if (currentItem.reviews.size()>0){
+                return "";
+            }
+        }
+        return "No items were reviewed yet.";
+    }
+
+
+
+
 }
 

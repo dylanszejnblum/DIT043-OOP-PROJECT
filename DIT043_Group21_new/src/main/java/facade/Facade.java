@@ -124,15 +124,16 @@ public class Facade {
     }
 
     public String printWorseReviewedItems() {
-        return "";
+
+        return storeController.printWorseMeanReviews();
     }
 
     public String printBestReviewedItems() {
-        return storeController.printMostMeanReviews();
+        return storeController.printBestMeanReviews();
     }
 
     public List<String> getWorseReviewedItems() {
-        return null;
+        return storeController.getItemsWithWorseMeanReviews();
     }
 
     public List<String> getBestReviewedItems() {

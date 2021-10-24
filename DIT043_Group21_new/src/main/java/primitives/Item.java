@@ -27,7 +27,7 @@ public class Item {
         return this.ID;
     }
     public Double getPrice(){
-        return MathHelpers.truncateDouble(this.price );
+        return MathHelpers.truncateDouble(this.price);
     }
 
     public void setPrice(double newPrice){
@@ -54,18 +54,20 @@ public class Item {
 
 
     public double getMeanReview(){
-         double avg; double sum= 0;
+        double avg; double sum= 0; int intermediate = 0;
+        if (reviews.size() == 0){
+            return 0;
+        }
         for(int i = 0; i < reviews.size(); i++) {
             Review n = reviews.get(i);
-            sum = sum + (double) n.getGrade();
+            sum = sum + MathHelpers.truncateDouble(n.getGrade());
         }
         // find the average value
-        avg = sum / reviews.size();
-        DecimalFormat df = new DecimalFormat("0.0");
+        avg = MathHelpers.truncateDouble(sum / reviews.size());
+        intermediate = (int)(avg * 10);
+        avg = ((double)intermediate) /10;
 
-        String result = df.format(avg);
-
-        return Double.parseDouble(result);
+        return avg;
     }
 
 
