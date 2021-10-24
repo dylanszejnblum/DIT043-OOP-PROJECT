@@ -4,32 +4,26 @@ public class Review {
     public String ID;
     public int grade;
     public String writtenReview;
-    public boolean hasComment;
+    public boolean hasWrittenReview;
+
     public Review (String ID , String writtenReview , int grade ){
         if(grade <1 || grade >5){
             throw new IllegalArgumentException("Grade values must be between 1 and 5");
-        } else {
+        }  else if(writtenReview == " " || writtenReview == "" || writtenReview == null) {
+            this.ID = ID;
+            this.grade = grade;
+            this.writtenReview = "";
+            hasWrittenReview = false;
+        }else {
             this.ID = ID;
             this.grade = grade;
             this.writtenReview = writtenReview;
+            hasWrittenReview = true;
+
         }
     }
 
 
-    public Review (String ID , int grade){
-        if(grade <1 || grade >5){
-            throw new IllegalArgumentException("Grade values must be between 1 and 5");
-        } else {
-            this.ID = ID;
-            this.grade = grade;
-            this.writtenReview = " ";
-        }
-
-    }
-
-    public String getWrittenReview() {
-        return this.writtenReview;
-    }
 
     public int getGrade(){
         return this.grade;
@@ -37,6 +31,10 @@ public class Review {
 
 
 
+
+    public String getWrittenReview(){
+        return this.writtenReview;
+    }
 
     public String reviewToString(){
 

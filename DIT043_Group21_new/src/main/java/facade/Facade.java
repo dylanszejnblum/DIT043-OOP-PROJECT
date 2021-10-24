@@ -128,7 +128,7 @@ public class Facade {
     }
 
     public String printBestReviewedItems() {
-        return "";
+        return storeController.printMostMeanReviews();
     }
 
     public List<String> getWorseReviewedItems() {

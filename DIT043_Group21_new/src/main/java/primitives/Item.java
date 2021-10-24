@@ -71,12 +71,16 @@ public class Item {
 
     public List<String> printAllWrittenReviews() {
         List<String> writtenReviews= new ArrayList<String>();
-        for(Review review: reviews){
-            if(review.getWrittenReview() != " "  || review.getWrittenReview() == null){
-              writtenReviews.add(review.getWrittenReview());
+        if(!reviews.isEmpty()) {
+            for (Review review : reviews) {
+                if (review.getWrittenReview() != "") {
+                    writtenReviews.add(review.getWrittenReview());
+                }
             }
+
         }
         return writtenReviews;
+
     }
 
 

@@ -283,11 +283,12 @@ public class StoreController {
             }
             }
         }
+
     }
 
 
     public void sortItemsDescendingReviewQuantity(){
-        sortItemsAcendingReviewQuantity();
+
         ArrayList<Item> descendingItems = new ArrayList<>();
         ArrayList<Item> withoutReviewsItems = new ArrayList<>();
         for (int i = items.size()-1; i >=0; i--){
@@ -313,7 +314,11 @@ public class StoreController {
             for(int b = 0; b <= items.size() - 2; b++)
             {
 
-                if(items.get(b).reviews.size() < items.get(b + 1).reviews.size())
+                if(items.get(a).reviews.isEmpty()){
+                    items.remove(a);
+                }else if(items.get(b).reviews.isEmpty()){
+                    items.remove(b);
+                } else if(items.get(b).reviews.size() < items.get(b + 1).reviews.size())
                 {
                     temp = items.get(b);
                     int c = b+1;
@@ -322,6 +327,8 @@ public class StoreController {
                 }
             }
         }
+        int last = items.size() - 1;
+        items.remove(last);
 
     }
 
@@ -349,19 +356,15 @@ public class StoreController {
     }
 
     public List<String> getItemsWithLeastReviews(){
-        sortItemsDescendingReviewQuantity();
-        List <String> leastReviews =  new ArrayList<String>();
+        sortItemsAcendingReviewQuantity();
+        List <String> leastReviews = new ArrayList<String>();
 
-        Item n = items.get(0);
-
-        for(int i = 1; i < n.getNumberOfReviews(); i++){
-            if(items.get(i).getNumberOfReviews() < n.getNumberOfReviews()){
-                n = items.get(i);
+        for(Item n : items){
+            if(n.reviews != null || n.reviews.size()!=0) {
+                leastReviews.add(n.getId());
             }
         }
-        leastReviews.add(n.getId());
 
-        // leastReviews.add(items.get(0).getId());
 
         return leastReviews;
 
@@ -369,7 +372,7 @@ public class StoreController {
 
     public String printLeastReviewedItems(){
         List <String> leastReviews = getItemsWithLeastReviews();
-        String Result = "Most reviews: " + getItemById(leastReviews.get(0)).getNumberOfReviews() + " review(s) each.\n";
+        String Result = "Least reviews: " + getItemById(leastReviews.get(0)).getNumberOfReviews() + " review(s) each.\n";
         for(String id : leastReviews){
             Result += getItemById(id).toString() + "\n";
 
@@ -379,17 +382,32 @@ public class StoreController {
 
     public List<String> getItemsWithBestMeanReviews(){
         sortItemsAcendingMeanReview();
-        List <String> mostReviews = new ArrayList<String>();
+        List <String> sortedIds = new ArrayList<String>();
+        double bestMean = getMeanItemGrade(items.get(0).getId());
+        double SecondBestMean = getMeanItemGrade(items.get(1).getId());
+
         for(Item n : items){
             if(n.reviews != null || n.reviews.size()!=0) {
-                mostReviews.add(n.getId());
+                    if(n.getMeanReview() <= bestMean || n.getMeanReview() >= SecondBestMean){
+                        sortedIds.add(n.getId());
+                    }
             }
         }
+        String second = sortedIds.get(0);
+        System.out.println(getItemById(second).getName());
 
-
-        return mostReviews;
+        return sortedIds;
     }
 
+    public String printMostMeanReviews(){
+        List <String> bestMeanReviews = getItemsWithBestMeanReviews();
+        String Result = "Items with best mean reviews:\n"+ "Grade: " + getItemById(bestMeanReviews.get(0)).getMeanReview() +"\n";
+        for(String id : bestMeanReviews){
+            Result += getItemById(id).toString() + "\n";
+
+        }
+        return Result;
+    }
 
 
 
