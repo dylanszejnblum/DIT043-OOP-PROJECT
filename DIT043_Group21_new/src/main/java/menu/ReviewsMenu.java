@@ -39,23 +39,20 @@ public class ReviewsMenu {
                     storeController.createReviews(ID, writtenComment, grade);
                     System.out.println("Review was created successfully.");
                     printReviewsOptionsMenu();
-                    choice = UserInput.readInt("Enter your choice: ");
-                    ItemMenu.ItemOptionsMenu(choice, storeController);
+                    option = UserInput.readInt("Enter your choice: ");
                     break;
 
                 case 2:
                     ID = UserInput.readString("Introduce the desired ID: ");
                     item = storeController.getItemById(ID);
-                    int numberOfReviews = item.reviews.size()-1;
-                    if (numberOfReviews <0){
-                        numberOfReviews = 0;
+                    int numberOfReviews = item.reviews.size();
+                    if (numberOfReviews ==0){
+                        numberOfReviews = 1;
                     }
-                    int reviewIndex = UserInput.readInt("Introduce the number of the desired review (0-"+ numberOfReviews+"): ");
-                    storeController.printSpecificItemReview(ID, reviewIndex);
-                    System.out.println("Review was created successfully.");
+                    int reviewIndex = UserInput.readInt("Introduce the number of the desired review (1-"+ numberOfReviews+"): ");
+                    System.out.println(storeController.printSpecificItemReview(ID, reviewIndex));
                     printReviewsOptionsMenu();
-                    choice = UserInput.readInt("Enter your choice: ");
-                    ItemMenu.ItemOptionsMenu(choice, storeController);
+                    option = UserInput.readInt("Enter your choice: ");
                     break;
 
                 case 3:
@@ -63,8 +60,7 @@ public class ReviewsMenu {
                     item = storeController.getItemById(ID);
                     System.out.println(item.printAllReviews());
                     printReviewsOptionsMenu();
-                    choice = UserInput.readInt("Enter your choice: ");
-                    ItemMenu.ItemOptionsMenu(choice, storeController);
+                    option = UserInput.readInt("Enter your choice: ");
                     break;
 
                 case 4:
@@ -72,8 +68,7 @@ public class ReviewsMenu {
                     double mean = storeController.getMeanItemGrade(ID);
                     System.out.println("Mean grade: " + mean);
                     printReviewsOptionsMenu();
-                    choice = UserInput.readInt("Enter your choice: ");
-                    ItemMenu.ItemOptionsMenu(choice, storeController);
+                    option = UserInput.readInt("Enter your choice: ");
                     break;
 
                 case 5:
@@ -82,43 +77,37 @@ public class ReviewsMenu {
                     System.out.println("Comments: ");
                     System.out.println(item.printAllComments());
                     printReviewsOptionsMenu();
-                    choice = UserInput.readInt("Enter your choice: ");
-                    ItemMenu.ItemOptionsMenu(choice, storeController);
+                    option = UserInput.readInt("Enter your choice: ");
                     break;
 
                 case 6:
                     System.out.println(storeController.printAllReviews());
                     printReviewsOptionsMenu();
-                    choice = UserInput.readInt("Enter your choice: ");
-                    ItemMenu.ItemOptionsMenu(choice, storeController);
+                    option = UserInput.readInt("Enter your choice: ");
                     break;
 
                 case 7:
                     System.out.println(storeController.printMostReviewedItems());
                     printReviewsOptionsMenu();
-                    choice = UserInput.readInt("Enter your choice: ");
-                    ItemMenu.ItemOptionsMenu(choice, storeController);
+                    option = UserInput.readInt("Enter your choice: ");
                     break;
 
                 case 8:
                     System.out.println(storeController.printLeastReviewedItems());
                     printReviewsOptionsMenu();
-                    choice = UserInput.readInt("Enter your choice: ");
-                    ItemMenu.ItemOptionsMenu(choice, storeController);
+                    option = UserInput.readInt("Enter your choice: ");
                     break;
 
                 case 9:
                     System.out.println(storeController.printBestMeanReviews());
                     printReviewsOptionsMenu();
-                    choice = UserInput.readInt("Enter your choice: ");
-                    ItemMenu.ItemOptionsMenu(choice, storeController);
+                    option = UserInput.readInt("Enter your choice: ");
                     break;
 
                 case 10:
                     System.out.println(storeController.printWorseMeanReviews());
                     printReviewsOptionsMenu();
-                    choice = UserInput.readInt("Enter your choice: ");
-                    ItemMenu.ItemOptionsMenu(choice, storeController);
+                    option = UserInput.readInt("Enter your choice: ");
                     break;
 
                 default:

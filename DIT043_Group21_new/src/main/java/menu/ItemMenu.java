@@ -29,9 +29,9 @@ public class ItemMenu {
                 case 0:
                     break;
                 case 1:
+                    itemID = UserInput.readString("Specify the ID of the item: ");
                     String name = UserInput.readString("Specify the name of the item: ");
                     double price = UserInput.readDouble("Specify the price of the item: ");
-                    itemID = UserInput.readString("Specify the ID of the item: ");
                     storeController.createValidItem(itemID, name, price);
                     System.out.println("Item was created successfully.");
                     printItemOptionsMenu();

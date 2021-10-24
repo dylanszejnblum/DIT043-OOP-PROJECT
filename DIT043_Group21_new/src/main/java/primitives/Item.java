@@ -123,7 +123,7 @@ public class Item {
 
         String allReviews = "";
         for(Review review:reviews){
-            allReviews = review.printItem() + "\n ";
+            allReviews += review.printItem() + "\n ";
         }
         return allReviews;
     }

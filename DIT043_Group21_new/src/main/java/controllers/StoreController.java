@@ -120,7 +120,7 @@ public class StoreController {
         String result = ("Transactions for item: " + specificItem.getId() + ": " + specificItem.getName() +". " + specificItem.getPrice() + " SEK\n");
         int transactionCount = 0;
         for(int i = 0 ; i < transactions.size();i++){
-            if(ID == transactions.get(i).getId()){
+            if(ID.equals(transactions.get(i).getId())){
                 result +=  transactions.get(i).toString() + "\n";
                 transactionCount++;
             }
@@ -162,6 +162,8 @@ public class StoreController {
         for (int i = 0; i < items.size(); i++) {
             if (!items.get(i).getId().equals(inputID)) {
                 copyItems.add(items.get(i));
+            }
+            else{
                 checker = true;
             }
         }
@@ -612,8 +614,8 @@ public class StoreController {
 
         Item item = getItemById(ID);
 
-        if (itemExistenceChecker(ID)) {
-            return "Item" + ID + "was not registered yet.";
+        if (!itemExistenceChecker(ID)) {
+            return "Item" + ID + " was not registered yet.";
         }
         else if (item.reviews.isEmpty()) {
             return "Item " + item.getName() + " has not been reviewed yet.";
@@ -621,7 +623,7 @@ public class StoreController {
         else if (i < 1 || i > item.reviews.size()) {
             return "Invalid review  number. Choose between 1 and " + item.reviews.size();
         }
-        return item.reviews.get(i).reviewToString();
+        return item.reviews.get(i-1).reviewToString();
     }
 
 
