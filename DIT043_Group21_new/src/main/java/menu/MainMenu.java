@@ -10,38 +10,47 @@ public class MainMenu {
                 "2. Open Review options.\n" +
                 "3. Open Transaction History options.\n" +
                 "4. Open Employee Options." +
-                "\n" +
-                "Type an option number:\n");
+                "\n");
     }
 
-    public static void MainMenuOptions(int option) {
+    public static void mainMenuOptions(int option) throws Exception {
         int choice;
-        printMainMenu();
-        switch (option) {
-            case 0:
-                System.exit(1); //check which exit status to use
+        do {
+            switch (option) {
+                case 0:
+                    System.exit(1); //check which exit status to use
 
-            case 1:
-                ItemMenu.printItemOptionsMenu();
-                choice = UserInput.readInt("Enter your choice: "); // new change
-                ItemMenu.ItemOptionsMenu(choice);
-                break;
-            case 2:
-                ReviewsMenu.printReviewsOptionsMenu();
-                 choice = UserInput.readInt("Enter your choice: "); // new change
-                ReviewsMenu.ReviewsOptionsMenu(choice);
+                case 1:
+                    ItemMenu.printItemOptionsMenu();
+                    choice = UserInput.readInt("Enter your choice: "); // new change
+                    ItemMenu.ItemOptionsMenu(choice);
+                    break;
+                case 2:
+                    ReviewsMenu.printReviewsOptionsMenu();
+                    choice = UserInput.readInt("Enter your choice: "); // new change
+                    ReviewsMenu.ReviewsOptionsMenu(choice);
 
-                break;
-            case 3:
-                TransactionMenu.printTransactionsHistoryOptionsMenu();
-                choice = UserInput.readInt("Enter your choice: ");
-                TransactionMenu.TransactionsHistoryOptionsMenu(choice);
+                    break;
+                case 3:
+                    TransactionMenu.printTransactionsHistoryOptionsMenu();
+                    choice = UserInput.readInt("Enter your choice: ");
+                    TransactionMenu.TransactionsHistoryOptionsMenu(choice);
 
-                break;
+                    break;
+                case 4:
+                    EmployeeMenu.printEmployeeMenu();
+                    choice = UserInput.readInt("Enter your choice: ");
+                    EmployeeMenu.employeeOptionsMenu(choice);
 
-            default:
-                System.out.println("Invalid menu option. Please type another option");
-                break;
-        }
+                    break;
+
+                default:
+                    System.out.println("Invalid menu option. Please type another option");
+                    break;
+            }
+            printMainMenu();
+            option = UserInput.readInt("Enter your choice: ");
+        }while(option != 0);
+
     }
 }

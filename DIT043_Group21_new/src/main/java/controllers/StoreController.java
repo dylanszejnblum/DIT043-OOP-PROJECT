@@ -735,7 +735,7 @@ public class StoreController {
 
     private String validateID(String ID) {
         if (!itemExists(ID)) {
-            return "Item " + ID + " not found.";
+            return "Item " + ID + " was not registered yet.";
         }
         return "";
     }
